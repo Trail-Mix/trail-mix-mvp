@@ -16,15 +16,13 @@ class ListContainer extends Component {
     constructor(props) {
         super(props);
     }
+
     render() {
         return (
-            < div className="listDisplay">
-                < ListDisplay />
-                <div className="trailContainer">
-                    // click the link to open the trailContainer to display the trail information 
-                    <TrailContainer />
-                </div>
-            </div >
+            <div>
+                <ListDisplay />
+                <TrailContainer />
+            </div>
         )
     }
 }
