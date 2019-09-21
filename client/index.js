@@ -14,4 +14,4 @@ import { render } from "react-dom";
 import App from "./App.jsx";
 
 
-render(<App></App>, document.getElementById('content'));
+render(<App />, document.getElementById('content'));

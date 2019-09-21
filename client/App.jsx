@@ -13,14 +13,16 @@ import MainContainer from "./containers/MainContainer.jsx";
 
 class App extends Component {
     constructor(props) {
-        // super(props);
-        // this.state = {
-        // } MAY NOT NEED IT 
-    };
+        super(props);
+        this.state = {}
+    }
+
     render() {
         return (
             <div>
+                <h1>Trail Mix</h1>
                 <MainContainer />
+                
             </div>
         )
     }
