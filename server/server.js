@@ -10,18 +10,14 @@ const PORT = 3000;
 app.use(bodyParser.json());
 
 //sends homePage file upon entering home page
-app.get('/api', (req, res) => {
+app.get('/', (req, res) => {
     res.sendFile(path.resolve(__dirname, '../index.html'));
   });
 
-  app.get('/', (req, res) => {
-      res.sendFile(path.resolve(__dirname, '../index.html'));
-    // res.send(res.locals.trails);
+app.get('/data', trailController.getTrails, (req, res) => {
+    console.log(res.locals.trails)
+    res.status(200).send(res.locals.trails);
   })
-
-//   app.get('/data', trailController.getTrails, () => {
-//     res.send(res.locals.trails)
-//   })
 
 // catch-all route handler for any requests to an unknown route
 app.all('*', (req, res) => {

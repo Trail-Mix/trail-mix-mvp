@@ -16,4 +16,4 @@ const ListDisplay = props => {
     <div className="listDisplay"></div>
 }
 
-export default listDisplay;
+export default ListDisplay;
