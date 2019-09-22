@@ -22,15 +22,15 @@
 
 
 
-#namePlace {
+.namePlace {
     color: blue;
 }
 
-#length {
-    margin-left: 200px;
+.length {
+    margin-left: 100px;
     /* padding-left: 50px; */
 }
 
-#difficulty {
+.difficulty {
     margin-left: 50px;
 }

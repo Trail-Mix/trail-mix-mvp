@@ -40,7 +40,9 @@ class App extends Component {
 
 }
 
-
+    getTrail(id) {
+        
+    }
 
     render() {
         
