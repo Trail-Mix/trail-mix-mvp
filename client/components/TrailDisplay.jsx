@@ -11,14 +11,16 @@
 import React from "react";
 
 const TrailDisplay = props => {
+
     return (
-        <div className="trailInfor">
-            {/* <p> Trail Name : </p>
-            <p> Trail Location : </p>
-            <p> Trail Rating : </p>
-            <p> Dog or Not : </p>
-            and more ... or an picture? */}
-        </div>
+    <div className="trailInfor">
+        <p> Trail Name : </p>
+        <p> Trail Location : </p>
+        <p> Trail Rating : </p>
+        <p> Dog or Not : </p>
+    // and more ... or an picture?
+    </div>
+            
     );
 };
 

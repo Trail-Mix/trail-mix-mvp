@@ -4,10 +4,15 @@
   "description": "Trail Mix",
   "main": "index.js",
   "scripts": {
-    "start": "NODE_ENV=production nodemon server/server.js",
-    "build": "NODE_ENV=production webpack --mode development",
-    "dev": "NODE_ENV=development nodemon server/server.js & webpack-dev-server --open",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "NODE_ENV=production node server/server.js",
+    "build": "NODE_ENV=production webpack",
+    "dev": "NODE_ENV=development nodemon server/server.js & webpack-dev-server --open"
+  },
+  "nodemonConfig": {
+    "ignore": [
+      "build",
+      "client"
+    ]
   },
   "author": "",
   "license": "ISC",
@@ -18,7 +23,8 @@
     "node-fetch": "^2.6.0",
     "pg": "^7.12.1",
     "react": "^16.9.0",
-    "react-dom": "^16.9.0"
+    "react-dom": "^16.9.0",
+    "react-map-gl": "^5.0.11"
   },
   "devDependencies": {
     "@babel/core": "^7.6.0",

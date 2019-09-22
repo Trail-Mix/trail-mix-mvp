@@ -9,6 +9,7 @@ trailController.getTrails = (req, res, next) => {
     .then(res => res.json())
     .then(json => {
         res.locals.trails = json
+        // console.log(res.locals.trails)
         return next()})
     .catch(err => next({
         err: 'trailController.getTrails: ERROR: Check server logs for details' 
