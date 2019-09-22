@@ -11,6 +11,7 @@
 import React, { Component} from "react";
 import TrailDisplay from "../components/TrailDisplay.jsx";
 import CommentsDisplay from "../components/CommentsDisplay.jsx";
+import ListDisplay from "../components/ListDisplay.jsx";
 
 
 class TrailContainer extends Component {
