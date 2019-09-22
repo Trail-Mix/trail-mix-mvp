@@ -19,7 +19,7 @@ class MainContainer extends Component {
         return (
             <div id="main-container">
                 <h1 className="header">Main Container</h1>
-                {/* <MapDisplay /> */}
+                <MapDisplay />
                 <ListContainer trailData={this.props.trailData}/>
             </div>
         )
