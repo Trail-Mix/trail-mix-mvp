@@ -10,12 +10,11 @@ const PORT = 3000;
 app.use(bodyParser.json());
 
 //sends homePage file upon entering home page
-app.get('/', (req, res) => {
+app.get('/api', (req, res) => {
     res.sendFile(path.resolve(__dirname, '../index.html'));
   });
 
 app.get('/data', trailController.getTrails, (req, res) => {
-    console.log(res.locals.trails)
     res.status(200).send(res.locals.trails);
   })
 

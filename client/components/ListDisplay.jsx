@@ -13,7 +13,11 @@
 import React from "react";
 
 const ListDisplay = props => {
-    <div className="listDisplay"></div>
-}
+    return (
+        <div className="listDisplay">
+
+        </div>
+    );
+};
 
 export default ListDisplay;

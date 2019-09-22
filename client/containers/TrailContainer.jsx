@@ -8,7 +8,7 @@
  * CommentsDisplay
  * ************************************
  */
-import React from "react";
+import React, { Component} from "react";
 import TrailDisplay from "../components/TrailDisplay.jsx";
 import CommentsDisplay from "../components/CommentsDisplay.jsx";
 
