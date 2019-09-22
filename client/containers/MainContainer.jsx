@@ -14,15 +14,13 @@ import MapDisplay from "../components/MapDisplay.jsx";
 import ListContainer from "./ListContainer.jsx";
 
 class MainContainer extends Component {
-    constructor(props) {
-        super(props);
-    }
     render() {
+        
         return (
             <div id="main-container">
                 <h1 className="header">Main Container</h1>
-                <MapDisplay />
-                <ListContainer />
+                {/* <MapDisplay /> */}
+                <ListContainer trailData={this.props.trailData}/>
             </div>
         )
     }

@@ -13,18 +13,32 @@ import TrailContainer from "./TrailContainer.jsx";
 
 
 class ListContainer extends Component {
-    constructor(props) {
-        super(props);
-    }
 
+    
     render() {
-        return (
-            <div>
-                <ListDisplay />
-                <TrailContainer />
-            </div>
-        )
-    }
+
+            const trails = this.props.trailData.map((trail, idx) => {
+                
+                return (
+                    <ListDisplay id={idx} key={idx}
+                    name = {trail.name}
+                    location = {trail.location}
+                    length = {trail.length}
+                    difficulty = {trail.difficulty} 
+                    id = {trail.id}
+                    trailData = {this.props.trailData}/>
+                )
+            })
+           
+            return (
+                < div className="listDisplay">
+                    {trails}
+                </div >
+            ) 
+       
+        
+
+}
 }
 
 export default ListContainer;

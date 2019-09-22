@@ -1,0 +1,36 @@
+.listDisplay {
+
+}
+
+.list {
+    /* display: flex; */
+    /* justify-content: flex-start; */
+
+}
+
+.column {
+    float: left;
+    width: 33.33%;
+  }
+
+  
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+
+
+
+.namePlace {
+    color: blue;
+}
+
+.length {
+    margin-left: 100px;
+    /* padding-left: 50px; */
+}
+
+.difficulty {
+    margin-left: 50px;
+}

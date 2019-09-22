@@ -12,6 +12,8 @@
 import React from "react";
 
 const MapDisplay = props => {
+
+
     return (
         <div id="map-display">
             map
