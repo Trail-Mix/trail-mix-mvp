@@ -12,7 +12,7 @@ app.use(bodyParser.json());
 //sends homePage file upon entering home page
 
 
-  app.get('/', (req, res) => {
+  app.get('/api', (req, res) => {
       res.sendFile(path.resolve(__dirname, '../index.html'));
   
   })
