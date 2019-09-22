@@ -11,9 +11,12 @@
 import React from "react";
 
 const CommentDisplay = props => {
-    <div className="commentDisplay">
-        <p>comments: </p>
-    </div>
-}
+
+    return (
+        <div className="commentDisplay">
+            <p>comments: </p>
+        </div>
+    );
+};
 
 export default CommentDisplay; 

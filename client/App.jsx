@@ -11,40 +11,50 @@
 import React, { Component } from 'react';
 import MainContainer from "./containers/MainContainer.jsx";
 import TrailContainer from './containers/TrailContainer.jsx';
+import ListDisplay from './components/ListDisplay.jsx';
+import ListContainer from './containers/ListContainer.jsx';
 
 class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
-        trailData: [ 
+        trailData: []
+    }
+    };
 
-        ]
-    }
-    this.getData = this.getData.bind(this);
-    }
-function getData(url = '/api/data', data = {}) {
-    fetch(url, {
-        method: 'GET',
-        headers: {
-            'content-type': 'application/json'
-        },
-        body: JSON.stringify(data),
-    })
-    .then((res) => {
-        return res.json();
-    })
-    .then((res) => {
-        this.setState({trailData: res});
+    componentDidMount() {
+            fetch('/data')
+            .then((res) => {
+                // console.log('res.json is:', res.json())
+                return res.json();
+            })
+            .then((res) => {
+                // console.log('res for state:', res.trails)
+                this.setState(state => {
+                    return {
+                        ...state,
+                        trailData: res.trails
+                    }
+                })
     })
 
 }
+
+
+
     render() {
+        
         return (
             <div>
-                <MainContainer />
-                <TrailContainer trailData={this.trailData}/>
+                <MainContainer trailData={this.state.trailData}/>
+                {/* <TrailContainer trailData={this.state.trailData} /> */}
+                {/* <ListContainer trailData={this.state.trailData} /> */}
             </div>
-        )
+        
+    )
     }
+
 }
+
+
 export default App;
