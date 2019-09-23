@@ -33,7 +33,8 @@ class MainContainer extends Component {
         
         return (
             <div id="main-container" style={{flex:1, flexDirection:'column', justifyContent:'center'}}>
-                <h1 className="header">Trail Mix</h1>
+                {/* <h1 className="header">Trail Mix</h1> */}
+                <img src="../../assets/trail-mix-logo-small.jpg" className='logo'/>
                 <MapDisplay trailData={this.props.trailData} id="map-display"/>
                 <ListContainer trailData={this.props.trailData} 
                 getTrail={this.props.getTrail}/>
