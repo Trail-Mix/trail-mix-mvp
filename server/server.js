@@ -7,10 +7,10 @@ const queries = require('../database/queries.js')
 const app = express();
 const PORT = 3000;
 
-//extract the entire body portion of an incoming request stream and exposes it on req.body
+//extracts the entire body portion of an incoming request stream and exposes it on req.body
 app.use(bodyParser.json());
 
-//sends homePage file upon entering home page
+//sends index.html file upon entering home page
 app.get('/homepage', (req, res) => {
   res.status(200).sendFile(path.resolve(__dirname, '../index.html'));
 });
@@ -20,25 +20,25 @@ app.get('/data', trailController.getTrails, (req, res) => {
   res.status(200).send(res.locals.trails);
 })
 
-// routes post request upon login to verify user
+//routes post request upon login to verify user
 app.post('/login', queries.verifyUser, (req, res) => {
   const { verified } = res.locals;
   return res.status(200).json(verified);
 })
 
-// post request for user signup infor
+// post request that brings in user-input signup information, creates a new user in the database, and sends verification to the front end
 app.post('/signup', queries.createUser, (req, res) => {
   const { verified } = res.locals;
   return res.status(200).json(verified);
 })
 
+// sends all comments pertaining to trail ID
 app.get('/comments', queries.getComment, (req, res) => {
-  // console.log('we are getting comments')
   res.status(200).send(res.locals.comments)
 })
 
+//posts new comment in database and sends back all comments pertaining to unique trail ID
 app.post('/comments', queries.postComment, (req, res) => {
-  // console.log('in server route', res.locals.comments)
   res.status(200).send(res.locals.comments)
 })
 

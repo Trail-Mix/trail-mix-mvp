@@ -1,5 +1,4 @@
-.signupArea{
-    /* background: lightsalmon; */
+.signupArea {
     display: grid;
     grid-auto-rows: 30% 80% 10%;
     align-content: center;
@@ -8,8 +7,7 @@
     width: 1270px;
     margin: 140px 0px -10px 0px;
 }
-.userInfo{
-    /* background: pink; */
+.userInfo {
     display: flex;
     align-items: flex-end;
     justify-content: flex-end;
@@ -17,33 +15,32 @@
     margin-top: -400px;
 }
 
-.labeluser{
+.labeluser {
     margin-right: 10px; 
     font-display: 30px;
 }
-.labelpsw{
+
+.labelpsw {
     margin-left:20px;
     margin-right: 10px;
     font-display: 30px;
- 
 }
-.username{
+
+.username {
     font-size: 15px;
 }
-.password{
+
+.password {
     font-size: 15px;
 }
-.loginbtn{
+
+.loginbtn {
     margin-left: 20px;
     font-size: 18px;
 }
-.welcome{
+
+.welcome {
     font-size:120%;
-    /* background: yellow; */
     margin: 50px 0px 0px 800px;
     text-decoration: underline;
 }
-/* 
-html{
-    background: rgb(206, 203, 203)
-} */

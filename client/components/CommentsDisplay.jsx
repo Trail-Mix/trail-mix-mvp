@@ -10,14 +10,12 @@
  */
 import React from "react";
 
+//display component for comments, pulls down and formats comment array from trailContainer
 function CommentsDisplay(props) {
-
     return (
         <div className="commentsDisplay">
-            {/* <p>comments are loaded</p> */}
-            <div> "{props.comment}"<br/>&nbsp;-{props.author} </div>
+            <div> "{props.comment}"<br/>-{props.author} </div>
             <br/>
-        
         </div>
     );
 };

@@ -10,11 +10,10 @@
  */
 import React from "react";
 
+//pulls specific data from trailContainer to display in overlay
 const TrailDisplay = props => {
-    // console.log('selected trail is', props.selectedTrail)
     return (
         <div className="trailInfo">
-        {/* console.log({props.selectedTrail}) */}
         <img src={props.selectedTrail && props.selectedTrail.imgMedium} id='trailImage'/>
         <p id='trailName'> <strong>{props.selectedTrail && props.selectedTrail.name}</strong><br/>
         {props.selectedTrail && props.selectedTrail.location}</p>
@@ -27,9 +26,7 @@ const TrailDisplay = props => {
         <p> Conditions: {props.selectedTrail && props.selectedTrail.conditionStatus}<br/> 
         ({props.selectedTrail && props.selectedTrail.conditionDate})</p>
         <br/><br/><br/>
-        {/* <link rel="stylesheet" href={props.selectedTrail && props.selectedTrail.url}/> */}
     </div>
-            
     );
 };
 

@@ -28,12 +28,6 @@
     z-index: 1;
 }
 
-
-
-.listDisplay {
-
-}
-
 .list {
     display: flex;
 }
@@ -48,10 +42,8 @@
 }
 
 .column {
-
     float: left;
     width: 33.33%;
-    /* display: flex; */
 }
 
 .column p {
@@ -66,17 +58,11 @@
 .middle, .right {
     width: 30%;
 }
-
   
 .row:after {
     content: "";
     display: table;
     clear: both;
-  }
-
-
-.namePlace {
-
 }
 
 .length {
@@ -87,34 +73,26 @@
     margin-left: 50px;
 }
 
-
 .popup {
-    /* width: 300px;
-    height: 100px; */
     margin: 0;
     padding: 0;
-    /* border: 2px solid red; */
-    /* background-color: blueviolet; */
 }
 
 .popup-name {
     margin: 0;
     padding: 0;
-    /* border: 2px solid red; */
 }
 
 .popup-summary {
     font-size: 10px;
     margin: 0;
     padding: 0;
-    /* border: 2px solid red; */
 }
 
 .popup-difficulty {
     font-size: 10px;
     margin: 0;
     padding: 0;
-    /* border: 2px solid red; */
 }
 
 #commentForm {
@@ -130,22 +108,6 @@
     padding-top: 0;
     padding-left: 0;
 }
-
-/* .modal {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: #f3d3b6;
-    border: 2px solid darkgreen;
-    border-radius: 10px;
-    text-align: center;
-    width: 90%;
-    height: 90%;
-    z-index: 2;
-    overflow: auto;
-    opacity: 0.5;
-} */
 
 .modalGuts {
     position: fixed;

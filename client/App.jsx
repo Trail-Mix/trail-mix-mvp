@@ -11,9 +11,9 @@
 import React, { Component } from 'react';
 import MainContainer from "./containers/MainContainer.jsx";
 import TrailContainer from './containers/TrailContainer.jsx';
-import ListDisplay from './components/ListDisplay.jsx';
-import ListContainer from './containers/ListContainer.jsx';
 
+//state includes data retrieved from REI API, selects selected trail
+// holds trail specific comments pulled from database
 class App extends Component {
     constructor(props) {
         super(props);
@@ -31,39 +31,32 @@ class App extends Component {
     this.showKey = this.showKey.bind(this);
     };
 
-    
-
+    //fetches data from REI API and sets to state when the page loads
     componentDidMount() {
             fetch('/data')
             .then((res) => {
-                // console.log('res.json is:', res.json())
                 return res.json();
             })
             .then((res) => {
-                // console.log('res for state:', res.trails)
                 this.setState(state => {
                     return {
                         ...state,
                         trailData: res.trails
-                    }
-                })
-    })
-
-}
-
+                    };
+                });
+    });
+};
+    //invoked by on-click function in TrailDisplay, sets selected trail in state
     getTrail(id) {
         let trailsArr = this.state.trailData.slice();
         let chosenTrail;
-        // console.log(id)
         for (let i = 0; i < trailsArr.length; i++) {
-            // console.log('these are ids', typeof trailsArr[i].id, typeof id);
             if (trailsArr[i].id === +id) {
-                // console.log('The selected trail is', trailsArr[i])
                 chosenTrail = trailsArr[i];
                 this.setState({selectedTrail: chosenTrail})
-            }
-        }
-        // console.log(id)
+            };
+        };
+
         fetch('/comments', {
             method: 'GET', 
             headers: {
@@ -72,30 +65,23 @@ class App extends Component {
             }
         })
         .then((res) => {
-            // console.log('res.json is:', res)
             return res.json();
         })
         .then((res) => {
-            // console.log('inside the request', res)
             this.setState(state => {
                 return {
                     ...state,
                     comments: res
-                }
-            })
-        })
-        .then((res) => {
-            document.getElementById('commentForm').value = '';
-            document.getElementById('authorForm').value = '';
-        })
-    }
-
+                };
+            });
+        });
+    };
+    //closes TrailDisplay overlay
     noTrail() {
         this.setState({selectedTrail: null})
     }
-
+    //adds comment and author to database and pulls back all comments for specified trail and sets to state
     postComment(id, comment, author) {
-        // console.log('from the button', id, comment, author)
         fetch('/comments', {
             method: 'POST', 
             headers: {
@@ -108,35 +94,31 @@ class App extends Component {
             })
         })
         .then((res) => {
-            console.log('res.json is:', res.headers)
             return res.json();
         })
         .then((res) => {
-            // console.log('inside the request', res)
             this.setState(state => {
                 return {
                     ...state,
                     comments: res
-                }
-            })
+                };
+            });
         });
-    }
-        
+    };
+    //invoked when clicking on the map markers
     displayTrail(selectedHike) {
         this.setState({selectedTrail: selectedHike});
     }
-
+    //toggle that is invoked when clicking on the "difficulty" in the list items
     showKey() {
-        console.log('showKey is called', this.state.showKey)
         this.setState(state => {
             return {
                 diffKey: state.diffKey ? false : true
             }
         });
-    }
-
+    };
+    //renders MainContainer and conditionally renders TrailContainer
     render() {
-        // console.log(this.state.selectedTrail)
         if (!this.state.isLoggedIn) return <Redirect to="/login" />
         return (
             <div className='appContainer'>
@@ -159,16 +141,10 @@ class App extends Component {
                 comments={this.state.comments}
                 getTrail={this.getTrail} />
                 }
-                {/* <ListContainer trailData={this.state.trailData} /> */}
-                {/* {this.state.showKey && 
-                    <img id='diff-key' src='../assets.diffKey.png' />
-                } */}
             </div>
-
-    )
-    }
-
-}
+    );
+    };
+};
 
 
 export default App;

@@ -11,14 +11,13 @@
 import React from "react";
 import { render } from "react-dom";
 import App from "./App.jsx";
-import ReactDOM from 'react-dom';
 import Login from "../login/Login.jsx";
 import Signup from "../login/Signup.jsx";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 
+//uses ReactRouter to route the paths for login, signup, and homepage
 render(
     <div>
-
         <Router>
             <div>
                 <Route path="/" exact component={Login} />
@@ -26,6 +25,5 @@ render(
                 <Route path="/signup" component={Signup} />
             </div>
         </Router>
-
     </div >, document.getElementById("content")
 );
