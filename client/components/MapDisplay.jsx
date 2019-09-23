@@ -17,11 +17,11 @@ import SvgTrekking from "./Icons/Trekking.js";
 
 const MapDisplay = props => {
     const [viewport, setViewport] = useState({
-       latitude: 33.988046,
-       longitude: -118.470791,
+       latitude: 34.1053,
+       longitude: -118.352,
        width: '70vw',
        height: '70vh',
-       zoom: 10
+       zoom: 11
     });
     
     const [selectedHike, setSelectedHike] = useState(null);
@@ -39,7 +39,7 @@ const MapDisplay = props => {
             <ReactMapGl 
             {...viewport} 
             mapboxApiAccessToken={`pk.eyJ1IjoiZXJlYXN0bWFuIiwiYSI6ImNrMHUyemE4bTBqdmwzYnFnMGk0Z2VzaWgifQ.AL6aKHfOcWqKwC72i3FyBg`}
-            mapStyle={`mapbox://styles/ereastman/ck0u3h0xj6mvw1co2zldwc1lf`}
+            mapStyle={`mapbox://styles/ereastman/ck0vjqz9x7y0g1cqs0vq5l9ld`}
             onViewportChange={viewport => setViewport(viewport)}
             >
             {props.trailData.map(trail => (
@@ -69,13 +69,14 @@ const MapDisplay = props => {
                 className='popup'
                 >
                     <h4 className='popup-name'>{selectedHike.name}</h4>
-                    <p className='popup-summary'>{selectedHike.summary}</p>
-                    <img 
+                    <p className='popup-summary'>{selectedHike.location}</p>
+                    <p className='popup-difficulty'>difficulty: {selectedHike.difficulty}</p>
+                    {/* <img 
                     src={`${selectedHike.imgSqSmall}`} 
                     width='40'
                     height='40'
                     alt='Photo of hike'
-                    />
+                    /> */}
                 </Popup>
             )}
             </ReactMapGl>

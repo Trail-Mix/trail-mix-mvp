@@ -16,22 +16,33 @@ import Styles from "../styles.css"
 
 
 const ListDisplay = props => {
+    // console.log(props.idx)
     return (
-        <div className='list'>
+        <div className={props.idx % 2 ? 'odds' : 'evens'}> 
+        {/* <div className='list'> */}
             <div className='column'>
-            <p id={props.id} className='namePlace' 
-            onClick={(e) => props.getTrail(e.target.id)}>
-            {props.trailData.length > 0 && props.name}:&nbsp;
-            {props.trailData.length > 0 && props.location}</p>
+                <p 
+                id={props.id} 
+                className='namePlace' 
+                onClick={(e) => props.getTrail(e.target.id)}
+                >
+                {props.trailData.length > 0 && props.name}:&nbsp;
+                {props.trailData.length > 0 && props.location}
+                </p>
             </div>
             <div className='column'>
-            <p id={props.id} className='length'>
-            Length: {props.trailData.length > 0 && props.length} miles</p>
+                <p 
+                id={props.id} 
+                className='length'
+                >
+                Length: {props.trailData.length > 0 && props.length} miles
+                </p>
             </div>
             <div className='column'>
-            <p id={props.id} className='difficulty'>
-            Difficulty: {props.trailData.length > 0 && props.difficulty}</p>
-            <br/>
+                <p id={props.id} className='difficulty'>
+                Difficulty: {props.trailData.length > 0 && props.difficulty}
+                </p>
+                <br/>
             </div>
         </div>
     );

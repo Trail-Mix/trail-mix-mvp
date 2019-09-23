@@ -32,12 +32,15 @@ class MainContainer extends Component {
     render() {
         
         return (
-            <div id="main-container" style={{flex:1, flexDirection:'column', justifyContent:'center'}}>
+            <div id="main-container">
+            {/* <div id="main-container" style={{flex:1, flexDirection:'column', justifyContent:'center'}}> */}
                 {/* <h1 className="header">Trail Mix</h1> */}
-                <img src="../../assets/trail-mix-logo-small.jpg" className='logo'/>
-                <MapDisplay trailData={this.props.trailData} id="map-display"/>
-                <ListContainer trailData={this.props.trailData} 
-                getTrail={this.props.getTrail}/>
+                <img src="../../assets/trail-mix-logo-small.jpg" className='logo'/><br />
+                <MapDisplay trailData={this.props.trailData} id="map-display"/><br />
+                <ListContainer 
+                trailData={this.props.trailData} 
+                getTrail={this.props.getTrail} 
+                />
             </div>
         )
     }
