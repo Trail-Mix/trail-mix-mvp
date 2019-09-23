@@ -33,7 +33,7 @@ app.post('/signup', queries.createUser, (req, res) => {
 })
 
 app.post('/comments', queries.getComment, (req, res) => {
-  res.status(200).send(res.locals.comment)
+  res.status(200).send(res.locals.comments)
 })
 
 // catch-all route handler for any requests to an unknown route

@@ -23,6 +23,8 @@
     z-index: 1;
 }
 
+
+
 .listDisplay {
 
 }
@@ -107,21 +109,21 @@
     padding-left: 0;
 }
 
-.modal {
+/* .modal {
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     background-color: #f3d3b6;
     border: 2px solid darkgreen;
-    border-radius: 5px;
+    border-radius: 10px;
     text-align: center;
     width: 90%;
     height: 90%;
     z-index: 2;
     overflow: auto;
     opacity: 0.5;
-}
+} */
 
 .modalGuts {
     position: fixed;
@@ -134,5 +136,5 @@
     background-color: #f3d3b6;
     text-align: center;
     border: 2px solid darkgreen;
-    border-radius: 5px;
+    border-radius: 10px;
 }

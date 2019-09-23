@@ -10,11 +10,21 @@
  */
 import React from "react";
 
-const CommentDisplay = props => {
+const CommentsDisplay = props => {
+
+    const comments = props.comments.map(() => {
+                
+        return (
+            <CommentsDisplay 
+            comment = {comments.comment}
+            author = {comments.author}
+            postComment = {this.props.postComment}/>
+        )
+    })
 
     return (
-        <div className="commentDisplay">
-            <p>comments: </p>
+        <div className="commentsDisplay">
+            <p> {comments.length > 0 && comments} </p>
             <br/>
           
             <form action="/action_page.php" name="comments">
@@ -28,11 +38,12 @@ const CommentDisplay = props => {
             <input type="text" name="author" id="authorForm"></input>
             <br/>
             <br/>
-            <input type="submit" value="Submit"></input>
+            <button value="Submit" 
+            onClick={(c, a) => props.postComment(e.target.comment, e.target.author)}>Submit</button>
             </form>
         
         </div>
     );
 };
 
-export default CommentDisplay; 
+export default CommentsDisplay; 

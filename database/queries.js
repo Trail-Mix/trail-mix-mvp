@@ -9,18 +9,18 @@ const bcrypt = require('bcryptjs');
 
 // query fetching all comments
 const getComment = (req, res, next) => {
-  const { author, comment, trail_id } = req.body;
-if(author && comment && trail_id) {
- pool.query('INSERT INTO comments (author, comment, trail_id) VALUES ($1, $2, $3)', [author, comment, trail_id], (error, results) => {
+  const { author, comment, id } = req.body;
+if(author && comment && id) {
+ pool.query('INSERT INTO comments (author, comment, id) VALUES ($1, $2, $3)', [author, comment, id], (error, results) => {
     if (error) throw error;
-    pool.query('SELECT * FROM comments where trail_id = $1', [trail_id], (error, results) => {
+    pool.query('SELECT * FROM comments where id = $1', [id], (error, results) => {
       if (error) throw error
-      res.locals.comment = results.rows
+      res.locals.comments = results.rows
       return next();
     })
   })
 } else {
-  pool.query('SELECT * FROM comments where trail_id = $1', [trail_id], (error, results) => {
+  pool.query('SELECT * FROM comments where id = $1', [id], (error, results) => {
     if (error) throw error
     res.locals.comment = results.rows
     return next();

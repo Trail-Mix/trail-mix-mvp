@@ -24,7 +24,9 @@ class TrailContainer extends Component {
                 <button onClick={(e) => this.props.noTrail()}>close</button>
                 <TrailDisplay selectedTrail={this.props.selectedTrail}/>
                 <div className="comments">
-                    <CommentsDisplay />
+                    <CommentsDisplay
+                    postComment={this.props.postComment}
+                    comments={this.props.comments} />
                 </div>
                 
             </div>

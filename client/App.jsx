@@ -20,10 +20,12 @@ class App extends Component {
         this.state = {
         trailData: [],
         selectedTrail: null,
-        isLoggedIn: true
+        isLoggedIn: true,
+        comments: []
     }
     this.getTrail = this.getTrail.bind(this);
     this.noTrail = this.noTrail.bind(this);
+    this.postComment = this.postComment.bind(this);
     };
 
     
@@ -62,8 +64,14 @@ class App extends Component {
     }
 
     noTrail() {
-        console.log('noTrail is invoked')
         this.setState({selectedTrail: null})
+    }
+
+    postComment(comment, author) {
+        let commentsArr = this.state.comments.slice();
+        
+        // commentsArr.push({author: author, comment: comment});
+        // this.setState({comments: commentsArr})
     }
 
     render() {
@@ -77,7 +85,9 @@ class App extends Component {
                 {this.state.selectedTrail &&
                 <TrailContainer className="modal" trailData={this.state.trailData} 
                 selectedTrail={this.state.selectedTrail} 
-                noTrail={this.noTrail} />
+                noTrail={this.noTrail}
+                postComment={this.postComment}
+                comments={this.state.comments} />
                 }
                 {/* <ListContainer trailData={this.state.trailData} /> */}
             </div>
