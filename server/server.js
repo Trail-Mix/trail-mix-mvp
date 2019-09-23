@@ -32,7 +32,13 @@ app.post('/signup', queries.createUser, (req, res) => {
   return res.status(200).json(verified);
 })
 
-app.post('/comments', queries.getComment, (req, res) => {
+app.get('/comments', queries.getComment, (req, res) => {
+  // console.log('we are getting comments')
+  res.status(200).send(res.locals.comments)
+})
+
+app.post('/comments', queries.postComment, (req, res) => {
+  // console.log('in server route', res.locals.comments)
   res.status(200).send(res.locals.comments)
 })
 
@@ -51,7 +57,7 @@ app.use((err, req, res, next) => {
   const errObj = Object.assign((defaultErr, err));
   console.log(errObj.log);
 
-  res.status(errObj.status).json(errorObj.message);
+  res.status(errObj.status).json(errObj.message);
 });
 
 

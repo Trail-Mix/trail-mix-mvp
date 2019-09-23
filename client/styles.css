@@ -133,8 +133,20 @@
     width: 90%;
     height: 90%;
     overflow: auto;
-    background-color: #f3d3b6;
+    background-color: #ffe4cb;
     text-align: center;
-    border: 2px solid darkgreen;
+    border: 2px solid rgb(122, 185, 119);
+    border-radius: 10px;
+    z-index: 9999;
+    font-family: 'Arial';
+    font-weight: 250;
+}
+
+#trailName {
+    font-size: 24px;
+}
+
+#trailImage {
+    border: 2px solid rgb(122, 185, 119);
     border-radius: 10px;
 }

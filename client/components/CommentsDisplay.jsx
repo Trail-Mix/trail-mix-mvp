@@ -10,37 +10,13 @@
  */
 import React from "react";
 
-const CommentsDisplay = props => {
-
-    const comments = props.comments.map(() => {
-                
-        return (
-            <CommentsDisplay 
-            comment = {comments.comment}
-            author = {comments.author}
-            postComment = {this.props.postComment}/>
-        )
-    })
+function CommentsDisplay(props) {
 
     return (
         <div className="commentsDisplay">
-            <p> {comments.length > 0 && comments} </p>
+            {/* <p>comments are loaded</p> */}
+            <div> "{props.comment}"<br/>&nbsp;-{props.author} </div>
             <br/>
-          
-            <form action="/action_page.php" name="comments">
-            Comment: 
-            <br/>
-            <input type="text" name="comment" id="commentForm"></input>
-            <br/>
-            <br/>
-            Author: 
-            <br/>
-            <input type="text" name="author" id="authorForm"></input>
-            <br/>
-            <br/>
-            <button value="Submit" 
-            onClick={(c, a) => props.postComment(e.target.comment, e.target.author)}>Submit</button>
-            </form>
         
         </div>
     );

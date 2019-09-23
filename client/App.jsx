@@ -49,6 +49,7 @@ class App extends Component {
 }
 
     getTrail(id) {
+        console.log('these are the comments', this.state.comments)
         let trailsArr = this.state.trailData.slice();
         let chosenTrail;
         // console.log(id)
@@ -60,18 +61,63 @@ class App extends Component {
                 this.setState({selectedTrail: chosenTrail})
             }
         }
-
+        // console.log(id)
+        fetch('/comments', {
+            method: 'GET', 
+            headers: {
+                'Content-Type': 'application/json',
+                id: id
+            }
+        })
+        .then((res) => {
+            // console.log('res.json is:', res)
+            return res.json();
+        })
+        .then((res) => {
+            // console.log('inside the request', res)
+            this.setState(state => {
+                return {
+                    ...state,
+                    comments: res
+                }
+            })
+        })
+        .then((res) => {
+            document.getElementById('commentForm').value = '';
+            document.getElementById('authorForm').value = '';
+        })
     }
 
     noTrail() {
         this.setState({selectedTrail: null})
     }
 
-    postComment(comment, author) {
-        let commentsArr = this.state.comments.slice();
-        
-        // commentsArr.push({author: author, comment: comment});
-        // this.setState({comments: commentsArr})
+    postComment(id, comment, author) {
+        // console.log('from the button', id, comment, author)
+        fetch('/comments', {
+            method: 'POST', 
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                id: id,
+                comment: comment,
+                author: author
+            })
+        })
+        .then((res) => {
+            console.log('res.json is:', res.headers)
+            return res.json();
+        })
+        .then((res) => {
+            // console.log('inside the request', res)
+            this.setState(state => {
+                return {
+                    ...state,
+                    comments: res
+                }
+            })
+        })
     }
 
     render() {
@@ -87,7 +133,8 @@ class App extends Component {
                 selectedTrail={this.state.selectedTrail} 
                 noTrail={this.noTrail}
                 postComment={this.postComment}
-                comments={this.state.comments} />
+                comments={this.state.comments}
+                getTrail={this.getTrail} />
                 }
                 {/* <ListContainer trailData={this.state.trailData} /> */}
             </div>

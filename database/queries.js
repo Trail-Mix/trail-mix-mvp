@@ -7,11 +7,24 @@ const pool = new Pool({
 const SALT_WORK_FACTOR = 10;
 const bcrypt = require('bcryptjs');
 
-// query fetching all comments
+// query fetching all comments for specific trails
 const getComment = (req, res, next) => {
+  const { id } = req.headers;
+  // console.log(req.headers)
+  pool.query('SELECT * FROM comments where id = $1', [id], (error, results) => {
+    if (error) throw error
+    // console.log("results", results)
+    res.locals.comments = results.rows
+    return next();
+  })
+}
+
+//query posting new comment to DB and then fetching all comments including the one just posted
+const postComment = (req, res, next) => {
   const { author, comment, id } = req.body;
-if(author && comment && id) {
- pool.query('INSERT INTO comments (author, comment, id) VALUES ($1, $2, $3)', [author, comment, id], (error, results) => {
+  
+  if(author && comment && id) {
+    pool.query('INSERT INTO comments (author, comment, id) VALUES ($1, $2, $3)', [author, comment, id], (error, results) => {
     if (error) throw error;
     pool.query('SELECT * FROM comments where id = $1', [id], (error, results) => {
       if (error) throw error
@@ -19,15 +32,8 @@ if(author && comment && id) {
       return next();
     })
   })
-} else {
-  pool.query('SELECT * FROM comments where id = $1', [id], (error, results) => {
-    if (error) throw error
-    res.locals.comment = results.rows
-    return next();
-  })
-}
+} 
 };
-
 
 //add user to DB and bcrypt password
 const createUser = (req, res, next) => {
@@ -67,5 +73,6 @@ const verifyUser = (req, res, next) => {
 module.exports = {
   getComment,
   verifyUser,
-  createUser
+  createUser,
+  postComment
 }
