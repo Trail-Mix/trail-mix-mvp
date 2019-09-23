@@ -4,15 +4,15 @@
  * @module  signup.js
  * @author
  * @date
- * @description entry point for application.  Hangs React app off of 
+ * @description entry point for application.  
  *
  * ************************************
  */
 import React, { Component } from "react";
 import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
+import "./signupstyle.css";
 
-// import './signupstyles.css';
-
+// Signup componenet is for the users to create their login username and password
 class Signup extends Component {
     constructor(props) {
         super(props)
@@ -49,25 +49,27 @@ class Signup extends Component {
             })
     }
 
-    // catch (error) {
-    //     console.log('error :', error)
-    // }
+
+    // if the user already has been signup, then it will direct the homepage, else if it will direct to the signup page
     render() {
         let pages
         if (this.state.verified) {
             return <Redirect to="/homepage" />
         } else {
             pages =
-                <div>
-                    <form action="/signup" >
-                        <label> UserName: </label>
-                        <input name="username" type="text" placeholder="username" onChange={e => { this.setState({ username: e.target.value }) }}></input>
+                <div className="signupArea">
+                    <img src="../assets/trail-mix-logo-small.jpg" className="pic"></img>
+                    <h2 className="welcome">Create Trail Mix Account</h2>
 
-                        <label> Password: </label>
-                        <input name="password" type="password" placeholder="password" onChange={e => { this.setState({ password: e.target.value }) }}></input>
+                    <form action="/signup" className="userInfo" >
+                        <label className="labeluser"> Username: </label>
+                        <input className="username" type="text" placeholder="username" onChange={e => { this.setState({ username: e.target.value }) }}></input>
+
+                        <label className="labelpsw"> Password: </label>
+                        <input className="password" type="password" placeholder="password" onChange={e => { this.setState({ password: e.target.value }) }}></input>
 
 
-                        <button type="submit" value="createUser" onClick={e => { e.preventDefault(); this.updateData() }}> SignUp </button>
+                        <button className="loginbtn" type="submit" value="createUser" onClick={e => { e.preventDefault(); this.updateData() }}> SignUp </button>
                     </form >
                 </div>
 

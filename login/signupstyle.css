@@ -1,0 +1,49 @@
+.signupArea{
+    /* background: lightsalmon; */
+    display: grid;
+    grid-auto-rows: 30% 80% 10%;
+    align-content: center;
+    justify-content: center;
+    height: 200px;
+    width: 1270px;
+    margin: 140px 0px -10px 0px;
+}
+.userInfo{
+    /* background: pink; */
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    font-size:120%;
+    margin-top: -400px;
+}
+
+.labeluser{
+    margin-right: 10px; 
+    font-display: 30px;
+}
+.labelpsw{
+    margin-left:20px;
+    margin-right: 10px;
+    font-display: 30px;
+ 
+}
+.username{
+    font-size: 15px;
+}
+.password{
+    font-size: 15px;
+}
+.loginbtn{
+    margin-left: 20px;
+    font-size: 18px;
+}
+.welcome{
+    font-size:120%;
+    /* background: yellow; */
+    margin: 50px 0px 0px 800px;
+    text-decoration: underline;
+}
+/* 
+html{
+    background: rgb(206, 203, 203)
+} */

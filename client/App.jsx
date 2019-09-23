@@ -20,10 +20,15 @@ class App extends Component {
         this.state = {
         trailData: [],
         selectedTrail: null,
-        isLoggedIn: true
+        isLoggedIn: true,
+        comments: [], 
+        diffKey: false
     }
     this.getTrail = this.getTrail.bind(this);
     this.noTrail = this.noTrail.bind(this);
+    this.postComment = this.postComment.bind(this);
+    this.displayTrail = this.displayTrail.bind(this);
+    this.showKey = this.showKey.bind(this);
     };
 
     
@@ -58,12 +63,76 @@ class App extends Component {
                 this.setState({selectedTrail: chosenTrail})
             }
         }
-
+        // console.log(id)
+        fetch('/comments', {
+            method: 'GET', 
+            headers: {
+                'Content-Type': 'application/json',
+                id: id
+            }
+        })
+        .then((res) => {
+            // console.log('res.json is:', res)
+            return res.json();
+        })
+        .then((res) => {
+            // console.log('inside the request', res)
+            this.setState(state => {
+                return {
+                    ...state,
+                    comments: res
+                }
+            })
+        })
+        .then((res) => {
+            document.getElementById('commentForm').value = '';
+            document.getElementById('authorForm').value = '';
+        })
     }
 
     noTrail() {
-        console.log('noTrail is invoked')
         this.setState({selectedTrail: null})
+    }
+
+    postComment(id, comment, author) {
+        // console.log('from the button', id, comment, author)
+        fetch('/comments', {
+            method: 'POST', 
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                id: id,
+                comment: comment,
+                author: author
+            })
+        })
+        .then((res) => {
+            console.log('res.json is:', res.headers)
+            return res.json();
+        })
+        .then((res) => {
+            // console.log('inside the request', res)
+            this.setState(state => {
+                return {
+                    ...state,
+                    comments: res
+                }
+            })
+        });
+    }
+        
+    displayTrail(selectedHike) {
+        this.setState({selectedTrail: selectedHike});
+    }
+
+    showKey() {
+        console.log('showKey is called', this.state.showKey)
+        this.setState(state => {
+            return {
+                diffKey: state.diffKey ? false : true
+            }
+        });
     }
 
     render() {
@@ -71,15 +140,29 @@ class App extends Component {
         if (!this.state.isLoggedIn) return <Redirect to="/login" />
         return (
             <div className='appContainer'>
-                <MainContainer className='mainContainer' trailData={this.state.trailData}
+                <MainContainer 
+                className='mainContainer' 
+                trailData={this.state.trailData}
                 getTrail={this.getTrail}
-                selectedTrail={this.state.selectedTrail}/>
+                selectedTrail={this.state.selectedTrail}
+                displayTrail={this.displayTrail}
+                showKey={this.showKey}
+                diffKey={this.state.diffKey}
+                />
                 {this.state.selectedTrail &&
-                <TrailContainer className="modal" trailData={this.state.trailData} 
+                <TrailContainer 
+                className="modal" 
+                trailData={this.state.trailData} 
                 selectedTrail={this.state.selectedTrail} 
-                noTrail={this.noTrail} />
+                noTrail={this.noTrail}
+                postComment={this.postComment}
+                comments={this.state.comments}
+                getTrail={this.getTrail} />
                 }
                 {/* <ListContainer trailData={this.state.trailData} /> */}
+                {/* {this.state.showKey && 
+                    <img id='diff-key' src='../assets.diffKey.png' />
+                } */}
             </div>
 
     )
