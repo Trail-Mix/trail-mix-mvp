@@ -1,7 +1,7 @@
 const { Pool } = require('pg');
 const path = require('path')
 const pool = new Pool({
-  connectionString:	'postgres://hiiudcpk:Ozq8Ezo4e1c0HZGONL6i2M5_PmHDKUMV@salt.db.elephantsql.com:5432/hiiudcpk'
+  connectionString: 'postgres://hiiudcpk:Ozq8Ezo4e1c0HZGONL6i2M5_PmHDKUMV@salt.db.elephantsql.com:5432/hiiudcpk'
 });
 
 const SALT_WORK_FACTOR = 10;
@@ -9,12 +9,13 @@ const bcrypt = require('bcryptjs');
 
 // query fetching all comments
 const getComment = (req, res, next) => {
-    pool.query('SELECT * FROM comments', (error, results) => {
-      if (error) throw error
-      res.locals.comment = results.rows
-      return next();
-    })
-  };
+  pool.query('SELECT * FROM comments', (error, results) => {
+    if (error) throw error
+    res.locals.comment = results.rows
+    return next();
+  })
+};
+
 
   //add user to DB and bcrypt password
   const createUser = async (req, res, next) => {

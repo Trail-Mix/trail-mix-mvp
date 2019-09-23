@@ -26,12 +26,13 @@ class ListContainer extends Component {
                     length = {trail.length}
                     difficulty = {trail.difficulty} 
                     id = {trail.id}
-                    trailData = {this.props.trailData}/>
+                    trailData = {this.props.trailData}
+                    getTrail = {this.props.getTrail}/>
                 )
             })
            
             return (
-                < div className="listDisplay">
+                < div className="listDisplay" >
                     {trails}
                 </div >
             ) 
