@@ -9,33 +9,40 @@
  * ************************************
  */
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ReactMapGl, { Marker, Popup } from 'react-map-gl';
 // import * as hikeData from '../../hike-data.js';
-import { hikeData } from '../../hike-data.js';
-import SvgComponent from "./SvgComponent.jsx";
-console.log(hikeData)
+// import { hikeData } from '../../hike-data.js';
+import SvgTrekking from "./Icons/Trekking.js";
 
 const MapDisplay = props => {
     const [viewport, setViewport] = useState({
        latitude: 33.988046,
        longitude: -118.470791,
-       width: '90vw',
-       height: '90vh',
+       width: '70vw',
+       height: '70vh',
        zoom: 10
     });
     
     const [selectedHike, setSelectedHike] = useState(null);
 
+    const [trailArray, setTrailArray] = useState(props.trailData);
+    
+    useEffect(() => {
+        setTrailArray(props.trailData)
+    }, [trailArray]);
+
+    // console.log('props.trailData is', props.trailData);
+    // console.log('trailArray is', trailArray);
     return (
         <div id="map-display">
             <ReactMapGl 
             {...viewport} 
             mapboxApiAccessToken={`pk.eyJ1IjoiZXJlYXN0bWFuIiwiYSI6ImNrMHUyemE4bTBqdmwzYnFnMGk0Z2VzaWgifQ.AL6aKHfOcWqKwC72i3FyBg`}
-            mapStyle={`mapbox://styles/ereastman/ck0u3rwwg0j651cquj0hx9rcn`}
+            mapStyle={`mapbox://styles/ereastman/ck0u3h0xj6mvw1co2zldwc1lf`}
             onViewportChange={viewport => setViewport(viewport)}
             >
-            {hikeData.map(trail => (
+            {props.trailData.map(trail => (
                 <Marker 
                 key={trail.id}
                 latitude={trail.latitude}
@@ -49,7 +56,7 @@ const MapDisplay = props => {
                     }}
                     >
                         {/* <img src='../../assets/trekking.svg' /> */}
-                        <SvgComponent />
+                        <SvgTrekking width='30px' height='30px' />
                     </button>
                 </Marker>
             ))}

@@ -16,7 +16,7 @@ import Styles from "../styles.css"
 
 
 const ListDisplay = props => {
-    console.log(props.trailData)
+    // console.log(props.trailData)
     return (
         <div className='list'>
             <div className='column'>
