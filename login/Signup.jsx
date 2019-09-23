@@ -19,41 +19,61 @@ class Signup extends Component {
         this.state = {
             username: "",
             password: "",
+            verified: false
         }
         this.updateData = this.updateData.bind(this);
     }
 
     // post request,get the data from user input, then post the user input to save in the server database 
     updateData() {
-        fetch("/signup", {
-            method: "post",
-            header: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ username: this.state.username, password: this.state.password })
-        }).
-            then(res => res.json())
-            .then(data => {
-                console.log("res.data from signup=> ", data)
-                return <Redirect to="/homepage" />
-            }).catch(error => console.log(error));
+        // console.log(this.state.username);
+        const url = ('/signup');
+        const data = {
+            username: this.state.username,
+            password: this.state.password
+        }
+
+        fetch(url, {
+            method: 'POST',
+            body: JSON.stringify(data),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+            .then(res => res.json())
+            .then(res => {
+                console.log(res)
+                this.setState({
+                    verified: res
+                })
+            })
     }
 
-
+    // catch (error) {
+    //     console.log('error :', error)
+    // }
     render() {
-        return (
-            <form action="/signup" >
-                <label> UserName: </label>
-                <input name="username" type="text" placeholder="username" onChange={e => { this.setState({ username: e.target.value }) }}></input>
+        let pages
+        if (this.state.verified) {
+            return <Redirect to="/homepage" />
+        } else {
+            pages =
+                <div>
+                    <form action="/signup" >
+                        <label> UserName: </label>
+                        <input name="username" type="text" placeholder="username" onChange={e => { this.setState({ username: e.target.value }) }}></input>
 
-                <label> Password: </label>
-                <input name="password" type="password" placeholder="password" onChange={e => { this.setState({ password: e.target.value }) }}></input>
-
-                <button type="submit" value="createUser" onClick={e => { e.preventDefault(); this.updateData() }}> SignUp</button>
-            </form >
+                        <label> Password: </label>
+                        <input name="password" type="password" placeholder="password" onChange={e => { this.setState({ password: e.target.value }) }}></input>
 
 
-        )
+                        <button type="submit" value="createUser" onClick={e => { e.preventDefault(); this.updateData() }}> SignUp </button>
+                    </form >
+                </div>
+
+        }
+        return <div>{pages}</div>
     }
+
 }
 export default Signup;

@@ -17,20 +17,20 @@ app.get('/homepage', (req, res) => {
 
 //fetches data from REI API
 app.get('/data', trailController.getTrails, (req, res) => {
-    res.status(200).send(res.locals.trails);
-  })
+  res.status(200).send(res.locals.trails);
+})
 
-//login check/user authentication
+// post request for user infor
 app.post('/login', queries.verifyUser, (req, res) => {
   const { verified } = res.locals;
   return res.status(200).json(verified);
 })
 
-// create new user/bcrypt password upon signup
-app.post("/signup", queries.createUser, queries.verifyUser, (req, res) => {
-  const { createUser } = res.locals;
-  console.log("createUser from server ==>", createUser)
-  return res.json();
+// post request for user signup infor
+app.post('/signup', queries.createUser, (req, res) => {
+  const { verified } = res.locals;
+  console.log(verified)
+  return res.status(200).json(verified);
 })
 
 // catch-all route handler for any requests to an unknown route
@@ -48,7 +48,7 @@ app.use((err, req, res, next) => {
   const errObj = Object.assign((defaultErr, err));
   console.log(errObj.log);
 
-  res.sendStatus(errObj.status).json(errorObj.message);
+  res.status(errObj.status).json(errorObj.message);
 });
 
 
