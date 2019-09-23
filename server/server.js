@@ -11,25 +11,21 @@ const PORT = 3000;
 app.use(bodyParser.json());
 
 //sends homePage file upon entering home page
-app.get('/api/homepage', (req, res) => {
+app.get('/homepage', (req, res) => {
   res.sendFile(path.resolve(__dirname, '../index.html'));
 });
 
-app.get('/', (req, res) => {
-  res.sendFile(path.resolve(__dirname, '../index.html'));
-  // res.send(res.locals.trails);
-})
-
-
-  app.get('/data', trailController.getTrails, (req, res) => {
-    res.send(res.locals.trails)
+app.get('/data', trailController.getTrails, (req, res) => {
+    res.status(200).send(res.locals.trails);
   })
+
+app.post('/user', queries.createUser, queries.verifyUser, (req, res) => {
+  res.status(200).send('new user created and pw bcrypted')
+})
 
 // post request for user infor
 app.post("/api/login", queries.verifyUser, (req, res) => {
   const { verified } = res.locals;
-  console.log("verified in server ==> ", verified)
-
   return res.status(200).json(verified);
 })
 

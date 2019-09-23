@@ -28,18 +28,14 @@ module.exports = {
     devServer: {
       publicPath: '/build',
       proxy: {
-        '/api': 'http://localhost:3000',
-        '/data': 'http://localhost:3000'
+        '/homepage': 'http://localhost:3000',
+        '/data': 'http://localhost:3000',
+        '/user':'http://localhost:3000'
       }
     },
     resolve: {
       // Enable importing JS / JSX files without specifying their extension
       extensions: ['*','.js','.jsx'],
-    },
-    historyApiFallback: true
-  },
-  resolve: {
-    // Enable importing JS / JSX files without specifying their extension
-    extensions: ['*', '.js', '.jsx'],
-  },
+    }
+    
 };
