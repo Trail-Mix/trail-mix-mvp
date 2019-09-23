@@ -19,7 +19,8 @@ class App extends Component {
         super(props);
         this.state = {
         trailData: [],
-        selectedTrail: null
+        selectedTrail: null,
+        isLoggedIn: true
     }
     this.getTrail = this.getTrail.bind(this);
     this.noTrail = this.noTrail.bind(this);
@@ -67,6 +68,7 @@ class App extends Component {
 
     render() {
         // console.log(this.state.selectedTrail)
+        if (!this.state.isLoggedIn) return <Redirect to="/login" />
         return (
             <div className='appContainer'>
                 <MainContainer className='mainContainer' trailData={this.state.trailData}
