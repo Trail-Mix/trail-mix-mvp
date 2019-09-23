@@ -2,7 +2,7 @@ const path = require('path');
 const express = require('express');
 const bodyParser = require('body-parser');
 const trailController = require('../controller/trailController');
-
+const queries = require('../database/queries')
 const app = express();
 const PORT = 3000;
 
@@ -17,6 +17,10 @@ app.get('/api', (req, res) => {
 app.get('/data', trailController.getTrails, (req, res) => {
     res.status(200).send(res.locals.trails);
   })
+
+app.post('/user', queries.createUser, queries.verifyUser, (req, res) => {
+  res.status(200).send('new user created and pw bcrypted')
+})
 
 // catch-all route handler for any requests to an unknown route
 app.all('*', (req, res) => {
