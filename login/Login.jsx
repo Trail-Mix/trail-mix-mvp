@@ -30,7 +30,7 @@ class Login extends Component {
     // post request,get the data from user input, then post the user input to check with the server database 
     updateData() {
         // console.log(this.state.username)
-        fetch("/api/login", {
+        fetch("/login", {
             method: 'post',
             headers: {
                 "Content-Type": "application/json",
@@ -43,9 +43,8 @@ class Login extends Component {
                     this.setState({
                         isLoggedIn: true
                     })
-                    console.log(this.state)
                 }
-            })
+            }).catch(err => console.log(err))
     }
 
 
@@ -57,7 +56,7 @@ class Login extends Component {
             pages =
                 <div>
                     <h2>Welcome</h2>
-                    <form action="/login">
+                    <form>
                         <label> UserName: </label>
                         <input className="username" type="text" placeholder="username" onChange={e => { this.setState({ username: e.target.value }) }}></input>
                         <label> Password: </label>
@@ -66,7 +65,7 @@ class Login extends Component {
                             e.preventDefault(); this.updateData();
                         }}> Login</button>
                     </form>
-                    <button type="submit" onClick={e => { e.preventDefault(); window.location.href = "/Signup" }} >Signup</button>
+                    <button type="submit" onClick={e => { e.preventDefault(); window.location.href = "/signup" }} >Signup</button>
 
                 </div >
         }

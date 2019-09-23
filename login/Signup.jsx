@@ -25,7 +25,7 @@ class Signup extends Component {
 
     // post request,get the data from user input, then post the user input to save in the server database 
     updateData() {
-        fetch("/api/signup", {
+        fetch("/signup", {
             method: "post",
             header: {
                 "Content-Type": "application/json",

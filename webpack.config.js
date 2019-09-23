@@ -30,7 +30,8 @@ module.exports = {
       proxy: {
         '/homepage': 'http://localhost:3000',
         '/data': 'http://localhost:3000',
-        '/user':'http://localhost:3000'
+        '/signup':'http://localhost:3000', 
+        '/login':'http://localhost:3000',
       }
     },
     resolve: {

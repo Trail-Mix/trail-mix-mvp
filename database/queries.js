@@ -38,18 +38,16 @@ const verifyUser = (req, res, next) => {
 
 
   pool.query('SELECT password FROM users where username = $1', [username], (error, results) => {
-      if (error)  throw error;
-  
-      console.log('results.rows:', results.rows[0].password)
-      
+      if (error)  throw error;    
       bcrypt.compare(password, results.rows[0].password, (err, isMatch) => {
         if(err) return err;
-        console.log('isMatch is:', isMatch)
-        if(isMatch) {
+        if(!isMatch) {
+          console.log('password is invalid')
           res.locals.verified = true;
-          return next();
+        } else {
+        res.locals.verified = true;
+        return next();
         }
-        res.locals.verified = false;
       });
     })
 }
