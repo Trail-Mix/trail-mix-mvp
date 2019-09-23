@@ -10,29 +10,16 @@
  */
 import React from "react";
 
-const CommentDisplay = props => {
+function CommentsDisplay(props) {
 
     return (
-        <div className="commentDisplay">
-            <p>comments: </p>
+        <div className="commentsDisplay">
+            {/* <p>comments are loaded</p> */}
+            <div> "{props.comment}"<br/>&nbsp;-{props.author} </div>
             <br/>
-          
-            <form action="/action_page.php" name="comments">
-            Comment: 
-            <br/>
-            <input type="text" name="comment" id="commentForm"></input>
-            <br/>
-            <br/>
-            Author: 
-            <br/>
-            <input type="text" name="author" id="authorForm"></input>
-            <br/>
-            <br/>
-            <input type="submit" value="Submit"></input>
-            </form>
         
         </div>
     );
 };
 
-export default CommentDisplay; 
+export default CommentsDisplay; 

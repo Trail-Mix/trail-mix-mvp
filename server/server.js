@@ -12,7 +12,7 @@ app.use(bodyParser.json());
 
 //sends homePage file upon entering home page
 app.get('/homepage', (req, res) => {
-  res.sendFile(path.resolve(__dirname, '../index.html'));
+  res.status(200).sendFile(path.resolve(__dirname, '../index.html'));
 });
 
 //fetches trail data from REI API
@@ -29,8 +29,17 @@ app.post('/login', queries.verifyUser, (req, res) => {
 // post request for user signup infor
 app.post('/signup', queries.createUser, (req, res) => {
   const { verified } = res.locals;
-  console.log(verified)
   return res.status(200).json(verified);
+})
+
+app.get('/comments', queries.getComment, (req, res) => {
+  // console.log('we are getting comments')
+  res.status(200).send(res.locals.comments)
+})
+
+app.post('/comments', queries.postComment, (req, res) => {
+  // console.log('in server route', res.locals.comments)
+  res.status(200).send(res.locals.comments)
 })
 
 // catch-all route handler for any requests to an unknown route
@@ -48,7 +57,7 @@ app.use((err, req, res, next) => {
   const errObj = Object.assign((defaultErr, err));
   console.log(errObj.log);
 
-  res.status(errObj.status).json(errorObj.message);
+  res.status(errObj.status).json(errObj.message);
 });
 
 
