@@ -153,7 +153,22 @@
     width: 90%;
     height: 90%;
     overflow: auto;
-    background-color: #f3d3b6;
+    background-color: #ffe4cb;
+    text-align: center;
+    border: 2px solid darkgreen;
+    border-radius: 5px;
+    z-index: 2;
+}
+
+#diff-key {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 50%;
+    height: 30%;
+    overflow: auto;
+    background-color: #ffe4cb;
     text-align: center;
     border: 2px solid darkgreen;
     border-radius: 5px;

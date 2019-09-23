@@ -27,7 +27,9 @@ class ListContainer extends Component {
                     difficulty = {trail.difficulty} 
                     id = {trail.id}
                     trailData = {this.props.trailData}
-                    getTrail = {this.props.getTrail}/>
+                    getTrail = {this.props.getTrail}
+                    showKey={this.props.showKey}
+                    />
                 )
             })
            

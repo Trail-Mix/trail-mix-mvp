@@ -26,14 +26,21 @@ const MapDisplay = props => {
     
     const [selectedHike, setSelectedHike] = useState(null);
 
-    const [trailArray, setTrailArray] = useState(props.trailData);
+    // const [trailArray, setTrailArray] = useState(props.trailData);
     
-    useEffect(() => {
-        setTrailArray(props.trailData)
-    }, [trailArray]);
+    // useEffect(() => {
+    //     setTrailArray(props.trailData)
+    // }, [trailArray]);
+
+    // const [getTrailState, setGetTrailState] = useState(props.getTrail);
+
+    // useEffect(() => {
+    //     setGetTrailState(props.getTrail)
+    // }, [getTrailState]);
 
     // console.log('props.trailData is', props.trailData);
     // console.log('trailArray is', trailArray);
+    // console.log('props.getTrail is', props.getTrail);
     return (
         <div id="map-display">
             <ReactMapGl 
@@ -65,12 +72,15 @@ const MapDisplay = props => {
                 <Popup
                 latitude={selectedHike.latitude}
                 longitude={selectedHike.longitude}
-                onClose={() => setSelectedHike(null)}
+                // onClose={() => setSelectedHike(null)}
                 className='popup'
                 >
-                    <h4 className='popup-name'>{selectedHike.name}</h4>
-                    <p className='popup-summary'>{selectedHike.location}</p>
-                    <p className='popup-difficulty'>difficulty: {selectedHike.difficulty}</p>
+                    {/* <div> */}
+                    <div onClick={() => props.displayTrail(selectedHike)}>
+                        <h4 className='popup-name'>{selectedHike.name}</h4>
+                        <p className='popup-summary'>{selectedHike.location}</p>
+                        <p className='popup-difficulty'>difficulty: {selectedHike.difficulty}</p>
+                    </div>
                     {/* <img 
                     src={`${selectedHike.imgSqSmall}`} 
                     width='40'
