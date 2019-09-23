@@ -2,21 +2,21 @@ const webpack = require('webpack');
 const path = require('path');
 
 module.exports = {
-    mode: process.env.NODE_ENV,
-    entry: path.resolve(__dirname, './client/index.js'),
-    output: {
-        path: path.resolve(__dirname, 'build'),
-        filename: 'bundle.js',
-      },
-    module: {
-      rules: [
+  mode: process.env.NODE_ENV,
+  entry: path.resolve(__dirname, './client/index.js'),
+  output: {
+    path: path.resolve(__dirname, 'build'),
+    filename: 'bundle.js',
+  },
+  module: {
+    rules: [
       {
         test: /\.jsx?/i,
         loader: 'babel-loader',
         exclude: /node_modules/,
         options: {
-            presets: ['@babel/preset-env', '@babel/preset-react']
-          }
+          presets: ['@babel/preset-env', '@babel/preset-react']
+        }
       },
       {
         test: /\.css$/,
@@ -36,4 +36,10 @@ module.exports = {
       // Enable importing JS / JSX files without specifying their extension
       extensions: ['*','.js','.jsx'],
     },
+    historyApiFallback: true
+  },
+  resolve: {
+    // Enable importing JS / JSX files without specifying their extension
+    extensions: ['*', '.js', '.jsx'],
+  },
 };
