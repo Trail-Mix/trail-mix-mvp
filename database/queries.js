@@ -9,23 +9,34 @@ const bcrypt = require('bcryptjs');
 
 // query fetching all comments
 const getComment = (req, res, next) => {
-  pool.query('SELECT * FROM comments', (error, results) => {
+  const { author, comment, trail_id } = req.body;
+if(author && comment && trail_id) {
+ pool.query('INSERT INTO comments (author, comment, trail_id) VALUES ($1, $2, $3)', [author, comment, trail_id], (error, results) => {
+    if (error) throw error;
+    pool.query('SELECT * FROM comments where trail_id = $1', [trail_id], (error, results) => {
+      if (error) throw error
+      res.locals.comment = results.rows
+      return next();
+    })
+  })
+} else {
+  pool.query('SELECT * FROM comments where trail_id = $1', [trail_id], (error, results) => {
     if (error) throw error
     res.locals.comment = results.rows
     return next();
   })
+}
 };
 
 
 //add user to DB and bcrypt password
-const createUser = async (req, res, next) => {
+const createUser = (req, res, next) => {
   const { username, password } = req.body;
 
-  await bcrypt.hash(password, SALT_WORK_FACTOR, (err, hash) => {
+  bcrypt.hash(password, SALT_WORK_FACTOR, (err, hash) => {
     if (err) throw err;
     pool.query('INSERT INTO users (username, password) VALUES ($1, $2) returning *', [username, hash], (error, results) => {
       if (error) throw error;
-
       res.locals.verified = true;
       return next();
     })
@@ -36,9 +47,8 @@ const createUser = async (req, res, next) => {
 const verifyUser = (req, res, next) => {
   const { username, password } = req.body;
 
-
   pool.query('SELECT password FROM users where username = $1', [username], (error, results) => {
-      if (error)  throw error;    
+      if (error) throw error;    
       bcrypt.compare(password, results.rows[0].password, (err, isMatch) => {
         if(err) return err;
         if(!isMatch) {
