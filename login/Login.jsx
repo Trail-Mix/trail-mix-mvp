@@ -4,7 +4,7 @@
  * @module  Login.js
  * @author
  * @date
- * @description entry point for application.  Hangs React app off of 
+ * @description entry point for application.  
  *
  * ************************************
  */
@@ -14,7 +14,7 @@ import App from "../client/App.jsx";
 import { BrowserRouter as Router, Route, Redirect, Link } from "react-router-dom";
 import './loginstyle.css';
 
-
+// Login component is for updating user information and login information
 class Login extends Component {
     constructor(props) {
         super(props)
@@ -26,9 +26,8 @@ class Login extends Component {
         this.updateData = this.updateData.bind(this);
     }
 
-    // post request,get the data from user input, then post the user input to check with the server database 
+    // post request, get the data from user input, then post the user input to check with the server and database 
     updateData() {
-        // console.log(this.state.username)
         fetch("/login", {
             method: 'post',
             headers: {
@@ -46,25 +45,31 @@ class Login extends Component {
             }).catch(err => console.log(err))
     }
 
-
+    // if "isLoggedIn" is true, then redirect to the homepage, else if "isLoggedIn" is false, then direct to the login page
     render() {
         let pages
         if (this.state.isLoggedIn) {
             return <Redirect to="/homepage" />
         } else {
             pages =
-                <div className="login">
-                    <h2>Welcome</h2>
-                    <form>
-                        <label> UserName: </label>
+                <div className="loginArea">
+
+                    <img src="../assets/trail-mix-logo-small.jpg" className="pic"></img>
+
+                    <form className="userInfo" >
+                        <label className="labeluser"> Username: </label>
                         <input className="username" type="text" placeholder="username" onChange={e => { this.setState({ username: e.target.value }) }}></input>
-                        <label> Password: </label>
+                        <br />
+                        <label className="labelpsw"> Password: </label>
                         <input className="password" type="password" placeholder="password" onChange={e => { this.setState({ password: e.target.value }) }}></input>
-                        <button type="submit" onClick={e => {
+                        <button className="loginbtn" type="submit" onClick={e => {
                             e.preventDefault(); this.updateData();
                         }}> Login</button>
                     </form>
-                    <Link to="./signup"> SIGNUP </Link>
+                    <div className="link">
+                        <Link to="./signup"> SIGNUP </Link>
+
+                    </div>
 
                 </div >
         }

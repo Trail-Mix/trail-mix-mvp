@@ -20,16 +20,18 @@ const getComment = (req, res, next) => {
 //add user to DB and bcrypt password
 const createUser = async (req, res, next) => {
   const { username, password } = req.body;
+  if (username && password) {
+    await bcrypt.hash(password, SALT_WORK_FACTOR, (err, hash) => {
+      if (err) throw err;
+      pool.query('INSERT INTO users (username, password) VALUES ($1, $2) returning *', [username, hash], (error, results) => {
+        if (error) throw error;
 
-  await bcrypt.hash(password, SALT_WORK_FACTOR, (err, hash) => {
-    if (err) throw err;
-    pool.query('INSERT INTO users (username, password) VALUES ($1, $2) returning *', [username, hash], (error, results) => {
-      if (error) throw error;
-
-      res.locals.verified = true;
-      return next();
+        res.locals.verified = true;
+        return next();
+      })
     })
-  })
+  }
+
 }
 
 // query username and password
@@ -38,18 +40,18 @@ const verifyUser = (req, res, next) => {
 
 
   pool.query('SELECT password FROM users where username = $1', [username], (error, results) => {
-      if (error)  throw error;    
-      bcrypt.compare(password, results.rows[0].password, (err, isMatch) => {
-        if(err) return err;
-        if(!isMatch) {
-          console.log('password is invalid')
-          res.locals.verified = true;
-        } else {
+    if (error) throw error;
+    bcrypt.compare(password, results.rows[0].password, (err, isMatch) => {
+      if (err) return err;
+      if (!isMatch) {
+        console.log('password is invalid')
+        res.locals.verified = true;
+      } else {
         res.locals.verified = true;
         return next();
-        }
-      });
-    })
+      }
+    });
+  })
 }
 
 
