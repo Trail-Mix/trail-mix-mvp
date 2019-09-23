@@ -10,13 +10,18 @@
     z-index: 1;
 }
 
+#main-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 1;
+}
+
 .logo {
     width: 20%;
     display: block;
     margin-left: auto;
     margin-right: auto;
-    
-
 }
 
 #map-display {
@@ -29,20 +34,30 @@
 
 }
 
-/* .list {
-    display: grid;
-    background: red;
-    grid-column: 30% 30% 30% 10%;
-    width: 100%;
-} */
+.list {
+    display: flex;
+}
 
+.evens {
+    display: flex;
+    background-color: rgb(122, 185, 119);
+}
+
+.odds {
+    display: flex;
+}
 
 .column {
 
     float: left;
     width: 33.33%;
     /* display: flex; */
-  }
+}
+
+.column p {
+    font-family: 'Arial';
+    font-weight: 550;
+}
 
 .left {
     width: 40%;
@@ -74,8 +89,8 @@
 
 
 .popup {
-    width: 300px;
-    height: 100px;
+    /* width: 300px;
+    height: 100px; */
     margin: 0;
     padding: 0;
     /* border: 2px solid red; */
@@ -89,6 +104,13 @@
 }
 
 .popup-summary {
+    font-size: 10px;
+    margin: 0;
+    padding: 0;
+    /* border: 2px solid red; */
+}
+
+.popup-difficulty {
     font-size: 10px;
     margin: 0;
     padding: 0;
@@ -149,4 +171,21 @@
 #trailImage {
     border: 2px solid rgb(122, 185, 119);
     border-radius: 10px;
+    text-align: center;
+    z-index: 2;
+}
+
+#diff-key {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 50%;
+    height: 30%;
+    overflow: auto;
+    background-color: #ffe4cb;
+    text-align: center;
+    border: 2px solid darkgreen;
+    border-radius: 5px;
+    z-index: 2;
 }

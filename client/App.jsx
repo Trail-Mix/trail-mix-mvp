@@ -21,11 +21,14 @@ class App extends Component {
         trailData: [],
         selectedTrail: null,
         isLoggedIn: true,
-        comments: []
+        comments: [], 
+        diffKey: false
     }
     this.getTrail = this.getTrail.bind(this);
     this.noTrail = this.noTrail.bind(this);
     this.postComment = this.postComment.bind(this);
+    this.displayTrail = this.displayTrail.bind(this);
+    this.showKey = this.showKey.bind(this);
     };
 
     
@@ -49,7 +52,6 @@ class App extends Component {
 }
 
     getTrail(id) {
-        console.log('these are the comments', this.state.comments)
         let trailsArr = this.state.trailData.slice();
         let chosenTrail;
         // console.log(id)
@@ -117,7 +119,20 @@ class App extends Component {
                     comments: res
                 }
             })
-        })
+        });
+    }
+        
+    displayTrail(selectedHike) {
+        this.setState({selectedTrail: selectedHike});
+    }
+
+    showKey() {
+        console.log('showKey is called', this.state.showKey)
+        this.setState(state => {
+            return {
+                diffKey: state.diffKey ? false : true
+            }
+        });
     }
 
     render() {
@@ -125,11 +140,19 @@ class App extends Component {
         if (!this.state.isLoggedIn) return <Redirect to="/login" />
         return (
             <div className='appContainer'>
-                <MainContainer className='mainContainer' trailData={this.state.trailData}
+                <MainContainer 
+                className='mainContainer' 
+                trailData={this.state.trailData}
                 getTrail={this.getTrail}
-                selectedTrail={this.state.selectedTrail}/>
+                selectedTrail={this.state.selectedTrail}
+                displayTrail={this.displayTrail}
+                showKey={this.showKey}
+                diffKey={this.state.diffKey}
+                />
                 {this.state.selectedTrail &&
-                <TrailContainer className="modal" trailData={this.state.trailData} 
+                <TrailContainer 
+                className="modal" 
+                trailData={this.state.trailData} 
                 selectedTrail={this.state.selectedTrail} 
                 noTrail={this.noTrail}
                 postComment={this.postComment}
@@ -137,6 +160,9 @@ class App extends Component {
                 getTrail={this.getTrail} />
                 }
                 {/* <ListContainer trailData={this.state.trailData} /> */}
+                {/* {this.state.showKey && 
+                    <img id='diff-key' src='../assets.diffKey.png' />
+                } */}
             </div>
 
     )

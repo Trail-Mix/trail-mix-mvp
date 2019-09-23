@@ -18,16 +18,18 @@ class ListContainer extends Component {
     render() {
 
             const trails = this.props.trailData.map((trail, idx) => {
-                
+                // console.log(idx)
                 return (
-                    <ListDisplay id={idx} key={idx}
+                    <ListDisplay idx={idx} key={idx}
                     name = {trail.name}
                     location = {trail.location}
                     length = {trail.length}
                     difficulty = {trail.difficulty} 
                     id = {trail.id}
                     trailData = {this.props.trailData}
-                    getTrail = {this.props.getTrail}/>
+                    getTrail = {this.props.getTrail}
+                    showKey={this.props.showKey}
+                    />
                 )
             })
            
