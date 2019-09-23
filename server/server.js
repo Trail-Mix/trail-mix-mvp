@@ -16,24 +16,24 @@ app.get('/homepage', (req, res) => {
 });
 
 app.get('/data', trailController.getTrails, (req, res) => {
-    res.status(200).send(res.locals.trails);
-  })
+  res.status(200).send(res.locals.trails);
+})
 
 app.post('/user', queries.createUser, queries.verifyUser, (req, res) => {
   res.status(200).send('new user created and pw bcrypted')
 })
 
 // post request for user infor
-app.post("/api/login", queries.verifyUser, (req, res) => {
+app.post('/login', queries.verifyUser, (req, res) => {
   const { verified } = res.locals;
   return res.status(200).json(verified);
 })
 
 // post request for user signup infor
-app.post("/api/signup", queries.createUser, (req, res) => {
-  const { createUser } = res.locals;
-  console.log("createUser from server ==>", createUser)
-  return res.json();
+app.post('/signup', queries.createUser, (req, res) => {
+  const { verified } = res.locals;
+  console.log(verified)
+  return res.status(200).json(verified);
 })
 
 // catch-all route handler for any requests to an unknown route
@@ -51,7 +51,7 @@ app.use((err, req, res, next) => {
   const errObj = Object.assign((defaultErr, err));
   console.log(errObj.log);
 
-  res.sendStatus(errObj.status).json(errorObj.message);
+  res.status(errObj.status).json(errorObj.message);
 });
 
 

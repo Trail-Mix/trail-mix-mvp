@@ -11,9 +11,8 @@
 
 import React, { Component } from "react";
 import App from "../client/App.jsx";
-import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
-
-// import './loginstyles.css';
+import { BrowserRouter as Router, Route, Redirect, Link } from "react-router-dom";
+import './loginstyle.css';
 
 
 class Login extends Component {
@@ -30,7 +29,7 @@ class Login extends Component {
     // post request,get the data from user input, then post the user input to check with the server database 
     updateData() {
         // console.log(this.state.username)
-        fetch("/api/login", {
+        fetch("/login", {
             method: 'post',
             headers: {
                 "Content-Type": "application/json",
@@ -55,7 +54,7 @@ class Login extends Component {
             return <Redirect to="/homepage" />
         } else {
             pages =
-                <div>
+                <div className="login">
                     <h2>Welcome</h2>
                     <form action="/login">
                         <label> UserName: </label>
@@ -66,7 +65,7 @@ class Login extends Component {
                             e.preventDefault(); this.updateData();
                         }}> Login</button>
                     </form>
-                    <button type="submit" onClick={e => { e.preventDefault(); window.location.href = "/Signup" }} >Signup</button>
+                    <Link to="./signup"> SIGNUP </Link>
 
                 </div >
         }

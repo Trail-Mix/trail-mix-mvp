@@ -23,19 +23,21 @@ module.exports = {
         use: ['style-loader', 'css-loader'],
         exclude: /node_modules/,
       }
-    ]},
-    watch: true,
-    devServer: {
-      publicPath: '/build',
-      proxy: {
-        '/homepage': 'http://localhost:3000',
-        '/data': 'http://localhost:3000',
-        '/user':'http://localhost:3000'
-      }
-    },
-    resolve: {
-      // Enable importing JS / JSX files without specifying their extension
-      extensions: ['*','.js','.jsx'],
+    ]
+  },
+  watch: true,
+  devServer: {
+    publicPath: '/build',
+    proxy: {
+      '/homepage': 'http://localhost:3000',
+      '/data': 'http://localhost:3000',
+      '/user': 'http://localhost:3000',
+      '/signup': 'http://localhost:3000'
     }
-    
+  },
+  resolve: {
+    // Enable importing JS / JSX files without specifying their extension
+    extensions: ['*', '.js', '.jsx'],
+  }
+
 };
