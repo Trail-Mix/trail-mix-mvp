@@ -14,13 +14,29 @@ import MapDisplay from "../components/MapDisplay.jsx";
 import ListContainer from "./ListContainer.jsx";
 
 class MainContainer extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            // show: false
+        }
+
+        // showTrail = () => {
+        //     this.setState({ show: true });
+        //   };
+        
+        //   hideTrail = () => {
+        //     this.setState({ show: false });
+        //   };
+    }
+    
     render() {
         
         return (
-            <div id="main-container">
-                <h1 className="header">Main Container</h1>
-                <MapDisplay />
-                <ListContainer trailData={this.props.trailData}/>
+            <div id="main-container" style={{flex:1, flexDirection:'column', justifyContent:'center'}}>
+                <h1 className="header">Trail Mix</h1>
+                <MapDisplay id="map-display"/>
+                <ListContainer trailData={this.props.trailData} 
+                getTrail={this.props.getTrail}/>
             </div>
         )
     }

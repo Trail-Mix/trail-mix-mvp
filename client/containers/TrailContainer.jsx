@@ -15,17 +15,18 @@ import ListDisplay from "../components/ListDisplay.jsx";
 
 
 class TrailContainer extends Component {
-    constructor(props) {
-        super(props);
-    }
+    
 
     render() {
+        
         return (
-            <div className="trailDisplay">
-                <TrailDisplay />
+            <div className='modalGuts'>
+                <button onClick={(e) => this.props.noTrail()}>close</button>
+                <TrailDisplay selectedTrail={this.props.selectedTrail}/>
                 <div className="comments">
                     <CommentsDisplay />
                 </div>
+                
             </div>
         )
     }

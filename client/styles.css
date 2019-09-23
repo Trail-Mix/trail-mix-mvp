@@ -1,17 +1,45 @@
+.appContainer {
+    position: relative;
+    z-index: 1;
+}
+
+.mainContainer {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    z-index: 1;
+}
+
+#map-display {
+    z-index: 1;
+}
+
 .listDisplay {
 
 }
 
-.list {
-    /* display: flex; */
-    /* justify-content: flex-start; */
+/* .list {
+    display: grid;
+    background: red;
+    grid-column: 30% 30% 30% 10%;
+    width: 100%;
+} */
 
-}
 
 .column {
+
     float: left;
     width: 33.33%;
+    /* display: flex; */
   }
+
+.left {
+    width: 40%;
+}
+
+.middle, .right {
+    width: 30%;
+}
 
   
 .row:after {
@@ -21,19 +49,18 @@
   }
 
 
-
 .namePlace {
-    color: blue;
+
 }
 
 .length {
     margin-left: 100px;
-    /* padding-left: 50px; */
 }
 
 .difficulty {
     margin-left: 50px;
 }
+
 
 .popup {
     width: 300px;
@@ -55,4 +82,48 @@
     margin: 0;
     padding: 0;
     /* border: 2px solid red; */
+}
+
+#commentForm {
+    width: 50%;
+    height: 100px;
+    border-radius: 5px;
+    padding-top: 0;
+    padding-left: 0;
+}
+
+#authorForm {
+    border-radius: 5px;
+    padding-top: 0;
+    padding-left: 0;
+}
+
+.modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #f3d3b6;
+    border: 2px solid darkgreen;
+    border-radius: 5px;
+    text-align: center;
+    width: 90%;
+    height: 90%;
+    z-index: 2;
+    overflow: auto;
+    opacity: 0.5;
+}
+
+.modalGuts {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    height: 90%;
+    overflow: auto;
+    background-color: #f3d3b6;
+    text-align: center;
+    border: 2px solid darkgreen;
+    border-radius: 5px;
 }

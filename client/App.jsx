@@ -18,9 +18,14 @@ class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
-        trailData: []
+        trailData: [],
+        selectedTrail: null
     }
+    this.getTrail = this.getTrail.bind(this);
+    this.noTrail = this.noTrail.bind(this);
     };
+
+    
 
     componentDidMount() {
             fetch('/data')
@@ -41,18 +46,40 @@ class App extends Component {
 }
 
     getTrail(id) {
-        
+        let trailsArr = this.state.trailData.slice();
+        let chosenTrail;
+        // console.log(id)
+        for (let i = 0; i < trailsArr.length; i++) {
+            // console.log('these are ids', typeof trailsArr[i].id, typeof id);
+            if (trailsArr[i].id === +id) {
+                // console.log('The selected trail is', trailsArr[i])
+                chosenTrail = trailsArr[i];
+                this.setState({selectedTrail: chosenTrail})
+            }
+        }
+
+    }
+
+    noTrail() {
+        console.log('noTrail is invoked')
+        this.setState({selectedTrail: null})
     }
 
     render() {
-        
+        // console.log(this.state.selectedTrail)
         return (
-            <div>
-                <MainContainer trailData={this.state.trailData}/>
-                {/* <TrailContainer trailData={this.state.trailData} /> */}
+            <div className='appContainer'>
+                <MainContainer className='mainContainer' trailData={this.state.trailData}
+                getTrail={this.getTrail}
+                selectedTrail={this.state.selectedTrail}/>
+                {this.state.selectedTrail &&
+                <TrailContainer className="modal" trailData={this.state.trailData} 
+                selectedTrail={this.state.selectedTrail} 
+                noTrail={this.noTrail} />
+                }
                 {/* <ListContainer trailData={this.state.trailData} /> */}
             </div>
-        
+
     )
     }
 
