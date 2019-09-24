@@ -9,7 +9,7 @@
  * ************************************
  */
 import React, { Component } from "react";
-import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
+import { BrowserRouter as Redirect } from "react-router-dom";
 import "./signupstyle.css";
 
 // Signup componenet is for the users to create their login username and password
@@ -20,18 +20,17 @@ class Signup extends Component {
             username: "",
             password: "",
             verified: false
-        }
+        };
         this.updateData = this.updateData.bind(this);
-    }
+    };
 
-    // post request,get the data from user input, then post the user input to save in the server database 
+    // post request to send user input to database 
     updateData() {
-        // console.log(this.state.username);
         const url = ('/signup');
         const data = {
             username: this.state.username,
             password: this.state.password
-        }
+        };
 
         fetch(url, {
             method: 'POST',
@@ -45,12 +44,12 @@ class Signup extends Component {
                 console.log(res)
                 this.setState({
                     verified: res
-                })
-            })
-    }
+                });
+            });
+    };
 
 
-    // if the user already has been signup, then it will direct the homepage, else if it will direct to the signup page
+    // if the user has already signed up, then it will redirect to the homepage, else it will direct to the signup page
     render() {
         let pages
         if (this.state.verified) {
@@ -64,18 +63,14 @@ class Signup extends Component {
                     <form action="/signup" className="userInfo" >
                         <label className="labeluser"> Username: </label>
                         <input className="username" type="text" placeholder="username" onChange={e => { this.setState({ username: e.target.value }) }}></input>
-
                         <label className="labelpsw"> Password: </label>
                         <input className="password" type="password" placeholder="password" onChange={e => { this.setState({ password: e.target.value }) }}></input>
-
-
                         <button className="loginbtn" type="submit" value="createUser" onClick={e => { e.preventDefault(); this.updateData() }}> SignUp </button>
                     </form >
                 </div>
-
-        }
+        };
         return <div>{pages}</div>
-    }
+    };
+};
 
-}
 export default Signup;

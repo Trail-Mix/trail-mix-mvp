@@ -10,7 +10,6 @@
  */
 
 import React, { Component } from "react";
-import App from "../client/App.jsx";
 import { BrowserRouter as Router, Route, Redirect, Link } from "react-router-dom";
 import './loginstyle.css';
 
@@ -26,7 +25,7 @@ class Login extends Component {
         this.updateData = this.updateData.bind(this);
     }
 
-    // post request, get the data from user input, then post the user input to check with the server and database 
+    // post request, get the data from user input, then make a post request with the user input to check match with database
     updateData() {
         fetch("/login", {
             method: 'post',
@@ -34,20 +33,20 @@ class Login extends Component {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({ username: this.state.username, password: this.state.password })
-        }).
-            then(res => res.json())
-            .then(res => {
-                if (res) {
-                    this.setState({
-                        isLoggedIn: true
-                    })
-                }
-            }).catch(err => console.log(err))
-    }
+        })
+        .then(res => res.json())
+        .then(res => {
+            if (res) {
+                this.setState({
+                    isLoggedIn: true
+                });
+            };
+        }).catch(err => console.log(err));
+    };
 
     // if "isLoggedIn" is true, then redirect to the homepage, else if "isLoggedIn" is false, then direct to the login page
     render() {
-        let pages
+        let pages;
         if (this.state.isLoggedIn) {
             return <Redirect to="/homepage" />
         } else {
@@ -68,16 +67,14 @@ class Login extends Component {
                     </form>
                     <div className="link">
                         <Link to="./signup"> SIGNUP </Link>
-
                     </div>
-
                 </div >
-        }
+        };
         return (
             <div>{pages}</div>
-        )
+        );
+    };
+};
 
-    }
-}
 export default Login;
 

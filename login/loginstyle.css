@@ -1,7 +1,4 @@
-
-
-.loginArea{
-    /* background: green; */
+.loginArea {
     display: grid;
     grid-auto-rows: 30% 80% 10%;
     align-content: center;
@@ -10,12 +7,12 @@
     width: 1270px;
     margin: 140px 0px -10px 0px;
 }
-.pic{
+
+.pic {
     width:350px;
     height:200px;
     margin: -40px -100px 0px 450px;
 }
-
 
 @keyframes mymove {
   0%   {top: 0px; left: 0px; background: rgb(122, 185, 119);}
@@ -24,46 +21,47 @@
   75%  {top: 0px; left: 0px; background: #4f4507;}
   85% {top: 0px; left: 0px; background: rgb(122, 185, 119);}
   100% {top: 0px; left: 0px; background: #4f4507;}
-  
 }
 
-.userInfo{
-    /* background: pink; */
+.userInfo {
     display: flex;
     align-items: flex-end;
     justify-content: flex-end;
     font-size:120%;
     padding: 180px 400px 0px 400px;
 }
-.labeluser{
+
+.labeluser {
     margin-right: 10px; 
 }
-.labelpsw{
+
+.labelpsw {
     margin-left:20px;
     margin-right: 10px; 
 }
-.username{
-    font-size: 15px;
 
-}
-.password{
+.username {
     font-size: 15px;
 }
-.loginbtn{
+
+.password {
+    font-size: 15px;
+}
+
+.loginbtn {
     margin: 20px 60px -8px 40px;
-    -webkit-animation: mymove 5s infinite; /* Safari 4.0 - 8.0 */
+    -webkit-animation: mymove 5s infinite;
     animation: mymove 5s infinite;
     color: white;
     border-radius: 10%;
     font-size: 20px;
     padding: 6px 20px;
-
 }
-.link{
+
+.link {
     display: flex;
     align-items: flex-end;
     justify-content: flex-end;
     margin: 100px 460px -90px 0px;
     font-size:18px;
-
 }

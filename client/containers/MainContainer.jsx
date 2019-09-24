@@ -13,28 +13,11 @@ import React, { Component } from "react";
 import MapDisplay from "../components/MapDisplay.jsx";
 import ListContainer from "./ListContainer.jsx";
 
+//container that combines MapDisplay and ListContainer and passes down all necessary props
 class MainContainer extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            // show: false
-        }
-
-        // showTrail = () => {
-        //     this.setState({ show: true });
-        //   };
-        
-        //   hideTrail = () => {
-        //     this.setState({ show: false });
-        //   };
-    }
-    
     render() {
-        console.log('props.showKey is', this.props.showKey)
         return (
             <div id="main-container">
-            {/* <div id="main-container" style={{flex:1, flexDirection:'column', justifyContent:'center'}}> */}
-                {/* <h1 className="header">Trail Mix</h1> */}
                 <img src="../../assets/trail-mix-logo-small.jpg" className='logo'/><br />
                 <MapDisplay 
                 id="map-display"
@@ -48,15 +31,15 @@ class MainContainer extends Component {
                 showKey={this.props.showKey}
                 diffKey={this.props.diffKey} 
                 />
+                {/* conditional renders difficulty key overlay */}
                 {this.props.diffKey && (
                     <div>
-                        
                         <img id='diff-key' src='../../assets/diff-key.jpg' />
-                        {/* <button onClick={() => this.props.showKey(this.props.diffKey)}>close</button> */}
                     </div>
-                )}
+                )};
             </div>
-        )
-    }
-}
+        );
+    };
+};
+
 export default MainContainer;

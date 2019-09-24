@@ -9,16 +9,12 @@
  */
 import React, { Component } from "react";
 import ListDisplay from "../components/ListDisplay.jsx";
-import TrailContainer from "./TrailContainer.jsx";
 
-
+//container component that holds the list display of trails
+//also maps through trailData array and sets props for desired values
 class ListContainer extends Component {
-
-    
     render() {
-
             const trails = this.props.trailData.map((trail, idx) => {
-                // console.log(idx)
                 return (
                     <ListDisplay idx={idx} key={idx}
                     name = {trail.name}
@@ -30,18 +26,14 @@ class ListContainer extends Component {
                     getTrail = {this.props.getTrail}
                     showKey={this.props.showKey}
                     />
-                )
-            })
-           
+                );
+            });
             return (
                 < div className="listDisplay" >
                     {trails}
                 </div >
-            ) 
-       
-        
-
-}
-}
+            );
+};
+};
 
 export default ListContainer;
