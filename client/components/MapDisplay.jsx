@@ -44,6 +44,13 @@ const MapDisplay = props => {
                     onClick={e => {
                         e.preventDefault();
                         setSelectedHike(trail);
+                        setViewport({
+                            latitude: trail.latitude,
+                            longitude: trail.longitude,
+                            width: '70vw',
+                            height: '70vh',
+                            zoom: 16
+                        });
                     }}
                     >
                         <SvgTrekking width='30px' height='30px' />

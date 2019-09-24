@@ -105,7 +105,7 @@ class App extends Component {
             });
         });
     };
-    //invoked when clicking on the map markers
+    //invoked when clicking on the map popups
     displayTrail(selectedHike) {
         this.setState({selectedTrail: selectedHike});
     }
