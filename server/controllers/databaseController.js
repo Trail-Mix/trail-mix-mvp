@@ -18,7 +18,7 @@ databaseController.getComment = (req, res, next) => {
 //query posting new comment to DB and then fetching all comments including the one just posted
 databaseController.postComment = (req, res, next) => {
   const { author, comment, id } = req.body;
-  
+
   if(author && comment && id) {
     db.query('INSERT INTO comments (author, comment, id) VALUES ($1, $2, $3)', [author, comment, id], (error, results) => {
     if (error) throw error;
@@ -76,3 +76,5 @@ databaseController.verifyUser = (req, res, next) => {
     };
   });
 };
+
+module.exports = databaseController;
