@@ -35,7 +35,6 @@ const postComment = (req, res, next) => {
 //add user and bcrypt password to database
 const createUser = (req, res, next) => {
   const { username, password } = req.body;
-
   if (username && password) {
     pool.query('SELECT * from users WHERE username = $1', [username], (err, results) => {
       if(results.rows.length === 0) {

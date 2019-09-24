@@ -10,7 +10,7 @@
  */
 
 import React, { Component } from "react";
-import { BrowserRouter as Router, Route, Redirect, Link } from "react-router-dom";
+import { Redirect, Link } from "react-router-dom";
 import './loginstyle.css';
 
 // Login component is for updating user information and login information
@@ -28,7 +28,7 @@ class Login extends Component {
     // post request, get the data from user input, then make a post request with the user input to check match with database
     updateData() {
         fetch("/login", {
-            method: 'post',
+            method: 'POST',
             headers: {
                 "Content-Type": "application/json",
             },

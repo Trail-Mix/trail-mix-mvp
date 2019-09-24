@@ -1,5 +1,6 @@
 const fetch = require('node-fetch');
 
+//API request REI API with a latitute and longitude of central LA, with a search radius of 20 miles with 100 max results with a minimum of 3 stars and my user key
 let url = 'https://www.hikingproject.com/data/get-trails?lat=34.045023&lon=-118.361273&maxDistance=20&maxResults=100&minStars=3.5&key=200597455-cfbe6650f3776f2f486ae788a2ecf16b'
 const trailController = {};
 

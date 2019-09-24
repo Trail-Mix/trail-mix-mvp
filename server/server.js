@@ -56,10 +56,8 @@ app.use((err, req, res, next) => {
   }
   const errObj = Object.assign((defaultErr, err));
   console.log(errObj.log);
-
   res.status(errObj.status).json(errObj.message);
 });
-
 
 //start server
 app.listen(PORT, () => {

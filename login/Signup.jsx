@@ -9,7 +9,7 @@
  * ************************************
  */
 import React, { Component } from "react";
-import { BrowserRouter as Redirect } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import "./signupstyle.css";
 
 // Signup componenet is for the users to create their login username and password
@@ -41,17 +41,16 @@ class Signup extends Component {
         })
             .then(res => res.json())
             .then(res => {
-                console.log(res)
                 this.setState({
                     verified: res
                 });
-            });
+            }).catch(err => console.log(err));
     };
 
 
     // if the user has already signed up, then it will redirect to the homepage, else it will direct to the signup page
     render() {
-        let pages
+        let pages;
         if (this.state.verified) {
             return <Redirect to="/homepage" />
         } else {
