@@ -16,6 +16,8 @@ import Login from "../login/Login.jsx";
 import Signup from "../login/Signup.jsx";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import SimpleStorage from "react-simple-storage";
+import '!style-loader!css-loader!bootstrap/dist/css/bootstrap.css';
+
 
 //uses ReactRouter to route the paths for login, signup, and homepage
 render(
@@ -34,5 +36,5 @@ render(
                 </div>
             </Switch>
         </Router>
-    </div>, document.getElementById("content")
+    </div>, document.getElementById("root")
 );

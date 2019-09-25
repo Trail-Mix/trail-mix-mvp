@@ -3,7 +3,6 @@ import MainContainer from "./containers/MainContainer.jsx";
 
 const googleMapsUrl = 'https://maps.googleapis.com/maps/api/geocode/json?address=';
 const googleMaps_API_KEY = 'AIzaSyAgJUQeWjM55IdJbPXVRa3i-5N6uLvptI8';
-
 const hikingProject_API_KEY = '200601261-d71b1d3a8f073c58c93d34bf907171f1'
 
 //state includes data retrieved from REI API, selects selected trail
@@ -19,14 +18,14 @@ class App extends Component {
             trailData: [],
             selectedTrail: null,
             isLoggedIn: true,
-            comments: [], 
+            comments: [],
             searchInput: '',
             latitude: 39.0119,
             longitude: -98.4842,
             zoom: 3,
         }
 
-    
+
     this.getTrail = this.getTrail.bind(this);
     this.saveTrail = this.saveTrail.bind(this);
     this.removeTrail = this.removeTrail.bind(this);
@@ -57,8 +56,8 @@ class App extends Component {
             this.setState({ latitude: lat, longitude: lng })
             console.log('latitude is: ', lat)
             console.log('longitude is: ', lng)
-        }) 
-        .then((res) => {    
+        })
+        .then((res) => {
             const hUrl = `https://www.hikingproject.com/data/get-trails?lat=${this.state.latitude}&lon=${this.state.longitude}&maxDistance=20&maxResults=100$minStars=3&key=${hikingProject_API_KEY}`
             console.log('hUrl is: ', hUrl);
             fetch(hUrl)
@@ -78,7 +77,7 @@ class App extends Component {
         this.setState({zoom: 10})
     }
 
-       
+
 
     // fetches data from REI API and sets to state when the page loads
     componentDidMount() {
@@ -142,7 +141,7 @@ class App extends Component {
               'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-              userId: props.userId,
+              userId: this.state.userId,
               reiId: props.id,
               length: props.length,
               difficulty: props.difficulty,
@@ -190,8 +189,8 @@ class App extends Component {
             </label>
             <input type="submit" value="Submit" />
             </form>
-                <MainContainer 
-                className='mainContainer' 
+                <MainContainer
+                className='mainContainer'
                 latitude={this.state.latitude}
                 longitude={this.state.longitude}
                 trailData={this.state.trailData}
