@@ -22,13 +22,13 @@ app.get('/data', trailController.getTrails, (req, res) => {
 })
 
 //routes post request upon login to verify user
-app.post('/login', userController.verifyUser, (req, res) => {
+app.post('/login', userController.verifyUser, sessionController.createSessionsTable, (req, res) => {
   const { verified } = res.locals;
   return res.status(200).json(verified);
 })
 
 // post request that brings in user-input signup information, creates a new user in the database, and sends verification to the front end
-app.post('/signup', userController.createTable, userController.createUser, (req, res) => {
+app.post('/signup', userController.createTable, userController.createUser, sessionController.createSessionsTable, (req, res) => {
   const { verified } = res.locals;
   console.log('verified', verified);
   return res.status(200).json(verified);

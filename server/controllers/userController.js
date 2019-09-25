@@ -59,7 +59,7 @@ userController.createUser = async (req, res, next) => {
     }
 
     if (results.rowCount === 0) {
-      await bcrypt.hash(password, SALT_WORK_FACTOR, async (err, hash) => {
+      bcrypt.hash(password, SALT_WORK_FACTOR, async (err, hash) => {
         if (err) throw err;
         try {
           await db.query('INSERT INTO users (username, password) VALUES ($1, $2) returning *', [username, hash])
@@ -104,4 +104,4 @@ userController.verifyUser = (req, res, next) => {
   });
 };
 
-module.exports = databaseController;
+module.exports = userController;
