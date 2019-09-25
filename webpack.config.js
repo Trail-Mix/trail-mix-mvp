@@ -25,6 +25,7 @@ module.exports = {
       }
     ]},
     watch: true,
+  performance: { hints: false },
     devServer: {
       publicPath: '/build',
       proxy: {

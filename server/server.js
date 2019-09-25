@@ -3,10 +3,15 @@ const path = require('path');
 const express = require('express');
 const bodyParser = require('body-parser');
 const trailController = require('./controllers/trailController');
-const userController = require('./controllers/userController.js')
 
+const databaseController = require('./controllers/databaseController.js');
+const commentController = require('./controllers/commentController');
+console.log("cc",commentController);
 const app = express();
 const PORT = 3000;
+
+
+
 
 //extracts the entire body portion of an incoming request stream and exposes it on req.body
 app.use(bodyParser.json());
@@ -30,19 +35,20 @@ app.post('/login', userController.verifyUser, (req, res) => {
 // post request that brings in user-input signup information, creates a new user in the database, and sends verification to the front end
 app.post('/signup', userController.createTable, userController.createUser, (req, res) => {
   const { verified } = res.locals;
+
   console.log('verified', verified);
   return res.status(200).json(verified);
-})
+
 
 
 
 // sends all comments pertaining to trail ID
-app.get('/comments', userController.getComment, (req, res) => {
+app.get('/comments', commentController.getComment, (req, res) => {
   res.status(200).send(res.locals.comments)
 })
 
 //posts new comment in database and sends back all comments pertaining to unique trail ID
-app.post('/comments', userController.postComment, (req, res) => {
+app.post('/comments', commentController.postComment, (req, res) => {
   res.status(200).send(res.locals.comments)
 })
 
