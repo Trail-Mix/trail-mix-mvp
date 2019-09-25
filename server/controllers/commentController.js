@@ -14,8 +14,9 @@ commentController.getComment = async (req, res, next) => {
     };
     try {
         const result = await db.query(query);
-        console.log("result", result)
-        res.locals.comments = results.rows;
+        // console.log("result", result.fields)
+        res.locals.comments = result.rows;
+        console.log("res.locals inside get Comment", res.locals.comments)
         return next();
     } catch (err) {
         return next({
