@@ -48,6 +48,11 @@ trailController.getHikers = (req, res, next) => {
 
 trailController.getHikersInfo = (req, res, next) => {
 
+    if (res.locals.ids.length === 0) {
+      res.locals.hikers = [];
+      return next();
+    }
+
     const hikersIds = res.locals.ids.map(x => {
         return x.user_id;
     })
@@ -56,7 +61,7 @@ trailController.getHikersInfo = (req, res, next) => {
 
     pool.query(`SELECT _id, username FROM users WHERE _id IN (${values})`, (error, results) => {
       if (error) throw error;
-      res.locals.hikers = results.rows
+      res.locals.hikers = results.rows;
       return next();
     });
 };

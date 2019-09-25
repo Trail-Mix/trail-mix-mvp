@@ -33,7 +33,7 @@ class TrailPage extends React.Component {
             return {
                 ...state,
                 trail: res.trails[0]
-            };
+            }
         });
       })
 
