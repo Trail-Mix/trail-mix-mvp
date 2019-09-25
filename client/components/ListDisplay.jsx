@@ -20,7 +20,12 @@ const ListDisplay = props => {
     return (
         <div className={props.idx % 2 ? 'odds' : 'evens'}>
             <div className='column'>
-              <Link to={`/trail/${props.id}`}>{props.trailData.length > 0 && props.name}:&nbsp;
+              <Link to={{
+                pathname: `/trail/${props.id}`,
+                state: {
+                  username: props.username
+                }
+              }}>{props.trailData.length > 0 && props.name}:&nbsp;
                 {props.trailData.length > 0 && props.location}</ Link>
             </div>
             <div className='column'>

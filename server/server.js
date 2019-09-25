@@ -2,6 +2,8 @@ const path = require('path');
 const express = require('express');
 const bodyParser = require('body-parser');
 const trailController = require('../controller/trailController');
+const commentsController = require('../controller/commentsController');
+
 const queries = require('../database/queries.js')
 
 const app = express();
@@ -26,8 +28,8 @@ app.post('/hikers', trailController.getHikers, trailController.getHikersInfo, (r
 })
 
 // get featured trail
-app.post('/trail', trailController.getTrail, (req, res) => {
-  res.status(200).send(res.locals.trail);
+app.post('/trail', trailController.getTrail, commentsController.getComments, (req, res) => {
+  res.status(200).send(res.locals);
 })
 
 // save trail to user
@@ -48,8 +50,8 @@ app.post('/login', queries.verifyUser, (req, res) => {
 
 // post request that brings in user-input signup information, creates a new user in the database, and sends verification to the front end
 app.post('/signup', queries.createUser, (req, res) => {
-  const { verified } = res.locals;
-  return res.status(200).json(verified);
+  // const { verified } = res.locals;
+  return res.status(200).json(res.locals);
 })
 
 // sends all comments pertaining to trail ID
