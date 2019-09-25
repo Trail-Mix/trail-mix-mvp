@@ -41,6 +41,7 @@ class TrailPage extends React.Component {
           return res.json();
       })
       .then((res) => {
+        console.log(res, ' HEELLLOO')
         this.setState(state => {
             return {
                 ...state,

@@ -22,6 +22,7 @@ trailController.getTrails = (req, res, next) => {
 trailController.getTrail = (req, res, next) => {
 
     const { trailId } = req.body;
+    console.log(trailId)
 
     fetch(`https://www.hikingproject.com/data/get-trails-by-id?ids=${trailId}&key=200597455-cfbe6650f3776f2f486ae788a2ecf16b`)
     .then(res => res.json())
