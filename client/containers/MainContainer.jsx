@@ -39,7 +39,7 @@ class MainContainer extends Component {
                     <div>
                         <img id='diff-key' src='../../assets/diff-key.jpg' />
                     </div>
-                )};
+                )}
             </div>
         );
     };
