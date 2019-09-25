@@ -20,11 +20,13 @@ class ListContainer extends Component {
                     name = {trail.name}
                     location = {trail.location}
                     length = {trail.length}
-                    difficulty = {trail.difficulty} 
+                    difficulty = {trail.difficulty}
                     id = {trail.id}
                     trailData = {this.props.trailData}
                     getTrail = {this.props.getTrail}
                     showKey={this.props.showKey}
+                    saveTrail={this.props.saveTrail}
+                    userId={this.props.userId}
                     />
                 );
             });

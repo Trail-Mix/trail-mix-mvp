@@ -1,3 +1,4 @@
+const { pool } = require('../server/config')
 const fetch = require('node-fetch');
 
 //API request REI API with a latitute and longitude of central LA, with a search radius of 20 miles with 100 max results with a minimum of 3 stars and my user key
@@ -12,8 +13,31 @@ trailController.getTrails = (req, res, next) => {
         res.locals.trails = json
         return next()})
     .catch(err => next({
-        err: 'trailController.getTrails: ERROR: Check server logs for details' 
+        err: 'trailController.getTrails: ERROR: Check server logs for details'
     }));
 };
+
+
+trailController.saveTrail = (req, res, next) => {
+
+    const { userId, reiId, length, location, difficulty, name } = req.body;
+
+    pool.query(`INSERT INTO trails (user_id, rei_id, length, location, difficulty, name) VALUES(${userId}, ${reiId}, ${length}, '${location}', '${difficulty}', '${name}')`, (error, results) => {
+      if (error) throw error;
+      return next();
+    });
+};
+
+
+trailController.removeTrail = (req, res, next) => {
+
+    const { userId, reiId } = req.body;
+
+    pool.query(`DELETE FROM trails WHERE user_id=${userId} AND rei_id=${reiId}`, (error, results) => {
+      if (error) throw error;
+      return next();
+    });
+};
+
 
 module.exports = trailController;

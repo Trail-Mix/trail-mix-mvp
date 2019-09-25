@@ -4,7 +4,7 @@
  * @module  TrailContainer.jsx
  * @author
  * @date
- * @description presentation component that displays the TrailDisplay and 
+ * @description presentation component that displays the TrailDisplay and
  * CommentsDisplay
  * ************************************
  */
@@ -13,7 +13,7 @@ import TrailDisplay from "../components/TrailDisplay.jsx";
 import CommentsDisplay from "../components/CommentsDisplay.jsx";
 
 //container component for individual TrailDisplay and CommentsDisplay
-//maps through comments to pull desired values 
+//maps through comments to pull desired values
 class TrailContainer extends Component {
     render() {
         let comments = [];
@@ -45,10 +45,10 @@ class TrailContainer extends Component {
             <input type="text" name="author" id="authorForm"></input>
             <br/>
             <br/>
-            <button value="Submit" id={this.props.selectedTrail.id} 
+            <button value="Submit" id={this.props.selectedTrail.id}
             onClick={(e) => {
                 const comment = document.getElementById('commentForm').value;
-                const author = document.getElementById('authorForm').value;            
+                const author = document.getElementById('authorForm').value;
                 this.props.postComment(e.target.id, comment, author)
                 document.getElementById('commentForm').value = '';
                 document.getElementById('authorForm').value = '';
@@ -61,4 +61,3 @@ class TrailContainer extends Component {
 };
 
 export default TrailContainer;
-
