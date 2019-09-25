@@ -11,7 +11,7 @@
 import React, { Component } from 'react';
 import MainContainer from "./containers/MainContainer.jsx";
 import TrailContainer from './containers/TrailContainer.jsx';
-
+import FavsPage from './components/FavsPage';
 //state includes data retrieved from REI API, selects selected trail
 // holds trail specific comments pulled from database
 class App extends Component {
@@ -181,6 +181,11 @@ class App extends Component {
         if (!this.state.isLoggedIn) return <Redirect to="/login" />
         return (
             <div className='appContainer'>
+                <FavsPage
+                className = "getUserTrails"
+                savedTrails = {this.state.savedTrails}
+                hikedTrails = {this.state.hikedTrails}
+                />
                 <MainContainer
                 className='mainContainer'
                 trailData={this.state.trailData}

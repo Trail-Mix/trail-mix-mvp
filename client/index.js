@@ -13,6 +13,7 @@ import { render } from "react-dom";
 import App from "./App.jsx";
 import Login from "../login/Login.jsx";
 import Signup from "../login/Signup.jsx";
+import FavsPage from "./components/FavsPage.jsx";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 //uses ReactRouter to route the paths for login, signup, and homepage
@@ -23,6 +24,7 @@ render(
                 <Route path="/" exact component={Login} />
                 <Route path="/signup" component={Signup} />
                 <Route path="/homepage" component={App} />
+                <Route path="/FavsPage" component={FavsPage}/>
             </Switch>
         </Router>
     </div >, document.getElementById("content")

@@ -35,6 +35,7 @@ module.exports = {
         '/comments': 'http://localhost:3000',
         '/trail/add': 'http://localhost:3000',
         '/trail/remove': 'http://localhost:3000',
+        '/favs': 'http://localhost:3000'
       }
     },
     resolve: {

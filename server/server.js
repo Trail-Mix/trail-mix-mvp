@@ -30,6 +30,11 @@ app.post('/trail/remove', trailController.removeTrail, (req, res) => {
   res.status(200).send(res.locals);
 })
 
+//get route to get usertrails
+app.post('/favs', trailController.getUserTrails, (req,res) => {
+  res.status(200).send(res.locals)
+})
+
 
 //routes post request upon login to verify user
 app.post('/login', queries.verifyUser, (req, res) => {

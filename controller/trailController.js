@@ -39,5 +39,22 @@ trailController.removeTrail = (req, res, next) => {
     });
 };
 
+trailController.getUserTrails = (req, res, next) => {
+    const {id} = req.body;
+    pool.query(`SELECT * FROM trails WHERE user_id=${id}`, (error, results) => {
+        if (error) throw error;
+
+        const hikedTrails = results.rows.filter((x) => {
+            if (x.hiked === true) {
+                return x;
+            };
+        })  
+
+        res.locals.hiked = hikedTrails;
+        res.locals.trails = results.rows;
+        return next();
+      });
+
+};
 
 module.exports = trailController;
