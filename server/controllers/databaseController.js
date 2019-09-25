@@ -56,8 +56,10 @@ databaseController.createUser = async (req, res, next) => {
       const { rows } = await db.query(query);
       res.locals.users = rows[0];
       res.locals.verified = true
+      console.log('r',res.locals.verified)
   } catch(err) {
       res.locals.verified = false;
+      console.log("res", res.locals.verified)
       return next({
           log: `Error in createUser db query: ${err}`
       });
