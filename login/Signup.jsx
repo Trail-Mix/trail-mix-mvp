@@ -9,7 +9,7 @@
  * ************************************
  */
 import React, { Component } from "react";
-import { Redirect } from "react-router-dom";
+import { Redirect, Link } from "react-router-dom";
 import "./signupstyle.css";
 
 // Signup componenet is for the users to create their login username and password
@@ -58,16 +58,22 @@ class Signup extends Component {
         } else {
             pages =
                 <div className="signupArea">
-                    <img src="../assets/trail-mix-logo-small.jpg" className="pic"></img>
-                    <h2 className="welcome">Create Trail Mix Account</h2>
-
-                    <form action="/signup" className="userInfo" >
-                        <label className="labeluser"> Username: </label>
-                        <input className="username" type="text" placeholder="username" onChange={e => { this.setState({ username: e.target.value }) }}></input>
-                        <label className="labelpsw"> Password: </label>
-                        <input className="password" type="password" placeholder="password" onChange={e => { this.setState({ password: e.target.value }) }}></input>
-                        <button className="loginbtn" type="submit" value="createUser" onClick={e => { e.preventDefault(); this.updateData() }}> SignUp </button>
-                    </form >
+                    <div>
+                      <img src="https://images.unsplash.com/photo-1500049242364-5f500807cdd7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=900&q=60" width="350px"/>
+                    </div>
+                    <div className="login-container">
+                      <div className="login-header">Create An Account</div>
+                      <form action="/signup" className="userInfo">
+                        <div className="text-field">
+                          <input className="username" type="text" placeholder="username" onChange={e => { this.setState({ username: e.target.value }) }}></input>
+                        </div>
+                        <div className="text-field">
+                          <input className="password" type="password" placeholder="password" onChange={e => { this.setState({ password: e.target.value }) }}></input>
+                        </div>
+                        <br />
+                          <button className="loginbtn" type="submit" value="createUser" onClick={e => { e.preventDefault(); this.updateData() }}>Sign Up</button>
+                      </form>
+                    </div>
                 </div>
         };
         return <div>{pages}</div>
