@@ -49,8 +49,8 @@ databaseController.createUser = async (req, res, next) => {
 
   const hash = await bcrypt.hash(password, SALT_WORK_FACTOR);
   const query = {
-      text: 'INSERT INTO users(username, password, id) VALUE ($1, $2, $3) RETURNING *',
-      values: [username, hash, id],
+      text: 'INSERT INTO users(username, password) VALUES ($1, $2) RETURNING *',
+      values: [username, hash],
   };
   try {
       const { rows } = await db.query(query);
@@ -71,7 +71,7 @@ databaseController.verifyUser = (req, res, next) => {
 
   db.query('SELECT password FROM users where username = $1', [username], (error, results) => {
     if (error) throw error;
-    if(results.rows.length === 1) {
+    if(results.rows.length) {
       bcrypt.compare(password, results.rows[0].password, (err, isMatch) => {
         if (err) return err;
         if (!isMatch) {
