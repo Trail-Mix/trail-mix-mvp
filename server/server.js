@@ -2,6 +2,8 @@ const path = require('path');
 const express = require('express');
 const bodyParser = require('body-parser');
 const trailController = require('../controller/trailController');
+const commentsController = require('../controller/commentsController');
+
 const queries = require('../database/queries.js')
 
 const app = express();
@@ -15,21 +17,41 @@ app.get('/homepage', (req, res) => {
   res.status(200).sendFile(path.resolve(__dirname, '../index.html'));
 });
 
-//fetches trail data from REI API
+// fetches trail data from REI API
 app.get('/data', trailController.getTrails, (req, res) => {
   res.status(200).send(res.locals.trails);
 })
 
+// fetches hikers associated with a trail
+app.post('/hikers', trailController.getHikers, trailController.getHikersInfo, (req, res) => {
+  res.status(200).send(res.locals.hikers);
+})
+
+// get featured trail
+app.post('/trail', trailController.getTrail, commentsController.getComments, (req, res) => {
+  res.status(200).send(res.locals);
+})
+
+// save trail to user
+app.post('/trail/add', trailController.saveTrail, (req, res) => {
+  res.status(200).send(res.locals);
+})
+
+// remove trail from user
+app.post('/trail/remove', trailController.removeTrail, (req, res) => {
+  res.status(200).send(res.locals);
+})
+
+
 //routes post request upon login to verify user
 app.post('/login', queries.verifyUser, (req, res) => {
-  const { verified } = res.locals;
-  return res.status(200).json(verified);
+  return res.status(200).json(res.locals);
 })
 
 // post request that brings in user-input signup information, creates a new user in the database, and sends verification to the front end
 app.post('/signup', queries.createUser, (req, res) => {
-  const { verified } = res.locals;
-  return res.status(200).json(verified);
+  // const { verified } = res.locals;
+  return res.status(200).json(res.locals);
 })
 
 // sends all comments pertaining to trail ID

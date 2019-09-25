@@ -13,7 +13,7 @@ import React, { useState, useEffect } from "react";
 import ReactMapGl, { Marker, Popup } from 'react-map-gl';
 import SvgTrekking from "./Icons/Trekking.js";
 
-//importing ReactMapGl component from react-map-gl module, using react hooks to set local state 
+//importing ReactMapGl component from react-map-gl module, using react hooks to set local state
 const MapDisplay = props => {
     console.log(props)
     const [viewport, setViewport] = useState({
@@ -41,7 +41,7 @@ const MapDisplay = props => {
             >
                 {/* map through trailData array in state to produce marker components, as well as popup components, on the map */}
             {props.trailData.map(trail => (
-                <Marker 
+                <Marker
                 key={trail.id}
                 latitude={trail.latitude}
                 longitude={trail.longitude}

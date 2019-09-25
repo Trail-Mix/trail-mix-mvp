@@ -23,7 +23,7 @@ const TrailDisplay = props => {
         <p> Trail Rating: {props.selectedTrail && props.selectedTrail.stars}&nbsp;stars</p>
         <p> Ascent: {props.selectedTrail && props.selectedTrail.ascent}&nbsp;<br></br>
         Descent: {props.selectedTrail && props.selectedTrail.descent}</p>
-        <p> Conditions: {props.selectedTrail && props.selectedTrail.conditionStatus}<br/> 
+        <p> Conditions: {props.selectedTrail && props.selectedTrail.conditionStatus}<br/>
         ({props.selectedTrail && props.selectedTrail.conditionDate})</p>
         <br/><br/><br/>
     </div>

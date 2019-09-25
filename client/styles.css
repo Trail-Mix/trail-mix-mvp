@@ -1,3 +1,8 @@
+body {
+  font-family: 'Work Sans', sans-serif;
+  background-color: #efefef;
+}
+
 .appContainer {
     position: relative;
     z-index: 1;
@@ -26,10 +31,15 @@
 
 #map-display {
     z-index: 1;
+    margin-top: 7px;
+}
+
+.listDisplay {
+  margin-top: 30px;
 }
 
 .list {
-    display: flex;
+  display: flex;
 }
 
 .evens {
@@ -58,7 +68,7 @@
 .middle, .right {
     width: 30%;
 }
-  
+
 .row:after {
     content: "";
     display: table;
@@ -150,4 +160,15 @@
     border: 2px solid darkgreen;
     border-radius: 5px;
     z-index: 2;
+}
+
+.navigation {
+  padding: 30px 50px;
+}
+
+.navigation a {
+  padding: 20px;
+  text-decoration: none;
+  color: black;
+  text-transform: uppercase;
 }

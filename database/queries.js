@@ -1,8 +1,4 @@
-const { Pool } = require('pg');
-const pool = new Pool({
-  connectionString: 'postgres://hiiudcpk:Ozq8Ezo4e1c0HZGONL6i2M5_PmHDKUMV@salt.db.elephantsql.com:5432/hiiudcpk'
-});
-
+const { pool } = require('../server/config');
 const SALT_WORK_FACTOR = 10;
 const bcrypt = require('bcryptjs');
 
@@ -19,7 +15,7 @@ const getComment = (req, res, next) => {
 //query posting new comment to DB and then fetching all comments including the one just posted
 const postComment = (req, res, next) => {
   const { author, comment, id } = req.body;
-  
+
   if(author && comment && id) {
     pool.query('INSERT INTO comments (author, comment, id) VALUES ($1, $2, $3)', [author, comment, id], (error, results) => {
     if (error) throw error;
@@ -43,6 +39,7 @@ const createUser = (req, res, next) => {
           pool.query('INSERT INTO users (username, password) VALUES ($1, $2) returning *', [username, hash], (error, results) => {
             if (error) throw error;
             res.locals.verified = true;
+            res.locals.userId = results.rows._id;
             return next();
           });
         });
@@ -58,7 +55,7 @@ const createUser = (req, res, next) => {
 const verifyUser = (req, res, next) => {
   const { username, password } = req.body;
 
-  pool.query('SELECT password FROM users where username = $1', [username], (error, results) => {
+  pool.query('SELECT password, _id FROM users where username = $1', [username], (error, results) => {
     if (error) throw error;
     if(results.rows.length === 1) {
       bcrypt.compare(password, results.rows[0].password, (err, isMatch) => {
@@ -67,6 +64,7 @@ const verifyUser = (req, res, next) => {
           res.locals.verified = false;
           return next();
         } else {
+          res.locals.userId = results.rows[0]._id
           res.locals.verified = true;
           return next();
         };
