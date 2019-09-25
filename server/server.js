@@ -3,7 +3,9 @@ const path = require('path');
 const express = require('express');
 const bodyParser = require('body-parser');
 const trailController = require('./controllers/trailController');
-const databaseController = require('./controllers/databaseController.js')
+const databaseController = require('./controllers/databaseController.js');
+const commentController = require('./controllers/commentController');
+console.log("cc",commentController);
 
 const app = express();
 const PORT = 3000;
@@ -37,12 +39,12 @@ app.post('/signup', databaseController.createUser, (req, res) => {
 })
 
 // sends all comments pertaining to trail ID
-app.get('/comments', databaseController.getComment, (req, res) => {
+app.get('/comments', databaseController.findUser, commentController.getComment, (req, res) => {
   res.status(200).send(res.locals.comments)
 })
 
 //posts new comment in database and sends back all comments pertaining to unique trail ID
-app.post('/comments', databaseController.postComment, (req, res) => {
+app.post('/comments', commentController.postComment, (req, res) => {
   res.status(200).send(res.locals.comments)
 })
 

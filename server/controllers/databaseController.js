@@ -5,42 +5,7 @@ const databaseController = { };
 const SALT_WORK_FACTOR = 10;
 const bcrypt = require('bcryptjs');
 
-// query fetching all comments for specific trails
-databaseController.getComment = async (req, res, next) => {
-    console.log("getComment")
-  const { id } = req.headers;
-  const query = {
-      text: 'SELECT * FROM comments where id = $1',
-      values: [id],
-  };
-  try {
-      const result = await db.query(query);
-      res.locals.comments = results.rows;
-      return next();
-  } catch (err){
-      return next({
-          log: `Error in getComment database query: ${err}`,
-      });
-  }
-};
 
-//query posting new comment to DB and then fetching all comments including the one just posted
-databaseController.postComment = async (req, res, next) => {
-    console.log("postComment")
-  const { author, comment, id } = req.body;
-  const query = {
-      text: 'INSERT INTO comments (author, comment, id) VALUES ($1, $2, $3) RETURNING *',
-      values: [author, comment, id],
-  };
-  try{
-      const { rows } = await db.query(query);
-      res.locals.comments = rows[0]
-  } catch(err){
-      return next({
-          log: `Error in postComment db query: ${err}`,
-      });
-  }
-};
 
 //add user and bcrypt password to database
 databaseController.createUser = async (req, res, next) => {
@@ -66,6 +31,12 @@ databaseController.createUser = async (req, res, next) => {
   }
   return next()
 };
+
+databaseController.findUser = async(req, res, next) => {
+  console.log("Finding a user")
+
+  return next();
+}
 
 // query username and password and see if matches are in the database
 databaseController.verifyUser = (req, res, next) => {
