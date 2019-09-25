@@ -8,26 +8,26 @@
  * CommentsDisplay
  * ************************************
  */
-import React, { Component} from "react";
+import React from "react";
 import TrailDisplay from "../components/TrailDisplay.jsx";
 import CommentsDisplay from "../components/CommentsDisplay.jsx";
 
 //container component for individual TrailDisplay and CommentsDisplay
 //maps through comments to pull desired values 
-class TrailContainer extends Component {
-    render() {
-        let comments = [];
-        if (this.props.comments) {
-            comments = this.props.comments.map((cur, idx) => {
-                return (
-                    <CommentsDisplay key = {idx}
-                    comment = {cur.comment}
-                    author = {cur.author}
-                    postComment = {this.props.postComment}
-                    getTrail = {this.props.getTrail} />
-                );
-            });
-        };
+const TrailContainer = () => {
+  render() {
+    let comments = [];
+      if (this.props.comments) {
+        comments = this.props.comments.map((cur, idx) => {
+          return (
+            <CommentsDisplay key = {idx}
+            comment = {cur.comment}
+            author = {cur.author}
+            postComment = {this.props.postComment}
+            getTrail = {this.props.getTrail} />
+          );
+        });
+      };
         return (
             <div className='modalGuts'>
                 <button onClick={(e) => this.props.noTrail()}>close</button>
@@ -57,7 +57,7 @@ class TrailContainer extends Component {
                 </div>
             </div>
         );
-    };
+  };
 };
 
 export default TrailContainer;

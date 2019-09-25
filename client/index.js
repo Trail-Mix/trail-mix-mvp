@@ -11,8 +11,8 @@
 import React from "react";
 import { render } from "react-dom";
 import App from "./App.jsx";
-import Login from "../login/Login.jsx";
-import Signup from "../login/Signup.jsx";
+import Login from "./login/Login.jsx";
+import Signup from "./login/Signup.jsx";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 //uses ReactRouter to route the paths for login, signup, and homepage
