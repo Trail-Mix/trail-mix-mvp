@@ -3,7 +3,8 @@ const path = require('path');
 const express = require('express');
 const bodyParser = require('body-parser');
 const trailController = require('./controllers/trailController');
-const userController = require('./controllers/userController.js')
+const userController = require('./controllers/userController.js');
+const sessionController = require('./controllers/sessionController.js')
 
 const app = express();
 const PORT = 3000;
@@ -22,15 +23,15 @@ app.get('/data', trailController.getTrails, (req, res) => {
 })
 
 //routes post request upon login to verify user
-app.post('/login', userController.verifyUser, sessionController.createSessionsTable, (req, res) => {
+app.post('/login', userController.verifyUser, sessionController.createSessionsTable, sessionController.startSession, (req, res) => {
   const { verified } = res.locals;
+  console.log('res.locals from login', res.locals);
   return res.status(200).json(verified);
 })
 
 // post request that brings in user-input signup information, creates a new user in the database, and sends verification to the front end
-app.post('/signup', userController.createTable, userController.createUser, sessionController.createSessionsTable, (req, res) => {
+app.post('/signup', userController.createTable, userController.createUser, sessionController.createSessionsTable, sessionController.startSession, (req, res) => {
   const { verified } = res.locals;
-  console.log('verified', verified);
   return res.status(200).json(verified);
 })
 

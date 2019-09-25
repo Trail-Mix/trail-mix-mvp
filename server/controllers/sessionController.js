@@ -1,4 +1,5 @@
 const db = require('../database/database.js');
+const uuid = require('uuidv4').default;
 
 const sessionController = {};
 
@@ -24,6 +25,7 @@ sessionController.createSessionsTable = (req, res, next) => {
   const table = `CREATE TABLE IF NOT EXISTS sessions
                 (_id SERIAL PRIMARY KEY,
                  cookie_id VARCHAR,
+                 user_id INT,
                  created_at TIMESTAMP)`;
 
   db.query(table, null, (err, results) => {
@@ -39,15 +41,20 @@ sessionController.createSessionsTable = (req, res, next) => {
 *
 *
 */
-sessionController.startSession = (req, res, next) => {
-  //write code here
-  Session.create({cookieId: res.locals.id}, (error, session) => {
-    if (error) {
-      res.json(error);
-    } else {
-      return next();
-    }
-  });
+sessionController.startSession = async (req, res, next) => {
+  const ssid = uuid();
+
+  try {
+    await db.query('INSERT INTO sessions (cookie_id, user_id, created_at) VALUES ($1, $2, CURRENT_TIMESTAMP) returning *', [ssid, res.locals.userId]);
+  } catch(err) {
+    return next({
+      log: `Error inserting users into db ${err}`
+    })
+  }
+
+  res.locals.cookie_id = ssid;
+
+  return next();
 };
 
 module.exports = sessionController;
