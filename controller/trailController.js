@@ -54,7 +54,7 @@ trailController.getHikersInfo = (req, res, next) => {
 
     const values = hikersIds.join(", ");
 
-    pool.query(`SELECT _id, username FROM users WHERE _id IN ('${values}')`, (error, results) => {
+    pool.query(`SELECT _id, username FROM users WHERE _id IN (${values})`, (error, results) => {
       if (error) throw error;
       res.locals.hikers = results.rows
       return next();

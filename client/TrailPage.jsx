@@ -1,5 +1,6 @@
 import React from 'react'
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
+import Hiker from './components/Hiker.jsx';
 
 class TrailPage extends React.Component {
   constructor(props) {
@@ -62,6 +63,10 @@ class TrailPage extends React.Component {
 
     const { id, name, url, stars, summary, location, length, difficulty, imgMedium, high } = this.state.trail;
 
+    const hikers = this.state.hikers.map((x, index) => {
+        return <Hiker key={index} username={x.username} />
+    })
+
     return (
       <div>
         Trail Page
@@ -73,8 +78,7 @@ class TrailPage extends React.Component {
         <p>{length}</p>
         <p>{difficulty}</p>
         <img src={imgMedium} />
-
-        <p>{ /* this.state.hikers */ }</p>
+        <div>{ hikers }</div>
       </div>
     )
   }
