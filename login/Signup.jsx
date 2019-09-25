@@ -4,7 +4,7 @@
  * @module  signup.js
  * @author
  * @date
- * @description entry point for application.  
+ * @description entry point for application.
  *
  * ************************************
  */
@@ -19,12 +19,13 @@ class Signup extends Component {
         this.state = {
             username: "",
             password: "",
-            verified: false
+            verified: false,
+            userId: null
         };
         this.updateData = this.updateData.bind(this);
     };
 
-    // post request to send user input to database 
+    // post request to send user input to database
     updateData() {
         const url = ('/signup');
         const data = {
@@ -42,7 +43,8 @@ class Signup extends Component {
             .then(res => res.json())
             .then(res => {
                 this.setState({
-                    verified: res
+                    verified: res.verified,
+                    userId: res.userId,
                 });
             }).catch(err => console.log(err));
     };
@@ -52,7 +54,7 @@ class Signup extends Component {
     render() {
         let pages;
         if (this.state.verified) {
-            return <Redirect to="/homepage" />
+            return <Redirect to={{ pathname: '/homepage', state: { id: this.state.userId, username: this.state.username } }} />
         } else {
             pages =
                 <div className="signupArea">

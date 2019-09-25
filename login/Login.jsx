@@ -50,7 +50,7 @@ class Login extends Component {
     render() {
         let pages;
         if (this.state.isLoggedIn) {
-            return <Redirect to={{ pathname: '/homepage', state: { id: this.state.userId } }} />
+            return <Redirect to={{ pathname: '/homepage', state: { id: this.state.userId, username: this.state.username } }} />
         } else {
             pages =
                 <div className="loginArea">

@@ -27,13 +27,14 @@ class ListContainer extends Component {
                       showKey={this.props.showKey}
                       saveTrail={this.props.saveTrail}
                       userId={this.props.userId}
+                      username={this.props.username}
                     />
                 );
             });
             return (
-                < div className="listDisplay" >
-                    {trails}
-                </div >
+                <div className="listDisplay">
+                   {trails}
+                </div>
             );
 };
 };

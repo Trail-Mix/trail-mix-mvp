@@ -33,12 +33,13 @@ class MainContainer extends Component {
                   diffKey={this.props.diffKey}
                   saveTrail={this.props.saveTrail}
                   userId={this.props.userId}
+                  username={this.props.username}
                 />
                 {/* conditional renders difficulty key overlay */}
                 {this.props.diffKey && (
-                    <div>
-                        <img id='diff-key' src='../../assets/diff-key.jpg' />
-                    </div>
+                  <div>
+                      <img id='diff-key' src='../../assets/diff-key.jpg' />
+                  </div>
                 )}
             </div>
         );
