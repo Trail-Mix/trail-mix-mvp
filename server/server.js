@@ -15,9 +15,19 @@ app.get('/homepage', (req, res) => {
   res.status(200).sendFile(path.resolve(__dirname, '../index.html'));
 });
 
-//fetches trail data from REI API
+// fetches trail data from REI API
 app.get('/data', trailController.getTrails, (req, res) => {
   res.status(200).send(res.locals.trails);
+})
+
+// fetches hikers associated with a trail
+app.post('/hikers', trailController.getHikers, trailController.getHikersInfo, (req, res) => {
+  res.status(200).send(res.locals.hikers);
+})
+
+// get featured trail
+app.post('/trail', trailController.getTrail, (req, res) => {
+  res.status(200).send(res.locals.trail);
 })
 
 // save trail to user

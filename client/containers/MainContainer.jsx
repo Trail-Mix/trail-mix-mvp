@@ -21,18 +21,18 @@ class MainContainer extends Component {
             <div id="main-container">
                 <img src="../../assets/trail-mix-logo-small.jpg" className='logo'/><br />
                 <MapDisplay
-                id="map-display"
-                trailData={this.props.trailData}
-                getTrail={this.props.getTrail}
-                displayTrail={this.props.displayTrail}
+                  id="map-display"
+                  trailData={this.props.trailData}
+                  getTrail={this.props.getTrail}
+                  displayTrail={this.props.displayTrail}
                 /><br />
                 <ListContainer
-                trailData={this.props.trailData}
-                getTrail={this.props.getTrail}
-                showKey={this.props.showKey}
-                diffKey={this.props.diffKey}
-                saveTrail={this.props.saveTrail}
-                userId={this.props.userId}
+                  trailData={this.props.trailData}
+                  getTrail={this.props.getTrail}
+                  showKey={this.props.showKey}
+                  diffKey={this.props.diffKey}
+                  saveTrail={this.props.saveTrail}
+                  userId={this.props.userId}
                 />
                 {/* conditional renders difficulty key overlay */}
                 {this.props.diffKey && (
