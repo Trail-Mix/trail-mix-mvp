@@ -8,7 +8,9 @@
  * ************************************
  */
 import React, { Component } from "react";
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import ListDisplay from "../components/ListDisplay.jsx";
+import { Button, Table, Row } from 'reactstrap'
 
 //container component that holds the list display of trails
 //also maps through trailData array and sets props for desired values
@@ -16,27 +18,42 @@ class ListContainer extends Component {
     render() {
             const trails = this.props.trailData.map((trail, idx) => {
                 return (
-                    <ListDisplay idx={idx} key={idx}
-                      name = {trail.name}
-                      location = {trail.location}
-                      length = {trail.length}
-                      difficulty = {trail.difficulty}
-                      id = {trail.id}
-                      trailData = {this.props.trailData}
-                      getTrail = {this.props.getTrail}
-                      showKey={this.props.showKey}
-                      saveTrail={this.props.saveTrail}
-                      userId={this.props.userId}
-                      username={this.props.username}
-                    />
+                  <tr key={trail.id}>
+                      <td>{trail.name}</td>
+                      <td>{trail.location}</td>
+                      <td>{trail.difficulty}</td>
+                      <td>
+                        <Row>
+                          <Button onClick={(e) => this.props.saveTrail(e, trail)}>Like</Button>
+                        </Row>
+                        <Row>
+                          <Link to={{
+                            pathname: `/trail/${trail.id}`,
+                            state: {
+                              username: this.props.username
+                            }
+                          }}>Details</ Link>
+                        </Row>
+                      </td>
+                    </tr>
                 );
             });
             return (
-                <div className="listDisplay">
-                   {trails}
-                </div>
+              <Table size="lg" striped>
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Location</th>
+                    <th>Difficulty</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {trails}
+                </tbody>
+              </Table>
             );
-};
+   };
 };
 
 export default ListContainer;
