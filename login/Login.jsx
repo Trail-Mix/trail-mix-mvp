@@ -50,25 +50,30 @@ class Login extends Component {
     render() {
         let pages;
         if (this.state.isLoggedIn) {
-            return <Redirect to={{ pathname: '/homepage', state: { id: this.state.userId } }} />
+            return <Redirect to={{ pathname: '/homepage', state: { id: this.state.userId, username: this.state.username } }} />
         } else {
             pages =
                 <div className="loginArea">
-
-                    <img src="../assets/trail-mix-logo-small.jpg" className="pic"></img>
-
-                    <form className="userInfo" >
-                        <label className="labeluser"> Username: </label>
-                        <input className="username" type="text" placeholder="username" onChange={e => { this.setState({ username: e.target.value }) }}></input>
+                    <div>
+                      <img src="https://images.unsplash.com/photo-1500049242364-5f500807cdd7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=900&q=60" width="350px"/>
+                    </div>
+                    <div className="login-container">
+                      <div className="login-header">Account Login</div>
+                      <form className="userInfo">
+                        <div className="text-field">
+                          <input className="username" type="text" placeholder="username" onChange={e => { this.setState({ username: e.target.value }) }}></input>
+                        </div>
+                        <div className="text-field">
+                          <input className="password" type="password" placeholder="password" onChange={e => { this.setState({ password: e.target.value }) }}></input>
+                        </div>
                         <br />
-                        <label className="labelpsw"> Password: </label>
-                        <input className="password" type="password" placeholder="password" onChange={e => { this.setState({ password: e.target.value }) }}></input>
                         <button className="loginbtn" type="submit" onClick={e => {
                             e.preventDefault(); this.updateData();
-                        }}> Login</button>
-                    </form>
-                    <div className="link">
-                        <Link to="./signup"> SIGNUP </Link>
+                        }}>Sign In</button>
+                      </form>
+                      <div className="sign-up-link">
+                          <Link to="./signup">Sign Up</Link>
+                      </div>
                     </div>
                 </div >
         };

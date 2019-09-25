@@ -1,67 +1,56 @@
 .loginArea {
-    display: grid;
-    grid-auto-rows: 30% 80% 10%;
-    align-content: center;
-    justify-content: center;
-    height: 200px;
-    width: 1270px;
-    margin: 140px 0px -10px 0px;
-}
-
-.pic {
-    width:350px;
-    height:200px;
-    margin: -40px -100px 0px 450px;
-}
-
-@keyframes mymove {
-  0%   {top: 0px; left: 0px; background: rgb(122, 185, 119);}
-  25%  {top: 0px; left: 0px; background:  #4f4507;}
-  50%  {top: 0px; left: 0px; background: rgb(122, 185, 119);}
-  75%  {top: 0px; left: 0px; background: #4f4507;}
-  85% {top: 0px; left: 0px; background: rgb(122, 185, 119);}
-  100% {top: 0px; left: 0px; background: #4f4507;}
-}
-
-.userInfo {
     display: flex;
-    align-items: flex-end;
-    justify-content: flex-end;
-    font-size:120%;
-    padding: 180px 400px 0px 400px;
+    justify-content: center;
+    margin-top: 120px;
 }
 
-.labeluser {
-    margin-right: 10px; 
+.login-container {
+  padding: 50px 60px;
+  background-color: white;
+  width: 220px;
+  position: relative;
 }
 
-.labelpsw {
-    margin-left:20px;
-    margin-right: 10px; 
-}
-
-.username {
-    font-size: 15px;
-}
-
-.password {
-    font-size: 15px;
+.login-header {
+  margin-top: 80px;
+  text-align: center;
+  padding-bottom: 18px;
 }
 
 .loginbtn {
-    margin: 20px 60px -8px 40px;
-    -webkit-animation: mymove 5s infinite;
-    animation: mymove 5s infinite;
-    color: white;
-    border-radius: 10%;
-    font-size: 20px;
-    padding: 6px 20px;
+  font-size: 12px !important;
+  background: #7c8e8e;
+  width: 100%;
+  margin-left: auto !important;
+  margin-right: auto;
+  display: block;
+  padding: 9px;
+  color: white;
+  text-transform: uppercase;
+  border-radius: 2px;
 }
 
-.link {
-    display: flex;
-    align-items: flex-end;
-    justify-content: flex-end;
-    margin: 100px 460px -90px 0px;
-    font-size:18px;
+.sign-up-link {
+  text-align: center;
+  position: absolute;
+  bottom: 0;
+  left: 136px;
+  padding-bottom: 20px;
+}
+
+.sign-up-link  a {
+  text-decoration: none;
+  color: black;
+}
+
+.username, .password {
+  width: 100%;
+  margin-top: 10px;
+  font-size: 12px;
+  font-family: 'Work Sans', sans-serif;
+  padding: 6px;
+  box-sizing: border-box; /* add this */
+ -webkit-box-sizing: border-box;
+ -moz-box-sizing: border-box;
+ border: 1px solid slategrey;
 }

@@ -20,7 +20,7 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        use: ['style-loader', 'css-loader'],
+        use: ['style-loader', 'css-loader', 'sass-loader'],
         exclude: /node_modules/,
       }
     ]},
@@ -33,6 +33,8 @@ module.exports = {
         '/signup':'http://localhost:3000',
         '/login':'http://localhost:3000',
         '/comments': 'http://localhost:3000',
+        '/hikers': 'http://localhost:3000',
+        '/trail': 'http://localhost:3000',
         '/trail/add': 'http://localhost:3000',
         '/trail/remove': 'http://localhost:3000',
         '/favs': 'http://localhost:3000'

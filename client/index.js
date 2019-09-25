@@ -11,10 +11,12 @@
 import React from "react";
 import { render } from "react-dom";
 import App from "./App.jsx";
+import TrailPage from "./TrailPage.jsx";
 import Login from "../login/Login.jsx";
 import Signup from "../login/Signup.jsx";
 import FavsPage from "./components/FavsPage.jsx";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import SimpleStorage from "react-simple-storage";
 
 //uses ReactRouter to route the paths for login, signup, and homepage
 render(
@@ -24,8 +26,16 @@ render(
                 <Route path="/" exact component={Login} />
                 <Route path="/signup" component={Signup} />
                 <Route path="/homepage" component={App} />
-                <Route path="/FavsPage" component={FavsPage}/>
+                <Route path="/favs" component={FavsPage}/>
+                <div className="nav-content-container">
+                  <div className="navigation">
+                    <a href="/homepage">Trail Mix</a>
+                    <a href="/favs">My Favs</a>
+                  </div>
+                  <Route path="/homepage" component={App} />
+                  <Route path="/trail/:id" component={TrailPage} />
+                </div>
             </Switch>
         </Router>
-    </div >, document.getElementById("content")
+    </div>, document.getElementById("content")
 );

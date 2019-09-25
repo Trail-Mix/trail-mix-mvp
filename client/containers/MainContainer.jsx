@@ -19,27 +19,27 @@ class MainContainer extends Component {
     render() {
         return (
             <div id="main-container">
-                <img src="../../assets/trail-mix-logo-small.jpg" className='logo'/><br />
                 <MapDisplay
-                id="map-display"
-                trailData={this.props.trailData}
-                getTrail={this.props.getTrail}
-                displayTrail={this.props.displayTrail}
-                /><br />
+                  id="map-display"
+                  trailData={this.props.trailData}
+                  getTrail={this.props.getTrail}
+                  displayTrail={this.props.displayTrail}
+                />
                 <ListContainer
-                trailData={this.props.trailData}
-                getTrail={this.props.getTrail}
-                showKey={this.props.showKey}
-                diffKey={this.props.diffKey}
-                saveTrail={this.props.saveTrail}
-                userId={this.props.userId}
+                  trailData={this.props.trailData}
+                  getTrail={this.props.getTrail}
+                  showKey={this.props.showKey}
+                  diffKey={this.props.diffKey}
+                  saveTrail={this.props.saveTrail}
+                  userId={this.props.userId}
+                  username={this.props.username}
                 />
                 {/* conditional renders difficulty key overlay */}
                 {this.props.diffKey && (
-                    <div>
-                        <img id='diff-key' src='../../assets/diff-key.jpg' />
-                    </div>
-                )};
+                  <div>
+                      <img id='diff-key' src='../../assets/diff-key.jpg' />
+                  </div>
+                )}
             </div>
         );
     };

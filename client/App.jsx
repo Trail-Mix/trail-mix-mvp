@@ -10,8 +10,8 @@
  */
 import React, { Component } from 'react';
 import MainContainer from "./containers/MainContainer.jsx";
-import TrailContainer from './containers/TrailContainer.jsx';
 import FavsPage from './components/FavsPage';
+
 //state includes data retrieved from REI API, selects selected trail
 // holds trail specific comments pulled from database
 class App extends Component {
@@ -21,6 +21,7 @@ class App extends Component {
 
         this.state = {
           userId: null,
+          username: null,
           trailData: [],
           selectedTrail: null,
           isLoggedIn: true,
@@ -31,8 +32,6 @@ class App extends Component {
         this.getTrail = this.getTrail.bind(this);
         this.saveTrail = this.saveTrail.bind(this);
         this.removeTrail = this.removeTrail.bind(this);
-        this.noTrail = this.noTrail.bind(this);
-        this.postComment = this.postComment.bind(this);
         this.displayTrail = this.displayTrail.bind(this);
         this.showKey = this.showKey.bind(this);
     };
@@ -41,7 +40,8 @@ class App extends Component {
     componentDidMount() {
 
             this.setState({
-              userId: this.props.location.state.id
+              userId: this.props.location.state.id,
+              username: this.props.location.state.username
             });
 
             fetch('/data')
@@ -112,7 +112,6 @@ class App extends Component {
     }
 
     removeTrail(event, props) {
-
       event.preventDefault();
 
       fetch('/trail/remove', {
@@ -129,38 +128,6 @@ class App extends Component {
           return res.json();
       })
     }
-
-
-    //closes TrailDisplay overlay
-    noTrail() {
-      this.setState({selectedTrail: null})
-    }
-
-    //adds comment and author to database and pulls back all comments for specified trail and sets to state
-    postComment(id, comment, author) {
-        fetch('/comments', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                id: id,
-                comment: comment,
-                author: author
-            })
-        })
-        .then((res) => {
-            return res.json();
-        })
-        .then((res) => {
-            this.setState(state => {
-                return {
-                    ...state,
-                    comments: res
-                };
-            });
-        });
-    };
 
     //invoked when clicking on the map popups
     displayTrail(selectedHike) {
@@ -187,28 +154,19 @@ class App extends Component {
                 hikedTrails = {this.state.hikedTrails}
                 />
                 <MainContainer
-                className='mainContainer'
-                trailData={this.state.trailData}
-                getTrail={this.getTrail}
-                selectedTrail={this.state.selectedTrail}
-                displayTrail={this.displayTrail}
-                showKey={this.showKey}
-                diffKey={this.state.diffKey}
-                saveTrail={this.saveTrail}
-                userId={this.state.userId}
+                  className='mainContainer'
+                  trailData={this.state.trailData}
+                  getTrail={this.getTrail}
+                  selectedTrail={this.state.selectedTrail}
+                  displayTrail={this.displayTrail}
+                  showKey={this.showKey}
+                  diffKey={this.state.diffKey}
+                  saveTrail={this.saveTrail}
+                  userId={this.state.userId}
+                  username={this.state.username}
                 />
-                {this.state.selectedTrail &&
-                <TrailContainer
-                className="modal"
-                trailData={this.state.trailData}
-                selectedTrail={this.state.selectedTrail}
-                noTrail={this.noTrail}
-                postComment={this.postComment}
-                comments={this.state.comments}
-                />
-                }
             </div>
-    );
+        );
     };
 };
 
