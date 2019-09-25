@@ -6,7 +6,7 @@ const SALT_WORK_FACTOR = 10;
 const bcrypt = require('bcryptjs');
 
 // query fetching all comments for specific trails
-databaseController.getComment = (req, res, next) => {
+userController.getComment = (req, res, next) => {
   const { id } = req.headers;
   db.query('SELECT * FROM comments where id = $1', [id], (error, results) => {
     if (error) throw error;
@@ -16,7 +16,7 @@ databaseController.getComment = (req, res, next) => {
 };
 
 //query posting new comment to DB and then fetching all comments including the one just posted
-databaseController.postComment = (req, res, next) => {
+userController.postComment = (req, res, next) => {
   const { author, comment, id } = req.body;
 
   if(author && comment && id) {
@@ -31,30 +31,57 @@ databaseController.postComment = (req, res, next) => {
   };
 };
 
+userController.createTable = (req, res, next) => {
+  const table = `CREATE TABLE IF NOT EXISTS users
+                (_id SERIAL PRIMARY KEY,
+                 username VARCHAR,
+                 password VARCHAR)`;
+
+  db.query(table, null, (err, results) => {
+    if (err) throw err;
+  });
+
+  return next();
+}
+
 //add user and bcrypt password to database
-databaseController.createUser = (req, res, next) => {
+userController.createUser = async (req, res, next) => {
   const { username, password } = req.body;
+
   if (username && password) {
-    db.query('SELECT * from users WHERE username = $1', [username], (err, results) => {
-      if(results.rows.length === 0) {
-        bcrypt.hash(password, SALT_WORK_FACTOR, (err, hash) => {
-          if (err) throw err;
-          db.query('INSERT INTO users (username, password) VALUES ($1, $2) returning *', [username, hash], (error, results) => {
-            if (error) throw error;
-            res.locals.verified = true;
-            return next();
-          });
-        });
-      } else {
-        res.locals.verified = false;
-            return next();
-      };
-    });
-  };
+    let results;
+    try {
+      results = await db.query('SELECT * FROM users WHERE username = $1', [username]);
+    } catch(err) {
+      return next({
+        log: `Error searching for user in db ${err}`
+      });
+    }
+
+    if (results.rowCount === 0) {
+      await bcrypt.hash(password, SALT_WORK_FACTOR, async (err, hash) => {
+        if (err) throw err;
+        try {
+          await db.query('INSERT INTO users (username, password) VALUES ($1, $2) returning *', [username, hash])
+        } catch(err) {
+          return next({
+            log: `Error inserting users into db ${err}`
+          })
+        }
+      });
+    }
+
+    res.locals.verified = true;
+  } else {
+    res.locals.verified = false;
+  }
+  return next();
 };
 
+
+
 // query username and password and see if matches are in the database
-databaseController.verifyUser = (req, res, next) => {
+userController.verifyUser = (req, res, next) => {
   const { username, password } = req.body;
 
   db.query('SELECT password FROM users where username = $1', [username], (error, results) => {
