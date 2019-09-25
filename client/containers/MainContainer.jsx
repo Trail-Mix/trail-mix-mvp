@@ -2,7 +2,7 @@
  * ************************************
  *
  * @module  MainContainer
- * @author  
+ * @author
  * @date
  * @description stateful component that renders MapDisplay and ListContainer
  *
@@ -15,21 +15,24 @@ import ListContainer from "./ListContainer.jsx";
 
 //container that combines MapDisplay and ListContainer and passes down all necessary props
 class MainContainer extends Component {
+
     render() {
         return (
             <div id="main-container">
                 <img src="../../assets/trail-mix-logo-small.jpg" className='logo'/><br />
-                <MapDisplay 
+                <MapDisplay
                 id="map-display"
                 trailData={this.props.trailData}
                 getTrail={this.props.getTrail}
-                displayTrail={this.props.displayTrail} 
+                displayTrail={this.props.displayTrail}
                 /><br />
-                <ListContainer 
-                trailData={this.props.trailData} 
+                <ListContainer
+                trailData={this.props.trailData}
                 getTrail={this.props.getTrail}
                 showKey={this.props.showKey}
-                diffKey={this.props.diffKey} 
+                diffKey={this.props.diffKey}
+                saveTrail={this.props.saveTrail}
+                userId={this.props.userId}
                 />
                 {/* conditional renders difficulty key overlay */}
                 {this.props.diffKey && (

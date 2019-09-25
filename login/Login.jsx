@@ -4,7 +4,7 @@
  * @module  Login.js
  * @author
  * @date
- * @description entry point for application.  
+ * @description entry point for application.
  *
  * ************************************
  */
@@ -21,6 +21,7 @@ class Login extends Component {
             isLoggedIn: false,
             username: "",
             password: "",
+            userId: null,
         }
         this.updateData = this.updateData.bind(this);
     }
@@ -38,7 +39,8 @@ class Login extends Component {
         .then(res => {
             if (res) {
                 this.setState({
-                    isLoggedIn: true
+                  isLoggedIn: true,
+                  userId: res.userId,
                 });
             };
         }).catch(err => console.log(err));
@@ -48,7 +50,7 @@ class Login extends Component {
     render() {
         let pages;
         if (this.state.isLoggedIn) {
-            return <Redirect to="/homepage" />
+            return <Redirect to={{ pathname: '/homepage', state: { id: this.state.userId } }} />
         } else {
             pages =
                 <div className="loginArea">
@@ -77,4 +79,3 @@ class Login extends Component {
 };
 
 export default Login;
-

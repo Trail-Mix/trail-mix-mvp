@@ -20,10 +20,20 @@ app.get('/data', trailController.getTrails, (req, res) => {
   res.status(200).send(res.locals.trails);
 })
 
+// save trail to user
+app.post('/trail/add', trailController.saveTrail, (req, res) => {
+  res.status(200).send(res.locals);
+})
+
+// remove trail from user
+app.post('/trail/remove', trailController.removeTrail, (req, res) => {
+  res.status(200).send(res.locals);
+})
+
+
 //routes post request upon login to verify user
 app.post('/login', queries.verifyUser, (req, res) => {
-  const { verified } = res.locals;
-  return res.status(200).json(verified);
+  return res.status(200).json(res.locals);
 })
 
 // post request that brings in user-input signup information, creates a new user in the database, and sends verification to the front end
