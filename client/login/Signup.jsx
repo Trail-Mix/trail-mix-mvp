@@ -4,7 +4,7 @@
  * @module  signup.js
  * @author
  * @date
- * @description entry point for application.  
+ * @description entry point for application.
  *
  * ************************************
  */
@@ -18,7 +18,7 @@ const Signup = (props) => {
   const [password, setPassword] = useState('');
   const [verified, setVerified] = useState(false);
 
-  // post request to send user input to database 
+  // post request to send user input to database
   const updateData = (e) => {
     e.preventDefault();
     const options = {
