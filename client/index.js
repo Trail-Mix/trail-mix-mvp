@@ -15,10 +15,12 @@ import TrailPage from "./TrailPage.jsx";
 import Login from "../login/Login.jsx";
 import Signup from "../login/Signup.jsx";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import SimpleStorage from "react-simple-storage";
 
 //uses ReactRouter to route the paths for login, signup, and homepage
 render(
     <div>
+        <SimpleStorage parent={this} />
         <Router>
             <Switch>
                 <Route path="/" exact component={Login} />
