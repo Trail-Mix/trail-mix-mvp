@@ -3,10 +3,13 @@ const path = require('path');
 const express = require('express');
 const bodyParser = require('body-parser');
 const trailController = require('./controllers/trailController');
-const databaseController = require('./database/databaseController.js')
+const databaseController = require('./controllers/databaseController.js')
 
 const app = express();
 const PORT = 3000;
+
+
+
 
 //extracts the entire body portion of an incoming request stream and exposes it on req.body
 app.use(bodyParser.json());
