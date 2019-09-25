@@ -24,9 +24,15 @@ render(
             <Switch>
                 <Route path="/" exact component={Login} />
                 <Route path="/signup" component={Signup} />
-                <Route path="/homepage" component={App} />
-                <Route path="/trail/:id" component={TrailPage} />
+                <div className="nav-content-container">
+                  <div className="navigation">
+                    <a href="/">Trail Mix</a>
+                    <a href="/favs">My Favs</a>
+                  </div>
+                  <Route path="/homepage" component={App} />
+                  <Route path="/trail/:id" component={TrailPage} />
+                </div>
             </Switch>
         </Router>
-    </div >, document.getElementById("content")
+    </div>, document.getElementById("content")
 );

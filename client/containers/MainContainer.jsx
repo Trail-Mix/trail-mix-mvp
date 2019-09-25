@@ -19,13 +19,12 @@ class MainContainer extends Component {
     render() {
         return (
             <div id="main-container">
-                <img src="../../assets/trail-mix-logo-small.jpg" className='logo'/><br />
                 <MapDisplay
                   id="map-display"
                   trailData={this.props.trailData}
                   getTrail={this.props.getTrail}
                   displayTrail={this.props.displayTrail}
-                /><br />
+                />
                 <ListContainer
                   trailData={this.props.trailData}
                   getTrail={this.props.getTrail}
