@@ -25,7 +25,6 @@ app.get('/data', trailController.getTrails, (req, res) => {
 //routes post request upon login to verify user
 app.post('/login', userController.verifyUser, sessionController.createSessionsTable, sessionController.startSession, (req, res) => {
   const { verified } = res.locals;
-  console.log('res.locals from login', res.locals);
   return res.status(200).json(verified);
 })
 

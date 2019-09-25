@@ -43,7 +43,6 @@ sessionController.createSessionsTable = (req, res, next) => {
 */
 sessionController.startSession = async (req, res, next) => {
   const ssid = uuid();
-
   try {
     await db.query('INSERT INTO sessions (cookie_id, user_id, created_at) VALUES ($1, $2, CURRENT_TIMESTAMP) returning *', [ssid, res.locals.userId]);
   } catch(err) {
