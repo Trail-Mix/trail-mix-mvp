@@ -10,8 +10,7 @@ commentController.getComment = async (req, res, next) => {
     console.log("res.locals inside comments", res.locals.comments)
     // console.log("req.headers", _id)
     const query = {
-        text: 'SELECT * FROM comments WHERE _id = $1',
-        values: [_id],
+        text: 'SELECT * FROM comments',
     };
     try {
         const result = await db.query(query);
@@ -30,10 +29,10 @@ commentController.getComment = async (req, res, next) => {
 commentController.postComment = async (req, res, next) => {
     console.log("postComment")
     const { comment, userid } = req.body;
-    const query = {
+    const query = { 
         text: 'INSERT INTO comments ( comment, userid) VALUES ($1, $2) RETURNING *',
         values: [comment, userid],
-    };
+    }
     try {
         const { rows } = await db.query(query);
         res.locals.comments = rows[0]
