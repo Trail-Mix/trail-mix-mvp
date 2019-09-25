@@ -16,10 +16,11 @@ import "./signupstyle.css";
 const Signup = (props) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [verified, setVerified] = useState(false)
+  const [verified, setVerified] = useState(false);
 
   // post request to send user input to database 
-  const updateData = () => {
+  const updateData = (e) => {
+    e.preventDefault();
     const options = {
       method: 'POST',
       headers: {
@@ -60,10 +61,8 @@ const Signup = (props) => {
             className="loginbtn"
             type="submit"
             value="createUser"
-            onClick={e => {
-              e.preventDefault();
-              updateData();
-            }}> SignUp
+            onClick={e => updateData(e)}
+          > SignUp
           </button>
         </form >
       </div>
