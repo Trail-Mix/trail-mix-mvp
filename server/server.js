@@ -28,8 +28,9 @@ app.post('/login', userController.verifyUser, (req, res) => {
 })
 
 // post request that brings in user-input signup information, creates a new user in the database, and sends verification to the front end
-app.post('/signup', userController.createUser, (req, res) => {
+app.post('/signup', userController.createTable, userController.createUser, (req, res) => {
   const { verified } = res.locals;
+  console.log('verified', verified);
   return res.status(200).json(verified);
 })
 

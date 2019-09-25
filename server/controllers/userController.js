@@ -31,42 +31,51 @@ userController.postComment = (req, res, next) => {
   };
 };
 
-userController.createTable = () => {
+userController.createTable = (req, res, next) => {
   const table = `CREATE TABLE IF NOT EXISTS users
                 (_id SERIAL PRIMARY KEY,
                  username VARCHAR,
-                 password VARCHAR,
-                 createdat TIMESTAMP,
-                 updatedat TIMESTAMP)`;
+                 password VARCHAR)`;
 
   db.query(table, null, (err, results) => {
     if (err) throw err;
   });
+
+  return next();
 }
 
 //add user and bcrypt password to database
-userController.createUser = (req, res, next) => {
+userController.createUser = async (req, res, next) => {
   const { username, password } = req.body;
-  if (username && password) {
-    userController.createTable();
 
-console.log('create user method')
-    db.query('SELECT * from users WHERE username = $1', [username], (err, results) => {
-      if(results.rows.length === 0) {
-        bcrypt.hash(password, SALT_WORK_FACTOR, (err, hash) => {
-          if (err) throw err;
-          db.query('INSERT INTO users (username, password) VALUES ($1, $2) returning *', [username, hash], (error, results) => {
-            if (error) throw error;
-            res.locals.verified = true;
-            return next();
-          });
-        });
-      } else {
-        res.locals.verified = false;
-            return next();
-      };
-    });
-  };
+  if (username && password) {
+    let results;
+    try {
+      results = await db.query('SELECT * FROM users WHERE username = $1', [username]);
+    } catch(err) {
+      return next({
+        log: `Error searching for user in db ${err}`
+      });
+    }
+
+    if (results.rowCount === 0) {
+      await bcrypt.hash(password, SALT_WORK_FACTOR, async (err, hash) => {
+        if (err) throw err;
+        try {
+          await db.query('INSERT INTO users (username, password) VALUES ($1, $2) returning *', [username, hash])
+        } catch(err) {
+          return next({
+            log: `Error inserting users into db ${err}`
+          })
+        }
+      });
+    }
+
+    res.locals.verified = true;
+  } else {
+    res.locals.verified = false;
+  }
+  return next();
 };
 
 
