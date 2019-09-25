@@ -5,7 +5,7 @@ const fetch = require('node-fetch');
 let url = 'https://www.hikingproject.com/data/get-trails?lat=34.383966&lon=-118.537239&maxDistance=20&maxResults=100&minStars=3.5&key=200597455-cfbe6650f3776f2f486ae788a2ecf16b'
 const trailController = {};
 
-//middleware functuon to fetch trail information from REI API
+// middleware functuon to fetch trails information from REI API
 trailController.getTrails = (req, res, next) => {
     fetch(url)
     .then(res => res.json())
@@ -18,6 +18,50 @@ trailController.getTrails = (req, res, next) => {
 };
 
 
+// middleware functuon to fetch trail information from REI API
+trailController.getTrail = (req, res, next) => {
+
+    const { trailId } = req.body;
+
+    fetch(`https://www.hikingproject.com/data/get-trails-by-id?ids=${trailId}&key=200597455-cfbe6650f3776f2f486ae788a2ecf16b`)
+    .then(res => res.json())
+    .then(json => {
+        res.locals.trail = json
+        return next()})
+    .catch(err => next({
+        err: 'trailController.getTrail: ERROR: Check server logs for details'
+    }));
+};
+
+
+// middleware functuon to fetch trail information from REI API
+trailController.getHikers = (req, res, next) => {
+
+    const { trailId } = req.body;
+
+    pool.query(`SELECT DISTINCT user_id FROM trails WHERE rei_id=${trailId}`, (error, results) => {
+      if (error) throw error;
+      res.locals.ids = results.rows
+      return next();
+    });
+};
+
+trailController.getHikersInfo = (req, res, next) => {
+
+    const hikersIds = res.locals.ids.map(x => {
+        return x.user_id;
+    })
+
+    const values = hikersIds.join(", ");
+
+    pool.query(`SELECT _id, username FROM users WHERE _id IN ('${values}')`, (error, results) => {
+      if (error) throw error;
+      res.locals.hikers = results.rows
+      return next();
+    });
+};
+
+// middleware function that saves trail to user
 trailController.saveTrail = (req, res, next) => {
 
     const { userId, reiId, length, location, difficulty, name } = req.body;
@@ -29,6 +73,7 @@ trailController.saveTrail = (req, res, next) => {
 };
 
 
+// middleware function that removes trail from user
 trailController.removeTrail = (req, res, next) => {
 
     const { userId, reiId } = req.body;

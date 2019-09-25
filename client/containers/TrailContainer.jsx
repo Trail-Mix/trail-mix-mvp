@@ -21,10 +21,10 @@ class TrailContainer extends Component {
             comments = this.props.comments.map((cur, idx) => {
                 return (
                     <CommentsDisplay key = {idx}
-                    comment = {cur.comment}
-                    author = {cur.author}
-                    postComment = {this.props.postComment}
-                    getTrail = {this.props.getTrail} />
+                      comment = {cur.comment}
+                      author = {cur.author}
+                      postComment = {this.props.postComment}
+                      getTrail = {this.props.getTrail} />
                 );
             });
         };

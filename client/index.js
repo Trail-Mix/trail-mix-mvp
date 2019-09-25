@@ -11,6 +11,7 @@
 import React from "react";
 import { render } from "react-dom";
 import App from "./App.jsx";
+import TrailPage from "./TrailPage.jsx";
 import Login from "../login/Login.jsx";
 import Signup from "../login/Signup.jsx";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
@@ -23,6 +24,7 @@ render(
                 <Route path="/" exact component={Login} />
                 <Route path="/signup" component={Signup} />
                 <Route path="/homepage" component={App} />
+                <Route path="/trail/:id" component={TrailPage} />
             </Switch>
         </Router>
     </div >, document.getElementById("content")
