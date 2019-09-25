@@ -77,4 +77,4 @@ databaseController.verifyUser = (req, res, next) => {
   });
 };
 
-module.exports = userController;
+module.exports = databaseController;
