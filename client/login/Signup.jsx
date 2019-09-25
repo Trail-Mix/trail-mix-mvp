@@ -4,7 +4,7 @@
  * @module  signup.js
  * @author
  * @date
- * @description entry point for application.  
+ * @description entry point for application.
  *
  * ************************************
  */
@@ -24,7 +24,7 @@ class Signup extends Component {
         this.updateData = this.updateData.bind(this);
     };
 
-    // post request to send user input to database 
+    // post request to send user input to database
     updateData() {
         const url = ('/signup');
         const data = {

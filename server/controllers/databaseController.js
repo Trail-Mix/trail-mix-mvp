@@ -1,6 +1,6 @@
 const db = require('../database/database.js');
 
-const databaseController = { };
+const userController = { };
 
 const SALT_WORK_FACTOR = 10;
 const bcrypt = require('bcryptjs');
@@ -22,13 +22,13 @@ databaseController.postComment = (req, res, next) => {
   if(author && comment && id) {
     db.query('INSERT INTO comments (author, comment, id) VALUES ($1, $2, $3)', [author, comment, id], (error, results) => {
     if (error) throw error;
-    db.query('SELECT * FROM comments where id = $1', [id], (error, results) => {
-      if (error) throw error;
-      res.locals.comments = results.rows;
-      return next();
+      db.query('SELECT * FROM comments where id = $1', [id], (error, results) => {
+        if (error) throw error;
+        res.locals.comments = results.rows;
+        return next();
+      });
     });
-  });
-};
+  };
 };
 
 //add user and bcrypt password to database
@@ -77,4 +77,4 @@ databaseController.verifyUser = (req, res, next) => {
   });
 };
 
-module.exports = databaseController;
+module.exports = userController;
