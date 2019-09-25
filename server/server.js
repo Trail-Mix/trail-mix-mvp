@@ -55,7 +55,6 @@ app.post('/login', queries.verifyUser, (req, res) => {
 
 // post request that brings in user-input signup information, creates a new user in the database, and sends verification to the front end
 app.post('/signup', queries.createUser, (req, res) => {
-  // const { verified } = res.locals;
   return res.status(200).json(res.locals);
 })
 

@@ -22,6 +22,7 @@ trailController.getTrails = (req, res, next) => {
 trailController.getTrail = (req, res, next) => {
 
     const { trailId } = req.body;
+    console.log(trailId)
 
     fetch(`https://www.hikingproject.com/data/get-trails-by-id?ids=${trailId}&key=200597455-cfbe6650f3776f2f486ae788a2ecf16b`)
     .then(res => res.json())
@@ -69,6 +70,7 @@ trailController.getHikersInfo = (req, res, next) => {
 // middleware function that saves trail to user
 trailController.saveTrail = (req, res, next) => {
 
+  console.log(req.body)
     const { userId, reiId, length, location, difficulty, name } = req.body;
 
     pool.query(`INSERT INTO trails (user_id, rei_id, length, location, difficulty, name) VALUES(${userId}, ${reiId}, ${length}, '${location}', '${difficulty}', '${name}')`, (error, results) => {
