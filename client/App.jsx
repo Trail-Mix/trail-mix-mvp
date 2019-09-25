@@ -8,143 +8,106 @@
  *
  * ************************************
  */
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import MainContainer from "./containers/MainContainer.jsx";
 import TrailContainer from './containers/TrailContainer.jsx';
 
 //state includes data retrieved from REI API, selects selected trail
 // holds trail specific comments pulled from database
-class App extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-        trailData: [],
-        selectedTrail: null,
-        isLoggedIn: true,
-        comments: [], 
-        diffKey: false
-    }
-    this.getTrail = this.getTrail.bind(this);
-    this.noTrail = this.noTrail.bind(this);
-    this.postComment = this.postComment.bind(this);
-    this.displayTrail = this.displayTrail.bind(this);
-    this.showKey = this.showKey.bind(this);
-    };
+const App = () => {
+  const [trailData, setTrailData] = useState([]);
+  const [selectedTrail, setSelectedTrail] = useState(null);
+  const [comments, setComments] = useState([]);
+  const [diffKey, setDiffKey] = useState(false);
 
     //fetches data from REI API and sets to state when the page loads
-    componentDidMount() {
-            fetch('/data')
-            .then((res) => {
-                return res.json();
-            })
-            .then((res) => {
-                this.setState(state => {
-                    return {
-                        ...state,
-                        trailData: res.trails
-                    };
-                });
-    });
-};
+  useEffect(() => {
+    fetch('/data')
+      .then(res => res.json())
+      .then(res => setTrailData(res.trails))
+      .catch(err => console.error(err));
+  }, []);
+
     //invoked by on-click function in TrailDisplay, sets selected trail in state
-    getTrail(id) {
-        let trailsArr = this.state.trailData.slice();
-        let chosenTrail;
-        for (let i = 0; i < trailsArr.length; i++) {
-            if (trailsArr[i].id === +id) {
-                chosenTrail = trailsArr[i];
-                this.setState({selectedTrail: chosenTrail})
-            };
-        };
-
-        fetch('/comments', {
-            method: 'GET', 
-            headers: {
-                'Content-Type': 'application/json',
-                id: id
-            }
-        })
-        .then((res) => {
-            return res.json();
-        })
-        .then((res) => {
-            this.setState(state => {
-                return {
-                    ...state,
-                    comments: res
-                };
-            });
-        });
+  const getTrail = (id) => {
+    for (let i = 0; i < trailsData.length; i += 1) {
+      if (trailsData[i].id === +id) {
+        setSelectedTrail(trailsData[i]);
+        break;
+      }
+    }
+    const options = {
+      headers: {
+        'Content-Type': 'application/json',
+        id,
+      },
     };
+    fetch('/comments', options)
+      .then(res => res.json())
+      .then(res => setComments(res))
+      .catch(err => console.error(err));
+  };
+
     //closes TrailDisplay overlay
-    noTrail() {
-        this.setState({selectedTrail: null})
-    }
-    //adds comment and author to database and pulls back all comments for specified trail and sets to state
-    postComment(id, comment, author) {
-        fetch('/comments', {
-            method: 'POST', 
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                id: id,
-                comment: comment,
-                author: author
-            })
-        })
-        .then((res) => {
-            return res.json();
-        })
-        .then((res) => {
-            this.setState(state => {
-                return {
-                    ...state,
-                    comments: res
-                };
-            });
-        });
-    };
-    //invoked when clicking on the map popups
-    displayTrail(selectedHike) {
-        this.setState({selectedTrail: selectedHike});
-    }
-    //toggle that is invoked when clicking on the "difficulty" in the list items
-    showKey() {
-        this.setState(state => {
-            return {
-                diffKey: state.diffKey ? false : true
-            }
-        });
-    };
-    //renders MainContainer and conditionally renders TrailContainer
-    render() {
-        if (!this.state.isLoggedIn) return <Redirect to="/login" />
-        return (
-            <div className='appContainer'>
-                <MainContainer 
-                className='mainContainer' 
-                trailData={this.state.trailData}
-                getTrail={this.getTrail}
-                selectedTrail={this.state.selectedTrail}
-                displayTrail={this.displayTrail}
-                showKey={this.showKey}
-                diffKey={this.state.diffKey}
-                />
-                {this.state.selectedTrail &&
-                <TrailContainer 
-                className="modal" 
-                trailData={this.state.trailData} 
-                selectedTrail={this.state.selectedTrail} 
-                noTrail={this.noTrail}
-                postComment={this.postComment}
-                comments={this.state.comments}
-                getTrail={this.getTrail} />
-                }
-            </div>
-    );
-    };
-};
+  const noTrail = () => {
+    setSelectedTrail(null);
+  }
 
+  //adds comment and author to database and pulls back all comments for specified trail and sets to state
+  const postComment = (id, comment, author) => {
+    const options = {
+      method: 'POST', 
+      headers: {
+          'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+          id: id,
+          comment: comment,
+          author: author
+      })
+    };
+    
+    fetch('/comments', options)
+      .then(res => res.json())
+      .then(res => setComments(res))
+      .catch(err => console.error(err));
+  };
+
+  //invoked when clicking on the map popups
+  const displayTrail = (selectedHike) => {
+    setSelectedTrail(selectedHike);
+  }
+    
+  //toggle that is invoked when clicking on the "difficulty" in the list items
+  const showKey = () => {
+    setDiffKey(diffKey ? false : true);
+  };
+
+  //renders MainContainer and conditionally renders TrailContainer
+  return (
+    <div className='appContainer'>
+      <MainContainer 
+        className='mainContainer' 
+        trailData={trailData}
+        getTrail={getTrail}
+        selectedTrail={selectedTrail}
+        displayTrail={displayTrail}
+        showKey={showKey}
+        diffKey={diffKey}
+      />
+      {selectedTrail
+        && <TrailContainer 
+          className="modal" 
+          trailData={trailData} 
+          selectedTrail={selectedTrail} 
+          noTrail={noTrail}
+          postComment={postComment}
+          comments={comments}
+          getTrail={getTrail}
+        />
+      }
+    </div>
+  );
+};
 
 export default App;

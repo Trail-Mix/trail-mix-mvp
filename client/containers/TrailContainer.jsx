@@ -8,56 +8,65 @@
  * CommentsDisplay
  * ************************************
  */
-import React from "react";
+import React, { useState } from "react";
 import TrailDisplay from "../components/TrailDisplay.jsx";
 import CommentsDisplay from "../components/CommentsDisplay.jsx";
 
 //container component for individual TrailDisplay and CommentsDisplay
 //maps through comments to pull desired values 
-const TrailContainer = () => {
-  render() {
-    let comments = [];
-      if (this.props.comments) {
-        comments = this.props.comments.map((cur, idx) => {
-          return (
-            <CommentsDisplay key = {idx}
-            comment = {cur.comment}
-            author = {cur.author}
-            postComment = {this.props.postComment}
-            getTrail = {this.props.getTrail} />
-          );
-        });
-      };
-        return (
-            <div className='modalGuts'>
-                <button onClick={(e) => this.props.noTrail()}>close</button>
-                <TrailDisplay selectedTrail={this.props.selectedTrail}/>
-                <div className="comments">
-                    {comments}
-                </div>
-                <div>
-                <br/>
-                {/* input fields and button to add comments */}
-            <input type="text" name="comment" id="commentForm"></input>
-            <br/>
-            <br/>
-            <br/>
-            <input type="text" name="author" id="authorForm"></input>
-            <br/>
-            <br/>
-            <button value="Submit" id={this.props.selectedTrail.id} 
-            onClick={(e) => {
-                const comment = document.getElementById('commentForm').value;
-                const author = document.getElementById('authorForm').value;            
-                this.props.postComment(e.target.id, comment, author)
-                document.getElementById('commentForm').value = '';
-                document.getElementById('authorForm').value = '';
-            }}>
-            Submit</button>
-                </div>
-            </div>
-        );
-  };
+const TrailContainer = (props) => {
+  const [comment, setComment] = useState('');
+  const [author, setAuthor] = useState('');
+  
+  const handleClick = (e) => {
+    e.preventDefault();
+    props.postComment(e.target.id, comment, author);
+    setComment('');
+    setAuthor('');
+  }
+
+  const comments = [];
+
+  if (props.comments) {
+    comments = props.comments.map((cur, idx) => (
+      <CommentsDisplay
+        key = {idx}
+        comment = {cur.comment}
+        author = {cur.author}
+        getTrail = {props.getTrail}
+      />
+    ));
+  }
+  
+  return (
+    <div className='modalGuts'>
+      <button onClick={() => props.noTrail()}>close</button>
+      <TrailDisplay selectedTrail={props.selectedTrail} />
+      <div className="comments">
+        {comments}
+      </div>
+      <form className="commentInput">
+        <input
+          type="text"
+          name="comment"
+          id="commentForm"
+          onChange={e => setComment(e.target.value)}
+        />
+        <br />
+        <input
+          type="text"
+          name="author"
+          id="authorForm"
+          onChange={e => setAuthor(e.target.value)}
+        />
+        <button
+          value="Submit"
+          id={props.selectedTrail.id}
+          onClick={(e) => handleClick(e)}
+        >Submit</button>
+      </form>
+    </div>
+  );
 };
 
 export default TrailContainer;
