@@ -3,7 +3,7 @@ const path = require('path');
 const express = require('express');
 const bodyParser = require('body-parser');
 const trailController = require('./controllers/trailController');
-const databaseController = require('./controllers/databaseController.js')
+const userController = require('./controllers/userController.js')
 
 const app = express();
 const PORT = 3000;
@@ -22,24 +22,26 @@ app.get('/data', trailController.getTrails, (req, res) => {
 })
 
 //routes post request upon login to verify user
-app.post('/login', databaseController.verifyUser, (req, res) => {
+app.post('/login', userController.verifyUser, (req, res) => {
   const { verified } = res.locals;
   return res.status(200).json(verified);
 })
 
 // post request that brings in user-input signup information, creates a new user in the database, and sends verification to the front end
-app.post('/signup', databaseController.createUser, (req, res) => {
+app.post('/signup', userController.createUser, (req, res) => {
   const { verified } = res.locals;
   return res.status(200).json(verified);
 })
 
+
+
 // sends all comments pertaining to trail ID
-app.get('/comments', databaseController.getComment, (req, res) => {
+app.get('/comments', userController.getComment, (req, res) => {
   res.status(200).send(res.locals.comments)
 })
 
 //posts new comment in database and sends back all comments pertaining to unique trail ID
-app.post('/comments', databaseController.postComment, (req, res) => {
+app.post('/comments', userController.postComment, (req, res) => {
   res.status(200).send(res.locals.comments)
 })
 

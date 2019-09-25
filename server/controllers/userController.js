@@ -6,7 +6,7 @@ const SALT_WORK_FACTOR = 10;
 const bcrypt = require('bcryptjs');
 
 // query fetching all comments for specific trails
-databaseController.getComment = (req, res, next) => {
+userController.getComment = (req, res, next) => {
   const { id } = req.headers;
   db.query('SELECT * FROM comments where id = $1', [id], (error, results) => {
     if (error) throw error;
@@ -16,7 +16,7 @@ databaseController.getComment = (req, res, next) => {
 };
 
 //query posting new comment to DB and then fetching all comments including the one just posted
-databaseController.postComment = (req, res, next) => {
+userController.postComment = (req, res, next) => {
   const { author, comment, id } = req.body;
 
   if(author && comment && id) {
@@ -31,10 +31,26 @@ databaseController.postComment = (req, res, next) => {
   };
 };
 
+userController.createTable = () => {
+  const table = `CREATE TABLE IF NOT EXISTS users
+                (_id SERIAL PRIMARY KEY,
+                 username VARCHAR,
+                 password VARCHAR,
+                 createdat TIMESTAMP,
+                 updatedat TIMESTAMP)`;
+
+  db.query(table, null, (err, results) => {
+    if (err) throw err;
+  });
+}
+
 //add user and bcrypt password to database
-databaseController.createUser = (req, res, next) => {
+userController.createUser = (req, res, next) => {
   const { username, password } = req.body;
   if (username && password) {
+    userController.createTable();
+
+console.log('create user method')
     db.query('SELECT * from users WHERE username = $1', [username], (err, results) => {
       if(results.rows.length === 0) {
         bcrypt.hash(password, SALT_WORK_FACTOR, (err, hash) => {
@@ -53,8 +69,10 @@ databaseController.createUser = (req, res, next) => {
   };
 };
 
+
+
 // query username and password and see if matches are in the database
-databaseController.verifyUser = (req, res, next) => {
+userController.verifyUser = (req, res, next) => {
   const { username, password } = req.body;
 
   db.query('SELECT password FROM users where username = $1', [username], (error, results) => {
