@@ -4,7 +4,7 @@
  * @module  Login.js
  * @author
  * @date
- * @description entry point for application.  
+ * @description entry point for application.
  *
  * ************************************
  */

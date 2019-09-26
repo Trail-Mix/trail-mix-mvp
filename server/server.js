@@ -23,18 +23,16 @@ app.get('/data', trailController.getTrails, (req, res) => {
 })
 
 //routes post request upon login to verify user
-app.post('/login', userController.verifyUser, sessionController.createSessionsTable, sessionController.startSession, (req, res) => {
+app.post('/login', userController.verifyUser, sessionController.createSessionsTable, sessionController.setSSIDCookie, sessionController.startSession, (req, res) => {
   const { verified } = res.locals;
   return res.status(200).json(verified);
 })
 
 // post request that brings in user-input signup information, creates a new user in the database, and sends verification to the front end
-app.post('/signup', userController.createTable, userController.createUser, sessionController.createSessionsTable, sessionController.startSession, (req, res) => {
+app.post('/signup', sessionController.isLoggedIn, userController.createTable, userController.createUser, sessionController.createSessionsTable, sessionController.setSSIDCookie, sessionController.startSession, (req, res) => {
   const { verified } = res.locals;
   return res.status(200).json(verified);
 })
-
-
 
 // sends all comments pertaining to trail ID
 app.get('/comments', userController.getComment, (req, res) => {
