@@ -19,22 +19,21 @@ const MapDisplay = props => {
     const [viewport, setViewport] = useState({
        latitude: props.latitude,
        longitude: props.longitude,
-    // center: [props.latitude, props.longitude],
-       width: '70vw',
-       height: '70vh',
+       width: '40vw',
+       height: '80vh',
        zoom: props.zoom
     });
 
     useEffect(() => {
         setViewport({...viewport, latitude: props.latitude, longitude: props.longitude, zoom: props.zoom})
     }, [props.latitude, props.longitude])
-    
+
     const [selectedHike, setSelectedHike] = useState(null);
 
     return (
         <div id="map-display">
-            <ReactMapGl 
-            {...viewport} 
+            <ReactMapGl
+            {...viewport}
                 mapboxApiAccessToken={`pk.eyJ1IjoiYnJ5djM4IiwiYSI6ImNrMHlla3hrdTBkZ2czY212NG5ycW5ua24ifQ.0uOuwH6A6PB1d5Urb9v9fQ`}
             mapStyle={`mapbox://styles/bryv38/ck0znwydy05vg1co2elc9p6yl`}
             onViewportChange={viewport => setViewport(viewport)}

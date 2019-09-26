@@ -27,23 +27,19 @@ class ListContainer extends Component {
                         }
                       }}>{trail.name}</ Link></td>
                       <td>{trail.location}</td>
-                      <td>{trail.difficulty}</td>
-                      <td>
-                        <Row>
-                          <Button onClick={(e) => this.props.saveTrail(e, trail)}>Like</Button>
-                        </Row>
+                      <td className="like-button">
+                        <p onClick={(e) => this.props.saveTrail(e, trail)}>Like</p>
                       </td>
                     </tr>
                 );
             });
             return (
-              <Table size="lg" striped>
+              <Table size="lg" id="allTrails">
                 <thead>
                   <tr>
                     <th>Name</th>
                     <th>Location</th>
-                    <th>Difficulty</th>
-                    <th>Actions</th>
+                    <th></th>
                   </tr>
                 </thead>
                 <tbody>
