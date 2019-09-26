@@ -19,6 +19,14 @@ class MainContainer extends Component {
     render() {
         return (
             <div id="main-container">
+                <ListContainer
+                  trailData={this.props.trailData}
+                  getTrail={this.props.getTrail}
+                  showKey={this.props.showKey}
+                  saveTrail={this.props.saveTrail}
+                  userId={this.props.userId}
+                  username={this.props.username}
+                />
                 <MapDisplay
                   id="map-display"
                   trailData={this.props.trailData}
@@ -27,14 +35,6 @@ class MainContainer extends Component {
                   latitude={this.props.latitude}
                   longitude={this.props.longitude}
                   zoom={this.props.zoom}
-                />
-                <ListContainer
-                  trailData={this.props.trailData}
-                  getTrail={this.props.getTrail}
-                  showKey={this.props.showKey}
-                  saveTrail={this.props.saveTrail}
-                  userId={this.props.userId}
-                  username={this.props.username}
                 />
             </div>
         );

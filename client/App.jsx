@@ -182,29 +182,33 @@ class App extends Component {
         if (!this.state.isLoggedIn) return <Redirect to="/login" />
         return (
           <div>
+
             <div className="navigation">
-              <Link to="/homepage">Trail Mix</Link>
-              <Link to={{
+              <Link className="nav-item" to="/homepage">Trail Mix</Link>
+              <Link className="nav-item" to={{
                 pathname: '/favs',
                 state: {
                   userId: this.state.userId,
                   username: this.state.username
                 }
               }}>My Favs</ Link>
-              <p>Hello, {this.state.username}!</p>
-
+              <p className="nav-item" id="userGreeting">Hello, {this.state.username}!</p>
             </div>
 
             <div className='appContainer'>
-
+              <div id="searchForm">
                 <form onSubmit={this.handleSearchSubmit}>
                   <label>
-                  Search Address:
-                  <input type="text" value={this.state.searchLocation} onChange={this.handleSearchInput} />
+                  <input
+                    type="text"
+                    value={this.state.searchLocation}
+                    onChange={this.handleSearchInput}
+                    placeholder="Search Address"
+                  />
                   </label>
-                  <input type="submit" value="Submit" />
+                  <input className="submitButton" type="submit" value="Submit" />
                 </form>
-
+              </div>
                 <MainContainer
                   className='mainContainer'
                   latitude={this.state.latitude}

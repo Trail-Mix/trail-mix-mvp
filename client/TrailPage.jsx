@@ -128,21 +128,21 @@ class TrailPage extends React.Component {
     return (
       <div>
       <div className="navigation">
-        <Link to={{
+        <Link className="nav-item" to={{
           pathname: '/homepage',
           state: {
             id: this.state.userId,
             username: this.state.username
           }
         }}>Trail Mix</ Link>
-        <Link to={{
+        <Link className="nav-item" to={{
           pathname: '/favs',
           state: {
             userId: this.state.userId,
             username: this.state.username
           }
         }}>My Favs</Link>
-        <p>Hello, {this.state.username}!</p>
+        <p className="nav-item" id="userGreeting">Hello, {this.state.username}!</p>
       </div>
 
         <p>{name}</p>

@@ -1,6 +1,12 @@
 body {
   font-family: 'Work Sans', sans-serif !important;
-  background-color: #efefef;
+  background-color: #efefef !important;
+}
+
+a {
+  color: #475050 !important;
+  text-decoration: none !important;
+  cursor: pointer !important;
 }
 
 .appContainer {
@@ -17,9 +23,13 @@ body {
 
 #main-container {
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    flex-direction: row;
+    /* align-items: center; */
     z-index: 1;
+}
+
+#main-container table {
+  margin: 50px 30px 50px 50px;
 }
 
 .logo {
@@ -32,6 +42,10 @@ body {
 #map-display {
     z-index: 1;
     margin-top: 7px;
+    margin-bottom: 50px;
+    position: sticky !important;
+    top: 0 !important;
+    padding: 50px 50px 50px 30px;
 }
 
 .listDisplay {
@@ -174,7 +188,33 @@ body {
 }
 
 .getUserTrails {
-  padding: 30px 50px;
+  padding: 0px 50px;
+}
+
+#getTrailsTable {
+  overflow: scroll;
+}
+
+#allTrails th {
+  min-width: 230px;
+}
+
+#allTrails td {
+  min-width: 235px
+}
+
+#allTrails .like-button p {
+  text-align: center;
+}
+
+table {
+  position: relative;
+}
+
+tbody{
+  overflow-y: scroll;
+  height: 600px;
+  position: absolute;
 }
 
 .table-name {
@@ -184,4 +224,42 @@ body {
 
 .trail-name {
   width: 400px;
+}
+
+.navigation {
+  display: flex;
+  align-items: center;
+}
+
+.navigation p, .navigation a {
+  padding: 12px 20px;
+  margin: 0;
+}
+
+#userGreeting {
+  margin-left: auto;
+}
+
+#searchForm {
+  display:flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+#searchForm input {
+  padding: 5px 15px;
+  width: 400px;
+}
+
+#searchForm input.submitButton {
+  border: #5fc5b0 1px solid;
+  padding: 5px 15px;
+  width: 100px;
+  color: white;
+  background-color: #5fc5b0;
+  border-radius: 0px;
+}
+
+.nav-content-container {
+  background-color: #fff !important;
 }
