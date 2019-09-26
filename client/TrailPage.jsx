@@ -9,6 +9,8 @@ class TrailPage extends React.Component {
     super(props)
 
     this.state = {
+      userId: null,
+      id: null,
       trail: [],
       hikers: [],
       comments: [],
@@ -21,11 +23,12 @@ class TrailPage extends React.Component {
   componentDidMount () {
 
     const { id } = this.props.match.params;
-    const { username } = this.props.location.state
+    const { username, userId } = this.props.location.state
 
     this.setState({
       username,
       id,
+      userId,
     })
 
     fetch('/trail', {
@@ -123,15 +126,33 @@ class TrailPage extends React.Component {
     }
 
     return (
-      
-      <div className = "trailpage">
-        <div className="trailPageContainer">
-          <div className ="headertrailpage">
-          <h1>{name}</h1> 
-          </div>
-          <div className = "image">
-          <img src={imgMedium} />
-          </div>
+      <div>
+      <div className="navigation">
+        <Link className="nav-item" to={{
+          pathname: '/homepage',
+          state: {
+            id: this.state.userId,
+            username: this.state.username
+          }
+        }}>Trail Mix</ Link>
+        <Link className="nav-item" to={{
+          pathname: '/favs',
+          state: {
+            userId: this.state.userId,
+            username: this.state.username
+          }
+        }}>My Favs</Link>
+        <p className="nav-item" id="userGreeting">Hello, {this.state.username}!</p>
+      </div>
+
+    <div className = "trailpage">
+    <div className="trailPageContainer">
+      <div className ="headertrailpage">
+      <h1>{name}</h1> 
+      </div>
+      <div className = "image">
+      <img src={imgMedium} />
+      </div>
         </div>
         <p>{summary}</p>
         <div>

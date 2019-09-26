@@ -22,6 +22,7 @@ trailController.getTrails = (req, res, next) => {
 trailController.getTrail = (req, res, next) => {
 
     const { trailId } = req.body;
+    console.log(trailId)
 
     fetch(`https://www.hikingproject.com/data/get-trails-by-id?ids=${trailId}&key=200597455-cfbe6650f3776f2f486ae788a2ecf16b`)
     .then(res => res.json())
@@ -89,5 +90,33 @@ trailController.removeTrail = (req, res, next) => {
     });
 };
 
+trailController.getUserTrails = (req, res, next) => {
+    const { id } = req.body;
+
+    pool.query(`SELECT * FROM trails WHERE user_id=${id}`, (error, results) => {
+        if (error) throw error;
+
+        const hikedTrails = results.rows.filter((x) => {
+            if (x.hiked === true) {
+                return x;
+            };
+        })
+
+        res.locals.hiked = hikedTrails;
+        res.locals.trails = results.rows;
+        return next();
+      });
+
+};
+
+trailController.updateTrails = (req, res, next) => {
+
+    const {trailId, id} = req.body;
+
+    pool.query(`UPDATE trails SET hiked=true WHERE user_id=${id} AND rei_id=${trailId}`, (error, results) => {
+        if (error) throw error;
+        return next();
+    });
+};
 
 module.exports = trailController;

@@ -7,7 +7,7 @@
 .login-container {
   padding: 50px 60px;
   background-color: white;
-  width: 220px;
+  width: 350px;
   position: relative;
 }
 
@@ -19,7 +19,7 @@
 
 .loginbtn {
   font-size: 12px !important;
-  background: #7c8e8e;
+  background: #5fc5b0;
   width: 100%;
   margin-left: auto !important;
   margin-right: auto;
@@ -28,6 +28,7 @@
   color: white;
   text-transform: uppercase;
   border-radius: 2px;
+  font-weight: 800;
 }
 
 .login-link {
@@ -46,6 +47,11 @@
 .username, .password {
   width: 100%;
   margin-top: 10px;
-  font-size: 15px;
-  padding: 5px;
+  font-size: 12px;
+  font-family: 'Work Sans', sans-serif;
+  padding: 6px;
+  box-sizing: border-box; /* add this */
+ -webkit-box-sizing: border-box;
+ -moz-box-sizing: border-box;
+ border: 1px solid slategrey;
 }

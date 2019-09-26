@@ -42,6 +42,15 @@ app.post('/trail/remove', trailController.removeTrail, (req, res) => {
   res.status(200).send(res.locals);
 })
 
+// remove trail from user
+app.post('/trail/update', trailController.updateTrails, trailController.getUserTrails, (req, res) => {
+  res.status(200).send(res.locals);
+})
+
+//get route to get usertrails
+app.post('/favs', trailController.getUserTrails, (req,res) => {
+  res.status(200).send(res.locals)
+})
 
 //routes post request upon login to verify user
 app.post('/login', queries.verifyUser, (req, res) => {
@@ -50,7 +59,6 @@ app.post('/login', queries.verifyUser, (req, res) => {
 
 // post request that brings in user-input signup information, creates a new user in the database, and sends verification to the front end
 app.post('/signup', queries.createUser, (req, res) => {
-  // const { verified } = res.locals;
   return res.status(200).json(res.locals);
 })
 
