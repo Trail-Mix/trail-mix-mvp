@@ -19,7 +19,7 @@ const ListContainer = (props) => {
     setTrailData(props.trailData);
   }, [props.trailData])
 
-  const sortTrail = () => {
+  const sortByTrail = () => {
     const trailByName = {};
 
     props.trailData.forEach((trail) => {
@@ -34,9 +34,59 @@ const ListContainer = (props) => {
     })
 
     setTrailData(displayInfo);
-  }
+  };
 
-  
+  const sortByLength = () => {
+    const trailByLength = {};
+
+    let lengths = props.trailData.map(trail => {
+      trailByLength[trail.length] = trail;
+      return trail.length
+    });
+
+    const sortedLengths = sortNumbers(lengths);
+
+    const displayInfo = [];
+    sortedLengths.forEach(length => {
+      displayInfo.push(trailByLength[length]);
+    })
+
+    setTrailData(displayInfo);
+  };
+
+  const sortNumbers = (nums) => {
+    const middle_i = Math.floor(nums.length / 2);
+    let left = nums.slice(0, middle_i);
+    let right = nums.slice(middle_i, nums.length);
+
+    if (left.length > 1) left = sortNumbers(left);
+    if (right.length > 1) right = sortNumbers(right);
+
+    return merge(left, right)
+  };
+
+  const merge = (left, right) => {
+    const merged = [];
+
+    while(left.length > 0 && right.length > 0) {
+      if (left[0] < right[0]) {
+        merged.push(left.shift());
+      } else {
+        merged.push(right.shift());
+      }
+    }
+
+    return merged.concat(left).concat(right);
+  };
+
+  const sortByDifficulty = () => {
+    const degreeOfDifficulty = {
+      
+    }
+    props.trailData.forEach(trail => console.log(trail.difficulty));
+  };
+
+
 
   const trails = trailData.map((trail, idx) => (
     <ListDisplay
@@ -58,13 +108,13 @@ const ListContainer = (props) => {
     <div className="listDisplay" >
       <table>
         <thead>
-          <th className='column title' onClick={sortTrail}>
+          <th className='column title' onClick={sortByTrail}>
             Trail
           </th>
-          <th className='column title'>
+          <th className='column title' onClick={sortByLength}>
             Length
           </th>
-          <th className='column title'>
+          <th className='column title' onClick={sortByDifficulty}>
             Difficulty
           </th>
         </thead>
