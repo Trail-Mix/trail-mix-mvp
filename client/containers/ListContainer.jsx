@@ -13,12 +13,7 @@ import ListDisplay from "../components/ListDisplay.jsx";
 //container component that holds the list display of trails
 //also maps through trailData array and sets props for desired values
 const ListContainer = (props) => {
-  const [trailData, setTrailData] = useState(props.trailData);
-
-  useEffect(() => {
-    setTrailData(props.trailData);
-  }, [props.trailData])
-
+  
   const sortByTrail = () => {
     const trailByName = {};
 
@@ -32,8 +27,8 @@ const ListContainer = (props) => {
     sortedTrails.forEach(trail => {
       displayInfo.push(trailByName[trail]);
     })
-    
-    setTrailData(displayInfo);
+
+    props.setTrailData(displayInfo);
   };
 
   const sortByLength = () => {
@@ -56,7 +51,7 @@ const ListContainer = (props) => {
       displayInfo = displayInfo.concat(trailsByLength[length]);
     })
 
-    setTrailData(displayInfo);
+    props.setTrailData(displayInfo);
   };
 
   const sortNumbers = (nums) => {
@@ -103,12 +98,12 @@ const ListContainer = (props) => {
       displayInfo = displayInfo.concat(trailByDifficulty[difficulty]);
     }
 
-    setTrailData(displayInfo);
+    props.setTrailData(displayInfo);
   };
 
 
 
-  const trails = trailData.map((trail, idx) => (
+  const trails = props.trailData.map((trail, idx) => (
     <ListDisplay
       key={trail.id}
       idx={idx}
