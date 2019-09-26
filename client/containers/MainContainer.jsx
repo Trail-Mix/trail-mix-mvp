@@ -13,6 +13,7 @@ import React, { useState, useEffect } from "react";
 import MapDisplay from "../components/MapDisplay.jsx";
 import ListContainer from "./ListContainer.jsx";
 import TrailContainer from './TrailContainer.jsx';
+import Header from '../components/Header.jsx';
 
 //container that combines MapDisplay and ListContainer and passes down all necessary props
 const MainContainer = (props) => {
@@ -47,7 +48,7 @@ const MainContainer = (props) => {
   };
   return (
     <div id="main-container">
-      <img src="../../assets/trail-mix-logo-small.jpg" className='logo'/><br />
+      <Header />
       <MapDisplay 
         id="map-display"
         trailData={trailData}
