@@ -63,7 +63,8 @@ class ListContainer extends Component {
                         }}
                         onClick={(e) => currFav ? this.props.removeTrail(e, trail) : this.props.saveTrail(e, trail) }
                       >
-                      <i className="far fa-lg fa-heart"></i>
+                       {currFav ? <i className="fas fa-lg fa-heart"></i>
+                        : <i className="far fa-lg fa-heart"></i>}
                       </span>
                     </td>
                   </tr>
