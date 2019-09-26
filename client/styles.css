@@ -1,5 +1,5 @@
 body {
-  font-family: 'Work Sans', sans-serif;
+  font-family: 'Work Sans', sans-serif !important;
   background-color: #efefef;
 }
 
@@ -171,4 +171,17 @@ body {
   text-decoration: none;
   color: black;
   text-transform: uppercase;
+}
+
+.getUserTrails {
+  padding: 30px 50px;
+}
+
+.table-name {
+  padding-top: 40px;
+  padding-bottom: 20px;
+}
+
+.trail-name {
+  width: 400px;
 }

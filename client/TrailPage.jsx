@@ -9,6 +9,8 @@ class TrailPage extends React.Component {
     super(props)
 
     this.state = {
+      userId: null,
+      id: null,
       trail: [],
       hikers: [],
       comments: [],
@@ -21,11 +23,12 @@ class TrailPage extends React.Component {
   componentDidMount () {
 
     const { id } = this.props.match.params;
-    const { username } = this.props.location.state
+    const { username, userId } = this.props.location.state
 
     this.setState({
       username,
       id,
+      userId,
     })
 
     fetch('/trail', {
@@ -41,7 +44,6 @@ class TrailPage extends React.Component {
           return res.json();
       })
       .then((res) => {
-        console.log(res, ' HEELLLOO')
         this.setState(state => {
             return {
                 ...state,
@@ -125,7 +127,24 @@ class TrailPage extends React.Component {
 
     return (
       <div>
-        Trail Page
+      <div className="navigation">
+        <Link to={{
+          pathname: '/homepage',
+          state: {
+            id: this.state.userId,
+            username: this.state.username
+          }
+        }}>Trail Mix</ Link>
+        <Link to={{
+          pathname: '/favs',
+          state: {
+            userId: this.state.userId,
+            username: this.state.username
+          }
+        }}>My Favs</Link>
+        <p>Hello, {this.state.username}!</p>
+      </div>
+
         <p>{name}</p>
         <p>{url}</p>
         <p>{stars}</p>
