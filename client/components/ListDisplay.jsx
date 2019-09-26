@@ -16,7 +16,7 @@ import Styles from "../styles.css"
 
 //display component for limited trail info, name clicks through to trail display and difficulty clicks through to difficulty key
 const ListDisplay = (props) => (
-  <div className={props.idx % 2 ? 'odds' : 'evens'}> 
+  <div className={props.idx % 2 ? 'odds' : 'evens'}>
     <div className='column'>
       <p id={props.id} className='namePlace' onClick={(e) => props.getTrail(e.target.id)}>
         {/* below code solves async issues with populating trailData array*/}

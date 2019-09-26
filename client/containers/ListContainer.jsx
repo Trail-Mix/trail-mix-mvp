@@ -20,7 +20,7 @@ const ListContainer = (props) => {
       name = {trail.name}
       location = {trail.location}
       length = {trail.length}
-      difficulty = {trail.difficulty} 
+      difficulty = {trail.difficulty}
       id = {trail.id}
       trailData = {props.trailData}
       getTrail = {props.getTrail}
@@ -29,6 +29,17 @@ const ListContainer = (props) => {
   ));
   return (
     <div className="listDisplay" >
+    <div id='titles'>
+      <p className='column namePlace title'>
+        Trail
+      </p>
+      <p className='column length title'>
+        Length
+      </p>
+      <p className='column difficulty title'>
+        Difficulty
+      </p>
+    </div>
       {trails}
     </div >
   );

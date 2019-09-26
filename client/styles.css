@@ -42,13 +42,17 @@
 }
 
 .column {
-    float: left;
+    float: center;
     width: 33.33%;
 }
 
 .column p {
     font-family: 'Arial';
     font-weight: 550;
+}
+
+.title {
+  border: 1px solid black;
 }
 
 .left {
@@ -58,7 +62,7 @@
 .middle, .right {
     width: 30%;
 }
-  
+
 .row:after {
     content: "";
     display: table;
