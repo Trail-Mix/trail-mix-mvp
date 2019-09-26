@@ -34,7 +34,6 @@ module.exports = {
         '/signup':'http://localhost:3000',
         '/login':'http://localhost:3000',
         '/comments': 'http://localhost:3000',
-        '/': 'http://localhost:3000'
       }
     },
     resolve: {

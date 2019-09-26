@@ -77,11 +77,7 @@ const App = () => {
           trailData={trailData} 
           selectedTrail={selectedTrail} 
           noTrail={noTrail}
-<<<<<<< HEAD
           setComments = {setComments}
-=======
-          postComment={postComment}
->>>>>>> master
           comments={comments}
           getTrail={getTrail}
         />
