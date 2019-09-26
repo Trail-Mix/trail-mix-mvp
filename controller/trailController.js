@@ -86,6 +86,8 @@ trailController.removeTrail = (req, res, next) => {
 
     pool.query(`DELETE FROM trails WHERE user_id=${userId} AND rei_id=${reiId}`, (error, results) => {
       if (error) throw error;
+      console.log('REMOVED!')
+      console.log(results)
       return next();
     });
 };

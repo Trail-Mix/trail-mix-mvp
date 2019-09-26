@@ -15,7 +15,7 @@ import SvgTrekking from "./Icons/Trekking.js";
 
 //importing ReactMapGl component from react-map-gl module, using react hooks to set local state
 const MapDisplay = props => {
-    console.log(props)
+
     const [viewport, setViewport] = useState({
        latitude: props.latitude,
        longitude: props.longitude,

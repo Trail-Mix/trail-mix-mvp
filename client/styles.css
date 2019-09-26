@@ -9,6 +9,10 @@ a {
   cursor: pointer !important;
 }
 
+table td a.trail-page-link {
+  border-bottom: 3px solid #5fc5b0 !important;
+}
+
 .appContainer {
     position: relative;
     z-index: 1;
@@ -161,21 +165,6 @@ a {
     z-index: 2;
 }
 
-#diff-key {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 50%;
-    height: 30%;
-    overflow: auto;
-    background-color: #ffe4cb;
-    text-align: center;
-    border: 2px solid darkgreen;
-    border-radius: 5px;
-    z-index: 2;
-}
-
 .navigation {
   padding: 30px 50px;
 }
@@ -187,39 +176,50 @@ a {
   text-transform: uppercase;
 }
 
+.trailPageContainer {
+    padding-top: 0;
+    padding-left: 0;
+    /* border: 2px solid lightgray; */
+    text-align: center;
+}
+
+.headertrailpage {
+    text-align: center;
+}
+
+.trailpage {
+    /* border: 2px solid lightgray; */
+    text-align: center;
+}
+
+.image {
+  margin: auto;
+  width: 55%;
+
+}
+
+.commentbox {
+    text-align: center;
+    display: block;
+}
+
 .getUserTrails {
-  padding: 0px 50px;
-}
-
-#getTrailsTable {
-  overflow: scroll;
-}
-
-#allTrails {
-  position: relative;
-}
-
-#allTrails th {
-  min-width: 230px;
-}
-
-#allTrails td {
-  min-width: 235px
-}
-
-#allTrails .like-button p {
-  text-align: center;
-}
-
-#getTrailsTable tbody {
-  overflow-y: scroll;
-  height: 600px;
-  position: absolute;
+  padding: 0px 69px;
 }
 
 .table-name {
   padding-top: 40px;
   padding-bottom: 20px;
+}
+
+table#allTrails {
+  overflow-y:scroll;
+  height: 700px;
+  display:block;
+}
+
+#hikedTrails {
+  padding-top: 0px;
 }
 
 .trail-name {
@@ -262,4 +262,16 @@ a {
 
 .nav-content-container {
   background-color: #fff !important;
+}
+
+td.heart-space, th.heart-space{
+  max-width: 50px !important;
+}
+
+.trail-profile-container {
+  display: flex;
+}
+
+.trail-image img {
+  width: 400px;
 }

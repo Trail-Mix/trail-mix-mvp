@@ -127,45 +127,77 @@ class TrailPage extends React.Component {
 
     return (
       <div>
-      <div className="navigation">
-        <Link className="nav-item" to={{
-          pathname: '/homepage',
-          state: {
-            id: this.state.userId,
-            username: this.state.username
-          }
-        }}>Trail Mix</ Link>
-        <Link className="nav-item" to={{
-          pathname: '/favs',
-          state: {
-            userId: this.state.userId,
-            username: this.state.username
-          }
-        }}>My Favs</Link>
-        <p className="nav-item" id="userGreeting">Hello, {this.state.username}!</p>
-      </div>
-
-        <p>{name}</p>
-        <p>{url}</p>
-        <p>{stars}</p>
-        <p>{summary}</p>
-        <p>{location}</p>
-        <p>{length}</p>
-        <p>{difficulty}</p>
-        <img src={imgMedium} />
-        <div>{ allHikers }</div>
-        <div>{ allComments }</div>
-        <div>
-          <input type="text" name="comment" id="commentForm"></input>
-          <button
-            value="Submit"
-            id={id}
-            onClick={(e) => {
-              const comment = document.getElementById('commentForm').value;
-              this.postComment(e.target.id, comment, username)
-              document.getElementById('commentForm').value = '';
-          }}>Submit</button>
+        <div className="navigation">
+          <Link className="nav-item" to={{
+            pathname: '/homepage',
+            state: {
+              id: this.state.userId,
+              username: this.state.username
+            }
+          }}>Trail Mix</ Link>
+          <Link className="nav-item" to={{
+            pathname: '/favs',
+            state: {
+              userId: this.state.userId,
+              username: this.state.username
+            }
+          }}>My Favs</Link>
+          <p className="nav-item" id="userGreeting">Hello, {this.state.username}!</p>
         </div>
+
+        <div className="trailpage">
+          <div className="trailPageContainer">
+            <div className="headertrailpage">
+              <h1>{name}</h1>
+            </div>
+
+            <div className="trail-profile-container">
+              <div className="trail-image">
+                <img src={imgMedium} />
+              </div>
+              <div>
+                  <p>{summary}</p>
+                  <div>
+                    <img src ="https://img.icons8.com/material/2x/worldwide-location.png"/>
+                    <span>{location}</span>
+                  </div>
+
+                  <div>
+                    <img src="https://img.icons8.com/material/2x/link.png"/>
+                    <span>{url}</span>
+                  </div>
+
+                  <div>
+                    <img src ="https://img.icons8.com/material/2x/rating.png"/>
+                    <span>{stars}</span>
+                  </div>
+
+                  <div>
+                    <img src="https://img.icons8.com/material/2x/map-marker.png"/>
+                    <span>{length}</span>
+                  </div>
+
+                  <div>{ allHikers }</div>
+                  <div>{ allComments }</div>
+
+              </div>
+            </div>
+          </div>
+
+          <div className = "commentbox">
+              <input type="text" name="comment" id="commentForm"></input>
+              <button
+                value="Submit"
+                id={id}
+                onClick={(e) => {
+                  const comment = document.getElementById('commentForm').value;
+                  this.postComment(e.target.id, comment, username)
+                  document.getElementById('commentForm').value = '';
+              }}>
+                Submit
+                </button>
+            </div>
+          </div>
       </div>
     )
   }
