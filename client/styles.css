@@ -204,16 +204,22 @@ table td a.trail-page-link {
 }
 
 .getUserTrails {
-  padding: 0px 50px;
-}
-
-#getTrailsTable {
-  overflow: scroll;
+  padding: 0px 69px;
 }
 
 .table-name {
   padding-top: 40px;
   padding-bottom: 20px;
+}
+
+table#allTrails {
+  overflow-y:scroll;
+  height: 700px;
+  display:block;
+}
+
+#hikedTrails {
+  padding-top: 0px;
 }
 
 .trail-name {

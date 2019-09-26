@@ -116,7 +116,7 @@ render() {
        </div>
 
        <div className = "getUserTrails">
-       <h2 className="table-name">Hiked Trials</h2>
+       <h2 className="table-name" id="hikedTrails">Hiked Trials</h2>
        <Table size="md" striped>
          <thead>
            <tr>
@@ -130,7 +130,7 @@ render() {
          </tbody>
        </Table>
 
-       <h2 className="table-name">Save Trials</h2>
+       <h2 className="table-name" id="savedTrails">Save Trials</h2>
        <Table size="md" striped>
          <thead>
            <tr>

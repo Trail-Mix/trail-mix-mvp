@@ -6,10 +6,9 @@ const googleMapsUrl = 'https://maps.googleapis.com/maps/api/geocode/json?address
 const googleMaps_API_KEY = 'AIzaSyAgJUQeWjM55IdJbPXVRa3i-5N6uLvptI8';
 const hikingProject_API_KEY = '200601261-d71b1d3a8f073c58c93d34bf907171f1'
 
-//state includes data retrieved from REI API, selects selected trail
+// state includes data retrieved from REI API, selects selected trail
 // holds trail specific comments pulled from database
 class App extends Component {
-  // user ID
     constructor(props) {
         super(props);
 
@@ -17,6 +16,7 @@ class App extends Component {
             userId: null,
             username: null,
             trailData: [],
+            savedTrails: [],
             selectedTrail: null,
             isLoggedIn: true,
             comments: [],
@@ -26,16 +26,14 @@ class App extends Component {
             zoom: 3,
         }
 
-
-    this.getTrail = this.getTrail.bind(this);
-    this.saveTrail = this.saveTrail.bind(this);
-    this.removeTrail = this.removeTrail.bind(this);
-    this.displayTrail = this.displayTrail.bind(this);
-    this.handleSearchInput = this.handleSearchInput.bind(this);
-    this.handleSearchSubmit = this.handleSearchSubmit.bind(this);
+      this.getTrail = this.getTrail.bind(this);
+      this.saveTrail = this.saveTrail.bind(this);
+      this.removeTrail = this.removeTrail.bind(this);
+      this.displayTrail = this.displayTrail.bind(this);
+      this.handleSearchInput = this.handleSearchInput.bind(this);
+      this.handleSearchSubmit = this.handleSearchSubmit.bind(this);
 
     };
-    //fetches data from REI API and sets to state when the page loads
 
     handleSearchInput(e) {
         let input = e.target.value;
@@ -45,17 +43,13 @@ class App extends Component {
 
     handleSearchSubmit(e) {
         e.preventDefault()
-        console.log('this.state.searchInput is: ', this.state.searchInput)
         const gUrl = googleMapsUrl + this.state.searchInput + '&key=' + googleMaps_API_KEY;
-        console.log(gUrl);
         fetch(gUrl)
         .then((res) => res.json())
         .then((res) => {
             const lat = res.results[0].geometry.location.lat;
             const lng = res.results[0].geometry.location.lng;
             this.setState({ latitude: lat, longitude: lng })
-            console.log('latitude is: ', lat)
-            console.log('longitude is: ', lng)
         })
         .then((res) => {
             const hUrl = `https://www.hikingproject.com/data/get-trails?lat=${this.state.latitude}&lon=${this.state.longitude}&maxDistance=20&maxResults=100$minStars=3&key=${hikingProject_API_KEY}`
@@ -63,8 +57,6 @@ class App extends Component {
             fetch(hUrl)
             .then((res) => res.json())
             .then((res) => {
-                console.log(res);
-                // this.setState({ trailData: res.trails })
                 this.setState(state => {
                     return {
                         ...state,
@@ -82,8 +74,10 @@ class App extends Component {
     // fetches data from REI API and sets to state when the page loads
     componentDidMount() {
 
+            const { id } = this.props.location.state
+
             this.setState({
-              userId: this.props.location.state.id,
+              userId: id,
               username: this.props.location.state.username
             });
 
@@ -97,8 +91,31 @@ class App extends Component {
                       ...state,
                       trailData: res.trails
                   };
+               });
+            });
+
+            fetch('/favs', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                id: id,
+              })
+            })
+            .then((res) => {
+              return res.json();
+            })
+            .then((res) => {
+              this.setState(state => {
+                return {
+                  ...state,
+                  savedTrails: res.trails
+                };
               });
-        });
+            })
+
+
     };
 
     //invoked by on-click function in TrailDisplay, sets selected trail in state
@@ -141,6 +158,7 @@ class App extends Component {
               'Content-Type': 'application/json',
           },
           body: JSON.stringify({
+              id: this.state.userId,
               userId: this.state.userId,
               reiId: props.id,
               length: props.length,
@@ -151,6 +169,14 @@ class App extends Component {
       })
       .then((res) => {
           return res.json();
+      })
+      .then((res) => {
+        this.setState(state => {
+          return {
+            ...state,
+            savedTrails: res.trails
+          };
+        });
       })
     }
 
@@ -163,12 +189,21 @@ class App extends Component {
               'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-              userId: props.userId,
+              id: this.state.userId,
+              userId: this.state.userId,
               reiId: props.id,
           })
       })
       .then((res) => {
           return res.json();
+      })
+      .then((res) => {
+        this.setState(state => {
+          return {
+            ...state,
+            savedTrails: res.trails
+          };
+        });
       })
     }
 
@@ -217,8 +252,10 @@ class App extends Component {
                   getTrail={this.getTrail}
                   selectedTrail={this.state.selectedTrail}
                   displayTrail={this.displayTrail}
+                  savedTrails={this.state.savedTrails}
                   zoom={this.state.zoom}
                   saveTrail={this.saveTrail}
+                  removeTrail={this.removeTrail}
                   userId={this.state.userId}
                   username={this.state.username} />
             </div>

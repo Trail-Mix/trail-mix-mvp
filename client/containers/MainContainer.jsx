@@ -17,6 +17,7 @@ import ListContainer from "./ListContainer.jsx";
 class MainContainer extends Component {
 
     render() {
+
         return (
             <div id="main-container">
                 <ListContainer
@@ -24,6 +25,8 @@ class MainContainer extends Component {
                   getTrail={this.props.getTrail}
                   showKey={this.props.showKey}
                   saveTrail={this.props.saveTrail}
+                  removeTrail={this.props.removeTrail}
+                  savedTrails={this.props.savedTrails}
                   userId={this.props.userId}
                   username={this.props.username}
                 />
