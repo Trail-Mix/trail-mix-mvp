@@ -36,6 +36,22 @@
     display: flex;
 }
 
+.listDisplay {
+  border: 1px solid black;
+  margin-top: 25px;
+}
+
+table {
+  background-color: #90EE90;
+  border-bottom: 1px solid black;
+}
+
+th {
+  font-family: Arial;
+  font-weight: 550;
+  padding: 25px 150px;
+}
+
 .evens {
     display: flex;
     background-color: rgb(122, 185, 119);
@@ -55,8 +71,16 @@
     font-weight: 550;
 }
 
-.title {
-  border: 1px solid black;
+.namePlace {
+  margin-left: 15px;
+}
+
+.length {
+  padding-left: 30px;
+}
+
+.difficulty {
+  padding-left: 25px;
 }
 
 .left {
@@ -78,7 +102,7 @@
 }
 
 .difficulty {
-    margin-left: 50px;
+    margin-left: 110px;
 }
 
 .popup {

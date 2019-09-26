@@ -26,7 +26,7 @@ const ListDisplay = (props) => (
     </div>
     <div className='column'>
       <p id={props.id} className='length'>
-        Length: {props.trailData.length > 0 && props.length} miles
+        {props.trailData.length > 0 && props.length} miles
       </p>
     </div>
     <div className='column'>
@@ -34,7 +34,7 @@ const ListDisplay = (props) => (
         id={props.id}
         className='difficulty'
         onClick={() => props.setDiffKey((props.diffKey ? false : true))}>
-        Difficulty: {props.trailData.length > 0 && props.difficulty}
+        {props.trailData.length > 0 && props.difficulty}
       </p>
       <br/>
     </div>

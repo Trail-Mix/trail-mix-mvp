@@ -30,17 +30,19 @@ const ListContainer = (props) => {
   ));
   return (
     <div className="listDisplay" >
-    <div id='titles'>
-      <p className='column namePlace title'>
-        Trail
-      </p>
-      <p className='column length title'>
-        Length
-      </p>
-      <p className='column difficulty title'>
-        Difficulty
-      </p>
-    </div>
+      <table>
+        <thead>
+          <th className='columntitle'>
+            Trail
+          </th>
+          <th className='column title'>
+            Length
+          </th>
+          <th className='column title'>
+            Difficulty
+          </th>
+        </thead>
+      </table>
       {trails}
     </div >
   );
