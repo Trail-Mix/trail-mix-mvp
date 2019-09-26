@@ -32,6 +32,10 @@ const MapDisplay = (props) => {
       mapboxApiAccessToken={`pk.eyJ1IjoiZXJlYXN0bWFuIiwiYSI6ImNrMHUyemE4bTBqdmwzYnFnMGk0Z2VzaWgifQ.AL6aKHfOcWqKwC72i3FyBg`}
       mapStyle={`mapbox://styles/ereastman/ck0vjqz9x7y0g1cqs0vq5l9ld`}
       onViewportChange={viewport => setViewport(viewport)}
+      onClick={e => {
+        e.preventDefault();
+        setSelectedHike(null); // this onClick method clears the Popup (see below) when you click anywhere except the Popup
+      }}
       >
       {/* map through trailData array in state to produce marker components, as well as popup components, on the map */}
       {props.trailData.map(trail => (

@@ -24,7 +24,7 @@ const TrailContainer = (props) => {
     setComment('');
     setAuthor('');
   }
-
+ 
   let comments = []; // this needs to be 'let' for some reason 
 
   if (props.comments) {
