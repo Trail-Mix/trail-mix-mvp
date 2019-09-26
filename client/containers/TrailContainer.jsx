@@ -16,38 +16,63 @@ import CommentsDisplay from "../components/CommentsDisplay.jsx";
 //maps through comments to pull desired values 
 const TrailContainer = (props) => {
   const [comment, setComment] = useState('');
-  const [username, setAuthor] = useState('');
+  const [author, setAuthor] = useState('');
   
+  //adds comment and author to database and pulls back all comments for specified trail and sets to state
+  const postComment = (id, comment, username) => {
+    const options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        id,
+        comment,
+        username,
+      })
+    };
+    fetch('/comments', options)
+      .then(res => {
+        console.log("API RES PRE JSON", res)
+        res.json()
+      })
+      .then(res => {
+        console.log("POST RES", res)
+        setComment(res) 
+      })
+      .catch(err => console.error(err));
+  };
   const handleClick = (e) => {
     e.preventDefault();
-    props.postComment(e.target.id, comment, username);
+    postComment(e.target.id, comment, author);
     setComment('');
     setAuthor('');
   }
-
-  // if (props.comments) {
-    // const comments = props.comments.map((cur, idx) => (
-    //   <CommentsDisplay
-    //     key = {idx}
-    //     comment = {cur.comment}
-    //     username = {cur.username}
-    //     getTrail = {props.getTrail}
-    //   />
-    // ));
-  // }
+  let comments;
+  if (props.comments) {
+    comments = props.comments.map((cur, idx) => (
+      <CommentsDisplay
+        key = {idx}
+        comment = {cur.comment}
+        username = {cur.username}
+        getTrail = {props.getTrail}
+      />
+    ));
+  }
   
   return (
     <div className='modalGuts'>
       <button onClick={() => props.noTrail()}>close</button>
       <TrailDisplay selectedTrail={props.selectedTrail} />
       <div className="comments">
-        {/* {comments} */}
+        {comments}
       </div>
       <form className="commentInput">
         <input
           type="text"
           name="comment"
           id="commentForm"
+          value={comment}
           onChange={e => setComment(e.target.value)}
         />
         <br />
@@ -55,6 +80,7 @@ const TrailContainer = (props) => {
           type="text"
           name="username"
           id="authorForm"
+          value={author}
           onChange={e => setAuthor(e.target.value)}
         />
         <button

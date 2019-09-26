@@ -10,7 +10,7 @@ commentController.getComment = async (req, res, next) => {
     console.log("res.locals inside GET comments", res.locals.comments)
     // console.log("req.headers", _id)
     const query = {
-        text: 'SELECT * FROM comments WHERE userid ="',
+        text: 'SELECT * FROM comments',
     };
     try {
         const result = await db.query(query);
@@ -28,10 +28,10 @@ commentController.getComment = async (req, res, next) => {
 //query posting new comment to DB and then fetching all comments including the one just posted
 commentController.postComment = async (req, res, next) => {
     console.log("postComment")
-    const { comment, userid } = req.body;
+    const { comment } = req.body;
     const query = { 
-        text: 'INSERT INTO comments ( comment, userid) VALUES ($1, $2) RETURNING *',
-        values: [comment, userid],
+        text: 'INSERT INTO comments ( comment) VALUES ($1) RETURNING *',
+        values: [comment],
     }
     try {
         const { rows } = await db.query(query);
