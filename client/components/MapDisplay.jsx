@@ -34,7 +34,7 @@ const MapDisplay = (props) => {
       onViewportChange={viewport => setViewport(viewport)}
       onClick={e => {
         e.preventDefault();
-        setSelectedHike(null); // this onClick method clears the Popup (see below) when you click anywhere except the Popup
+        setSelectedHike(null); // this onClick method clears the Popup (see below) when you click anywhere on map except the Popup
       }}
       >
       {/* map through trailData array in state to produce marker components, as well as popup components, on the map */}
@@ -66,6 +66,7 @@ const MapDisplay = (props) => {
         latitude={selectedHike.latitude}
         longitude={selectedHike.longitude}
         className='popup'
+        closeButton={false}
         >
           <div onClick={() => props.displayTrail(selectedHike)}>
             <h4 className='popup-name'>{selectedHike.name}</h4>

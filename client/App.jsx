@@ -48,10 +48,10 @@ const App = () => {
       .catch(err => console.error(err));
   };
 
-    //closes TrailDisplay overlay
-  const noTrail = () => {
-    setSelectedTrail(null);
-  }
+  //closes TrailDisplay overlay
+  // const noTrail = () => {
+  //   setSelectedTrail(null);
+  // }
 
   //adds comment and author to database and pulls back all comments for specified trail and sets to state
   const postComment = (id, comment, author) => {
@@ -100,7 +100,7 @@ const App = () => {
           className="modal" 
           trailData={trailData} 
           selectedTrail={selectedTrail} 
-          noTrail={noTrail}
+          setSelectedTrail={setSelectedTrail}
           postComment={postComment}
           comments={comments}
           getTrail={getTrail}
