@@ -5,8 +5,6 @@ const bodyParser = require('body-parser');
 const trailController = require('./controllers/trailController');
 const userController = require('./controllers/userController.js');
 const sessionController = require('./controllers/sessionController.js')
-
-const databaseController = require('./controllers/databaseController.js');
 const commentController = require('./controllers/commentController');
 const app = express();
 const PORT = 3000;
