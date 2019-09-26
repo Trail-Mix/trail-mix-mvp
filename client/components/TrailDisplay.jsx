@@ -13,7 +13,9 @@ import React from "react";
 //pulls specific data from trailContainer to display in overlay
 const TrailDisplay = (props) => (
   <div className="trailInfo">
+    {/* {props.selectedTrail.id} */}
     <img src={props.selectedTrail && props.selectedTrail.imgMedium} id='trailImage' />
+
     <p id='trailName'>
       <strong>{props.selectedTrail && props.selectedTrail.name}</strong>
       <br/>

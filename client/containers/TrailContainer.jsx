@@ -10,7 +10,7 @@
  */
 import React, { useState } from "react";
 import TrailDisplay from "../components/TrailDisplay.jsx";
-// import CommentsDisplay from "../components/CommentsDisplay.jsx";
+import CommentsDisplay from "../components/CommentsDisplay.jsx";
 
 //container component for individual TrailDisplay and CommentsDisplay
 //maps through comments to pull desired values 
@@ -19,23 +19,20 @@ const TrailContainer = (props) => {
   const [author, setAuthor] = useState('');
   
   //adds comment and author to database and pulls back all comments for specified trail and sets to state
-  const postComment = (id, comment, username) => {
+  const postComment = ( comment, trailid) => {
+    console.log("com",comment,"um",trailid)
     const options = {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        id,
+        trailid: props.selectedTrail.id,
         comment,
-        username,
       })
     };
     fetch('/comments', options)
-      .then(res => {
-        console.log("API RES PRE JSON", res)
-        res.json()
-      })
+      .then(res => res.json())
       .then(res => {
         console.log("POST RES", res)
         setComment(res) 
@@ -44,7 +41,7 @@ const TrailContainer = (props) => {
   };
   const handleClick = (e) => {
     e.preventDefault();
-    postComment(e.target.id, comment, author);
+    postComment( comment,props.selectedTrail.id );
     setComment('');
     setAuthor('');
   }
@@ -55,7 +52,7 @@ const TrailContainer = (props) => {
       <CommentsDisplay
         key = {idx}
         comment = {cur.comment}
-        username = {cur.username}
+        trailId = {cur.trailId}
         getTrail = {props.getTrail}
       />
     ));
@@ -67,6 +64,7 @@ const TrailContainer = (props) => {
       <TrailDisplay selectedTrail={props.selectedTrail} />
       <div className="comments">
         {comments}
+        
       </div>
       <form className="commentInput">
         <input
