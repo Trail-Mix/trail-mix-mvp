@@ -29,11 +29,11 @@ const Signup = (props) => {
     fetch('/signup', options)
       .then(res => res.json())
       .then(res => {
-        if (res) {
+        if (res.verified) {
           props.setUsername(username);
           setUsername('');
           setPassword('');
-          props.setIsLoggedIn(res);
+          props.setIsLoggedIn(res.verified);
         }
       })
       .catch(err => console.error(err));
