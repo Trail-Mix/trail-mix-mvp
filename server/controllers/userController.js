@@ -48,60 +48,55 @@ userController.createTable = (req, res, next) => {
 userController.createUser = async (req, res, next) => {
   const { username, password } = req.body;
 
-  if (username && password) {
-    let results;
-    try {
-      results = await db.query('SELECT * FROM users WHERE username = $1', [username]);
-    } catch(err) {
-      return next({
-        log: `Error searching for user in db ${err}`
-      });
-    }
-
-    if (results.rowCount === 0) {
-      await bcrypt.hash(password, SALT_WORK_FACTOR, async (err, hash) => {
-        if (err) throw err;
-        try {
-          await db.query('INSERT INTO users (username, password) VALUES ($1, $2) returning *', [username, hash])
-        } catch(err) {
-          return next({
-            log: `Error inserting users into db ${err}`
-          })
-        }
-      });
-    }
-
-    res.locals.verified = true;
-  } else {
-    res.locals.verified = false;
+  if (!username || !password) {
+    return next({
+      log: `No username or password in body`,
+    });
   }
-  return next();
+  try {
+    const results = await db.query('SELECT * FROM users WHERE username = $1', [username]);
+    if (results.rowCount) {
+      return next({
+        log: `User already exists`,
+      });
+    }
+    const hashedPass = await bcrypt.hash(password, SALT_WORK_FACTOR);
+    const { rows } = await db.query('INSERT INTO users (username, password) VALUES ($1, $2) returning *', [username, hashedPass]);
+    res.locals.userId = rows[0]._id;
+    res.locals.verified = true;
+    return next();
+  } catch(err) {
+    res.locals.verified = false;
+    return next({
+      log: `Error searching for user in db ${err}`
+    });
+  }
 };
 
 
 
 // query username and password and see if matches are in the database
-userController.verifyUser = (req, res, next) => {
+userController.verifyUser = async (req, res, next) => {
   const { username, password } = req.body;
 
-  db.query('SELECT password FROM users where username = $1', [username], (error, results) => {
-    if (error) throw error;
-    if(results.rows.length === 1) {
-      bcrypt.compare(password, results.rows[0].password, (err, isMatch) => {
-        if (err) return err;
-        if (!isMatch) {
-          res.locals.verified = false;
-          return next();
-        } else {
-          res.locals.verified = true;
-          return next();
-        };
-      });
-    } else {
-      res.locals.verified = false;
-      return next();
-    };
-  });
+  const results = await db.query('SELECT * FROM users WHERE username = $1', [username])
+
+  if (results.rowCount === 1) {
+    res.locals.userId = results.rows[0]._id;
+
+    bcrypt.compare(password, results.rows[0].password, async (err, isMatch) => {
+       if (err) return err;
+       if (await isMatch) {
+         res.locals.verified = true;
+       } else {
+         res.locals.verified = false;
+       }
+     });
+  } else {
+    res.locals.verified = false;
+  }
+
+  return next();
 };
 
-module.exports = databaseController;
+module.exports = userController;

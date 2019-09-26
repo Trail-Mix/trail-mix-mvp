@@ -3,6 +3,11 @@ const path = require('path');
 const express = require('express');
 const bodyParser = require('body-parser');
 const trailController = require('./controllers/trailController');
+<<<<<<< HEAD
+=======
+const userController = require('./controllers/userController.js');
+const sessionController = require('./controllers/sessionController.js')
+>>>>>>> cab69852d8f88b59a0a5442ddca42624b60d05a4
 
 const databaseController = require('./controllers/databaseController.js');
 const commentController = require('./controllers/commentController');
@@ -26,16 +31,25 @@ app.get('/data', trailController.getTrails, (req, res) => {
 })
 
 //routes post request upon login to verify user
+<<<<<<< HEAD
 app.post('/login', databaseController.verifyUser, (req, res) => {
+=======
+app.post('/login', userController.verifyUser, sessionController.createSessionsTable, sessionController.setSSIDCookie, sessionController.startSession, (req, res) => {
+>>>>>>> cab69852d8f88b59a0a5442ddca42624b60d05a4
   const { verified } = res.locals;
   return res.status(200).json(verified);
 })
 
 // post request that brings in user-input signup information, creates a new user in the database, and sends verification to the front end
+<<<<<<< HEAD
 app.post('/signup', databaseController.createUser, (req, res) => {
   const { verified } = res.locals;
 
   console.log('verified', verified);
+=======
+app.post('/signup', sessionController.isLoggedIn, userController.createTable, userController.createUser, sessionController.createSessionsTable, sessionController.setSSIDCookie, sessionController.startSession, (req, res) => {
+  const { verified } = res.locals;
+>>>>>>> cab69852d8f88b59a0a5442ddca42624b60d05a4
   return res.status(200).json(verified);
 })
 
