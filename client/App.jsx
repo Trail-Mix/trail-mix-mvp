@@ -17,16 +17,14 @@ import TrailContainer from './containers/TrailContainer.jsx';
 const App = () => {
   const [trailData, setTrailData] = useState([]);
   const [selectedTrail, setSelectedTrail] = useState(null);
-  const [comments, setComments] = useState([{ username: 'devon', comment: 'testing'}]);
+  const [comments, setComments] = useState([]);
   const [diffKey, setDiffKey] = useState(false);
 
   //fetches data from REI API and sets to state when the page loads
   useEffect(() => {
     fetch('/data')
       .then(res => res.json())
-      .then(res => {
-        console.log("API RES", res.trails)
-        setTrailData(res.trails)})
+      .then(res => setTrailData(res.trails))
       .catch(err => console.error(err));
   }, []);
 

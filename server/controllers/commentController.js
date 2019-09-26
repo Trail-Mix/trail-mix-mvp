@@ -7,7 +7,6 @@ commentController.getComment = async (req, res, next) => {
     console.log("getComment")
     const { _id } = req.headers;
     // res.locals.comments = row[0]
-    console.log("res.locals inside GET comments", res.locals.comments)
     // console.log("req.headers", _id)
     const query = {
         text: 'SELECT * FROM comments',
@@ -16,7 +15,6 @@ commentController.getComment = async (req, res, next) => {
         const result = await db.query(query);
         // console.log("result", result.fields)
         res.locals.comments = result.rows;
-        console.log("res.locals inside get Comment", res.locals.comments)
         return next();
     } catch (err) {
         return next({
