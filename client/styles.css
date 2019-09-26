@@ -165,8 +165,12 @@ table td a.trail-page-link {
     z-index: 2;
 }
 
+.navbars {
+  padding-bottom: 30px;
+}
+
 .navigation {
-  padding: 30px 50px;
+  padding: 30px 50px 0px 50px;
 }
 
 .navigation a {
@@ -176,31 +180,14 @@ table td a.trail-page-link {
   text-transform: uppercase;
 }
 
-.trailPageContainer {
-    padding-top: 0;
-    padding-left: 0;
-    /* border: 2px solid lightgray; */
-    text-align: center;
+.current-weather {
+  text-align: right;
+  padding-right: 69px;
+  font-size: 12px;
 }
 
-.headertrailpage {
-    text-align: center;
-}
-
-.trailpage {
-    /* border: 2px solid lightgray; */
-    text-align: center;
-}
-
-.image {
-  margin: auto;
-  width: 55%;
-
-}
-
-.commentbox {
-    text-align: center;
-    display: block;
+.nav-item {
+  padding-bottom: 0
 }
 
 .getUserTrails {
@@ -232,7 +219,7 @@ table#allTrails {
 }
 
 .navigation p, .navigation a {
-  padding: 12px 20px;
+  padding: 0px 20px;
   margin: 0;
 }
 
@@ -268,10 +255,58 @@ td.heart-space, th.heart-space{
   max-width: 50px !important;
 }
 
+/* Trails Page */
+
 .trail-profile-container {
   display: flex;
+  justify-content: center;
+  padding: 20px 200px 50px 200px;
 }
 
 .trail-image img {
-  width: 400px;
+  padding: 10px 0px;
+  width: 500px;
+}
+
+.trail-information {
+  padding: 8px 30px;
+  text-align: left;
+}
+
+.information h2 {
+  text-align: left
+}
+
+.trail-header-name {
+  font-size: 26px;
+  font-weight: 800;
+  padding-bottom: 10px;
+}
+
+.headertrailpage {
+  text-align: center;
+}
+
+.trailpage {
+  text-align: center;
+}
+
+.trail-detail {
+  padding-bottom: 12px;
+}
+
+.trailPageContainer {
+  padding-top: 0;
+  padding-left: 0;
+  text-align: center;
+}
+
+.image {
+  margin: auto;
+  width: 55%;
+}
+
+.commentbox {
+  text-align: center;
+  display: block;
 }

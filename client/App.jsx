@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
 const googleMapsUrl = 'https://maps.googleapis.com/maps/api/geocode/json?address=';
 const googleMaps_API_KEY = 'AIzaSyAgJUQeWjM55IdJbPXVRa3i-5N6uLvptI8';
 const hikingProject_API_KEY = '200601261-d71b1d3a8f073c58c93d34bf907171f1'
+const darkSky_API_KEY = '0b5c5fab0ec2f6d0ad4dd955eea69e1c';
 
 // state includes data retrieved from REI API, selects selected trail
 // holds trail specific comments pulled from database
@@ -24,6 +25,7 @@ class App extends Component {
             latitude: 39.0119,
             longitude: -98.4842,
             zoom: 3,
+            weatherData: [],
         }
 
       this.getTrail = this.getTrail.bind(this);
@@ -64,6 +66,17 @@ class App extends Component {
                     }
                 })
                 console.log('this.state.trailData is: ', this.state.trailData)
+                })
+        })
+        .then((res) => {
+          console.log('hellooooo')
+            const wUrl = `https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/${darkSky_API_KEY}/${this.state.latitude},${this.state.longitude}`;
+            console.log(`wUrl: ${wUrl}`)
+            fetch(wUrl)
+                .then((res) => res.json())
+                .then((res) => {
+                    this.setState({ weatherData: res.daily });
+                    console.log(`Weather array info: ${this.state.weatherData.data[0].temperatureMin}`)
                 })
         })
         this.setState({zoom: 10})
@@ -214,20 +227,29 @@ class App extends Component {
 
     //renders MainContainer and conditionally renders TrailContainer
     render() {
+
+        let weather = 70;
+        if (this.state.weatherData.length !== 0) {
+          weather = Math.floor(this.state.weatherData.data[0].temperatureMin);
+        }
+
         if (!this.state.isLoggedIn) return <Redirect to="/login" />
         return (
           <div>
-
-            <div className="navigation">
-              <Link className="nav-item" to="/homepage">Trail Mix</Link>
-              <Link className="nav-item" to={{
-                pathname: '/favs',
-                state: {
-                  userId: this.state.userId,
-                  username: this.state.username
-                }
-              }}>My Favs</ Link>
-              <p className="nav-item" id="userGreeting">Hello, {this.state.username}!</p>
+            <div className="navbars">
+              <div className="navigation">
+                <Link className="nav-item" to="/homepage">Trail Mix</Link>
+                <Link className="nav-item" to={{
+                  pathname: '/favs',
+                  state: {
+                    userId: this.state.userId,
+                    username: this.state.username,
+                    weather: this.state.weatherData
+                  }
+                }}>My Favs</ Link>
+                <p className="nav-item" id="userGreeting">Hello, {this.state.username}!</p>
+              </div>
+              <div className="current-weather">Current weather {weather}&#8457;</div>
             </div>
 
             <div className='appContainer'>
@@ -248,6 +270,7 @@ class App extends Component {
                   className='mainContainer'
                   latitude={this.state.latitude}
                   longitude={this.state.longitude}
+                  weatherData={this.state.weatherData}
                   trailData={this.state.trailData}
                   getTrail={this.getTrail}
                   selectedTrail={this.state.selectedTrail}
