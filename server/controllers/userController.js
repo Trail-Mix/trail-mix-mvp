@@ -37,6 +37,7 @@ userController.createUser = async (req, res, next) => {
     const hashedPass = await bcrypt.hash(password, SALT_WORK_FACTOR);
     const { rows } = await db.query('INSERT INTO users (username, password) VALUES ($1, $2) returning *', [username, hashedPass]);
     res.locals.userId = rows[0]._id;
+    res.locals.username = rows[0].username;
     res.locals.verified = true;
     return next();
   } catch(err) {

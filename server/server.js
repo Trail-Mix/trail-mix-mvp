@@ -9,9 +9,6 @@ const commentController = require('./controllers/commentController');
 const app = express();
 const PORT = 3000;
 
-
-
-
 //extracts the entire body portion of an incoming request stream and exposes it on req.body
 app.use(bodyParser.json());
 app.use(cookieParser());
