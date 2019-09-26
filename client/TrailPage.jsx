@@ -15,6 +15,7 @@ class TrailPage extends React.Component {
       hikers: [],
       comments: [],
       username: 'admin',
+      weather: [],
     }
 
     this.postComment = this.postComment.bind(this);
@@ -23,12 +24,13 @@ class TrailPage extends React.Component {
   componentDidMount () {
 
     const { id } = this.props.match.params;
-    const { username, userId } = this.props.location.state
+    const { username, userId, weather } = this.props.location.state
 
     this.setState({
       username,
       id,
       userId,
+      weather,
     })
 
     fetch('/trail', {
@@ -125,67 +127,77 @@ class TrailPage extends React.Component {
       })
     }
 
+    let weather = 70;
+    if (this.state.weather.length !== 0) {
+      weather = Math.floor(this.state.weather.data[0].temperatureMin);
+    }
+
     return (
       <div>
+      <div className="navbars">
         <div className="navigation">
           <Link className="nav-item" to={{
             pathname: '/homepage',
             state: {
               id: this.state.userId,
-              username: this.state.username
+              username: this.state.username,
+              weather: this.state.weather
             }
           }}>Trail Mix</ Link>
           <Link className="nav-item" to={{
             pathname: '/favs',
             state: {
               userId: this.state.userId,
-              username: this.state.username
+              username: this.state.username,
+              weather: this.state.weather
             }
           }}>My Favs</Link>
           <p className="nav-item" id="userGreeting">Hello, {this.state.username}!</p>
         </div>
+        <div className="current-weather">Current weather {weather}&#8457;</div>
+      </div>
 
         <div className="trailpage">
           <div className="trailPageContainer">
-            <div className="headertrailpage">
-              <h1>{name}</h1>
-            </div>
+
 
             <div className="trail-profile-container">
               <div className="trail-image">
                 <img src={imgMedium} />
               </div>
-              <div>
+              <div className="trail-information">
+                  <div className="trail-header-name">
+                    {name}
+                  </div>
+
                   <p>{summary}</p>
-                  <div>
-                    <img src ="https://img.icons8.com/material/2x/worldwide-location.png"/>
+
+                  <div className="trail-detail">
                     <span>{location}</span>
                   </div>
 
-                  <div>
-                    <img src="https://img.icons8.com/material/2x/link.png"/>
-                    <span>{url}</span>
+                  <div className="trail-detail">
+                    <span><a href={url}>More info</a></span>
                   </div>
 
-                  <div>
-                    <img src ="https://img.icons8.com/material/2x/rating.png"/>
-                    <span>{stars}</span>
+                  <div className="trail-detail">
+                    <span>{stars} stars</span>
                   </div>
 
-                  <div>
-                    <img src="https://img.icons8.com/material/2x/map-marker.png"/>
-                    <span>{length}</span>
+                  <div className="trail-detail">
+                    <span>{length} miles</span>
                   </div>
 
+                  <p>Hikers</p>
                   <div>{ allHikers }</div>
-                  <div>{ allComments }</div>
+
 
               </div>
             </div>
           </div>
 
           <div className = "commentbox">
-              <input type="text" name="comment" id="commentForm"></input>
+              <input type="textarea" name="comment" id="commentForm"></input>
               <button
                 value="Submit"
                 id={id}
@@ -198,6 +210,8 @@ class TrailPage extends React.Component {
                 </button>
             </div>
           </div>
+          <div>{ allComments }</div>
+
       </div>
     )
   }

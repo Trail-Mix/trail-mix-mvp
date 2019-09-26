@@ -32,7 +32,6 @@ class ListContainer extends Component {
   }
 
   handleCheck(trail) {
-    console.log(this.props.savedTrails)
     return this.props.savedTrails.some(item => trail.id === item.rei_id);
   }
 
@@ -40,14 +39,14 @@ class ListContainer extends Component {
 
           const trails = this.props.trailData.map((trail, idx) => {
               const currFav = this.handleCheck(trail);
-              console.log(currFav)
               return (
                 <tr key={trail.id}>
                     <td><Link to={{
                       pathname: `/trail/${trail.id}`,
                       state: {
                         username: this.props.username,
-                        userId: this.props.userId
+                        userId: this.props.userId,
+                        weather: this.props.weatherData
                       }
                     }} className="trail-page-link">{trail.name}</ Link></td>
                     <td>{trail.location}</td>

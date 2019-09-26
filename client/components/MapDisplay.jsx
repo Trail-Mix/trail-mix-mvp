@@ -13,6 +13,16 @@ import React, { useState, useEffect } from "react";
 import ReactMapGl, { Marker, Popup } from 'react-map-gl';
 import SvgTrekking from "./Icons/Trekking.js";
 
+
+function getNumber(word) {
+  if (word === 'green') return '1';
+  if (word === 'greenBlue') return '2';
+  if (word === 'blue') return '3';
+  if (word === 'blueBlack') return '4';
+  if (word === 'black') return '5';
+}
+
+
 //importing ReactMapGl component from react-map-gl module, using react hooks to set local state
 const MapDisplay = props => {
 
@@ -52,8 +62,8 @@ const MapDisplay = props => {
                         setViewport({
                             latitude: trail.latitude,
                             longitude: trail.longitude,
-                            width: '70vw',
-                            height: '70vh',
+                            width: '40vw',
+                            height: '80vh',
                             zoom: 16
                         });
                     }}
@@ -71,7 +81,7 @@ const MapDisplay = props => {
                     <div onClick={() => props.displayTrail(selectedHike)}>
                         <h4 className='popup-name'>{selectedHike.name}</h4>
                         <p className='popup-summary'>{selectedHike.location}</p>
-                        <p className='popup-difficulty'>difficulty: {selectedHike.difficulty}</p>
+                        <p className='popup-difficulty'>Level {getNumber( selectedHike.difficulty)}</p>
                     </div>
                 </Popup>
             )}

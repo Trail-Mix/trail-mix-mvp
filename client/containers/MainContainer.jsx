@@ -29,6 +29,7 @@ class MainContainer extends Component {
                   savedTrails={this.props.savedTrails}
                   userId={this.props.userId}
                   username={this.props.username}
+                  weatherData={this.props.weatherData}
                 />
                 <MapDisplay
                   id="map-display"
