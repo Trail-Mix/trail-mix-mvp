@@ -37,18 +37,23 @@ const ListContainer = (props) => {
   };
 
   const sortByLength = () => {
-    const trailByLength = {};
+    const trailsByLength = {};
 
     let lengths = props.trailData.map(trail => {
-      trailByLength[trail.length] = trail;
-      return trail.length
+      if (trailsByLength[trail.length]) {
+        trailByLength.push(trail);
+      } else {
+        trailsByLength[trail.length] = [trail];
+      }
+
+      return trail.length;
     });
 
     const sortedLengths = sortNumbers(lengths);
 
-    const displayInfo = [];
+    let displayInfo = [];
     sortedLengths.forEach(length => {
-      displayInfo.push(trailByLength[length]);
+      displayInfo = displayInfo.concat(trailsByLength[length]);
     })
 
     setTrailData(displayInfo);
@@ -80,9 +85,8 @@ const ListContainer = (props) => {
   };
 
   const sortByDifficulty = () => {
-    const degreeOfDifficulty = {
-      
-    }
+    const trailByDifficulty = {}
+
     props.trailData.forEach(trail => console.log(trail.difficulty));
   };
 
