@@ -85,9 +85,25 @@ const ListContainer = (props) => {
   };
 
   const sortByDifficulty = () => {
-    const trailByDifficulty = {}
+    const trailByDifficulty = {
+      'green': [],
+      'greenBlue': [],
+      'blue': [],
+      'blueBlack': [],
+      'black': []
+    };
 
-    props.trailData.forEach(trail => console.log(trail.difficulty));
+    props.trailData.forEach(trail => {
+      trailByDifficulty[trail.difficulty].push(trail);
+    });
+
+
+    let displayInfo = [];
+    for (let difficulty in trailByDifficulty) {
+      displayInfo = displayInfo.concat(trailByDifficulty[difficulty]);
+    }
+
+    setTrailData(displayInfo);
   };
 
 
