@@ -28,7 +28,7 @@ class ListContainer extends Component {
                       }}>{trail.name}</ Link></td>
                       <td>{trail.location}</td>
                       <td className="like-button">
-                        <p onClick={(e) => this.props.saveTrail(e, trail)}>Like</p>
+                        <p onClick={(e) => this.props.saveTrail(e, trail)}><i class="far fa-lg fa-heart"></i></p>
                       </td>
                     </tr>
                 );
@@ -42,7 +42,7 @@ class ListContainer extends Component {
                     <th></th>
                   </tr>
                 </thead>
-                <tbody>
+                <tbody className="allTrails">
                   {trails}
                 </tbody>
               </Table>

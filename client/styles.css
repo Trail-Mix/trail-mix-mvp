@@ -195,6 +195,10 @@ a {
   overflow: scroll;
 }
 
+#allTrails {
+  position: relative;
+}
+
 #allTrails th {
   min-width: 230px;
 }
@@ -207,11 +211,7 @@ a {
   text-align: center;
 }
 
-table {
-  position: relative;
-}
-
-tbody{
+#getTrailsTable tbody {
   overflow-y: scroll;
   height: 600px;
   position: absolute;
