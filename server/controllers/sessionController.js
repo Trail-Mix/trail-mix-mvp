@@ -25,6 +25,7 @@ sessionController.setSSIDCookie = (req, res, next) => {
 }
 
 sessionController.startSession = async (req, res, next) => {
+  console.log(res.locals.userId);
   try {
     await db.query('INSERT INTO sessions (cookie_id, user_id, created_at) VALUES ($1, $2, CURRENT_TIMESTAMP) returning *', [res.locals.cookieId, res.locals.userId]);
   } catch(err) {
@@ -42,14 +43,19 @@ sessionController.startSession = async (req, res, next) => {
 *
 *
 */
+
 sessionController.isLoggedIn = async (req, res, next) => {
   console.log('cookies', req.cookies);
-  if (!req.cookies.ssid) {
+  if (!req.cookies || !req.cookies.ssid) {
     res.locals.isLoggedIn = false;
     return next();
   }
   try {
-    const result = await db.query(`SELECT * FROM sessions WHERE cookie_id = ${req.cookies.ssid}`);
+    const query = {
+      text: `SELECT * FROM sessions WHERE cookie_id = $1`,
+      values: [req.cookies.ssid],
+    };
+    const result = await db.query(query);
     if (result.rowCount !== 1) {
       res.locals.isLoggedIn = false;
       return next();

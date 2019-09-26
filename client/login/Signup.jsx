@@ -9,17 +9,15 @@
  * ************************************
  */
 import React, { useState } from "react";
-import { Redirect } from "react-router-dom";
 import "./signupstyle.css";
 
 // Signup componenet is for the users to create their login username and password
 const Signup = (props) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [verified, setVerified] = useState(false);
 
   // post request to send user input to database
-  const updateData = (e) => {
+  const attemptSignup = (e) => {
     e.preventDefault();
     const options = {
       method: 'POST',
@@ -30,14 +28,18 @@ const Signup = (props) => {
     }
     fetch('/signup', options)
       .then(res => res.json())
-      .then(res => setVerified(res))
+      .then(res => {
+        if (res) {
+          props.setUsername(username);
+          setUsername('');
+          setPassword('');
+          props.setIsLoggedIn(res);
+        }
+      })
       .catch(err => console.error(err));
   };
 
   // if the user has already signed up, then it will redirect to the homepage, else it will direct to the signup page
-  if (verified) {
-    return <Redirect to="/homepage" />
-  }
   return (
     <div>
       <div className="signupArea">
@@ -48,6 +50,7 @@ const Signup = (props) => {
             className="username"
             type="text"
             placeholder="username"
+            value={username}
             onChange={e => setUsername(e.target.value)}
           />
           <label className="labelpsw"> Password: </label>
@@ -55,15 +58,19 @@ const Signup = (props) => {
             className="password"
             type="password"
             placeholder="password"
+            value={password}
             onChange={e => setPassword(e.target.value)} />
           <button
             className="loginbtn"
             type="submit"
             value="createUser"
-            onClick={e => updateData(e)}
+            onClick={e => attemptSignup(e)}
           > SignUp
           </button>
         </form >
+        <div className="link">
+          <button type="submit" onClick={() => props.setView('login')}> LOGIN </button>
+        </div>
       </div>
     </div>
   )

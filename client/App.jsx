@@ -11,7 +11,6 @@
 
 import React, { useState, useEffect } from 'react';
 import MainContainer from "./containers/MainContainer.jsx";
-import TrailContainer from './containers/TrailContainer.jsx';
 import Login from "./login/Login.jsx";
 import Signup from "./login/Signup.jsx";
 
@@ -20,13 +19,14 @@ import Signup from "./login/Signup.jsx";
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [username, setUsername] = useState('');
-
+  const [view, setView] = useState('login');
 
   //verifies login session
   useEffect(() => {
     fetch('/check')
       .then(res => res.json())
       .then(data => {
+        console.log(data);
         setIsLoggedIn(data.isLoggedIn);
         if (isLoggedIn) setUsername(data.username);
       })
@@ -36,10 +36,26 @@ const App = () => {
   //renders MainContainer and conditionally renders TrailContainer
   return (
     <div className='appContainer'>
-      <MainContainer 
-        className='mainContainer'
-        username={username}
-      />
+      {isLoggedIn
+        && <MainContainer 
+          className='mainContainer'
+          username={username}
+        />
+      }
+      {(view === 'login') && !isLoggedIn
+        && <Login
+          setIsLoggedIn={setIsLoggedIn}
+          setUsername={setUsername}
+          setView={setView}
+        />
+      }
+      {(view === 'signup') && !isLoggedIn
+        && <Signup
+          setIsLoggedIn={setIsLoggedIn}
+          setUsername={setUsername}
+          setView={setView}
+        />
+      }
     </div>
   );
 };

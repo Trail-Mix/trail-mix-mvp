@@ -65,7 +65,7 @@ userController.verifyUser = async (req, res, next) => {
     res.locals.verified = isMatch;
     if (!isMatch) return next(badUserError);
     res.locals.username = username;
-    res.locals.userId = results.rows[0].username;
+    res.locals.userId = results.rows[0]._id;
     return next();
   } catch(err) {
     return next({

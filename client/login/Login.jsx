@@ -18,7 +18,7 @@ const Login = (props) => {
   const [password, setPassword] = useState('');
 
   // post request, get the data from user input, then make a post request with the user input to check match with database
-  const updateData = () => {
+  const attemptLogin = () => {
     const options = {
       method: 'POST',
       headers: {
@@ -28,7 +28,14 @@ const Login = (props) => {
     };
     fetch("/login", options)
       .then(res => res.json())
-      .then(res => setIsLoggedIn(res))
+      .then(res => {
+        if (res) {
+          props.setUsername(username);
+          setUsername('');
+          setPassword('');
+          props.setIsLoggedIn(res);
+        }
+      })
       .catch(err => console.error(err));
   };
 
@@ -43,6 +50,7 @@ const Login = (props) => {
             className="username"
             type="text"
             placeholder="username"
+            value={username}
             onChange={e => setUsername(e.target.value)}
           />
           <br />
@@ -51,6 +59,7 @@ const Login = (props) => {
             className="password"
             type="password"
             placeholder="password"
+            value={password}
             onChange={e => setPassword(e.target.value)}
           />
           <button
@@ -58,14 +67,14 @@ const Login = (props) => {
             type="submit"
             onClick={(e) => {
               e.preventDefault();
-              updateData();
+              attemptLogin();
             }}
           >
             Login
           </button>
         </form>
         <div className="link">
-          <Link to="./signup"> SIGNUP </Link>
+          <button type="submit" onClick={() => props.setView('signup')}> SIGNUP </button>
         </div>
       </div>
     </div>

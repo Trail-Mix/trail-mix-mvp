@@ -9,9 +9,10 @@
  * ************************************
  */
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import MapDisplay from "../components/MapDisplay.jsx";
 import ListContainer from "./ListContainer.jsx";
+import TrailContainer from './TrailContainer.jsx';
 
 //container that combines MapDisplay and ListContainer and passes down all necessary props
 const MainContainer = (props) => {
@@ -77,6 +78,7 @@ const MainContainer = (props) => {
           setComments = {setComments}
           comments={comments}
           getTrail={getTrail}
+          username={username}
         />
       }
     </div>
