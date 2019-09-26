@@ -172,3 +172,32 @@ body {
   color: black;
   text-transform: uppercase;
 }
+
+.trailPageContainer {
+    padding-top: 0;
+    padding-left: 0;
+    border: 2px solid lightgray;
+    text-align: center;
+}
+
+.headertrailpage {
+    text-align: center;
+}
+
+.trailpage {
+    border: 2px solid lightgray;
+    text-align: center;
+    
+}
+
+.image {
+  margin: auto;
+  width: 55%;  
+    
+}
+
+.commentbox {
+    text-align: center;
+    display: block;
+}
+

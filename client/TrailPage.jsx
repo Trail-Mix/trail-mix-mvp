@@ -123,19 +123,36 @@ class TrailPage extends React.Component {
     }
 
     return (
-      <div>
-        Trail Page
-        <p>{name}</p>
-        <p>{url}</p>
-        <p>{stars}</p>
+      
+      <div className = "trailpage">
+        <div className="trailPageContainer">
+          <div className ="headertrailpage">
+          <h1>{name}</h1> 
+          </div>
+          <div className = "image">
+          <img src={imgMedium} />
+          </div>
+        </div>
         <p>{summary}</p>
-        <p>{location}</p>
-        <p>{length}</p>
-        <p>{difficulty}</p>
-        <img src={imgMedium} />
-        <div>{ allHikers }</div>
-        <div>{ allComments }</div>
         <div>
+        <img src ="https://img.icons8.com/material/2x/worldwide-location.png"/>
+        <span>{location}</span>
+        </div>
+        <div>
+        <img src="https://img.icons8.com/material/2x/link.png"/>
+        <span>{url}</span> 
+        </div>
+        <div>
+        <img src ="https://img.icons8.com/material/2x/rating.png"/>
+        <span>{stars}</span>
+        </div>
+        <div>
+        <img src="https://img.icons8.com/material/2x/map-marker.png"/>
+        <span>{length}</span>
+        </div>
+        <div >{ allHikers }</div>
+        <div>{ allComments }</div>
+        <div className = "commentbox">
           <input type="text" name="comment" id="commentForm"></input>
           <button
             value="Submit"
@@ -144,7 +161,9 @@ class TrailPage extends React.Component {
               const comment = document.getElementById('commentForm').value;
               this.postComment(e.target.id, comment, username)
               document.getElementById('commentForm').value = '';
-          }}>Submit</button>
+          }}>
+            Submit 
+            </button>
         </div>
       </div>
     )
