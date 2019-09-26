@@ -30,7 +30,10 @@ const ListDisplay = (props) => (
       </p>
     </div>
     <div className='column'>
-      <p id={props.id} className='difficulty' onClick={() => props.showKey()}>
+      <p
+        id={props.id}
+        className='difficulty'
+        onClick={() => props.setDiffKey((props.diffKey ? false : true))}>
         Difficulty: {props.trailData.length > 0 && props.difficulty}
       </p>
       <br/>

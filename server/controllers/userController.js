@@ -104,4 +104,4 @@ userController.verifyUser = (req, res, next) => {
   });
 };
 
-module.exports = databaseController;
+module.exports = userController;
