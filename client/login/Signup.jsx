@@ -42,7 +42,6 @@ const Signup = (props) => {
     <div>
       <div className="signupArea">
         <img src="../assets/trail-mix-logo-small.jpg" className="pic" />
-        <h2 className="welcome">Create Trail Mix Account</h2>
         <form action="/signup" className="userInfo" >
           <label className="labeluser"> Username: </label>
           <input
