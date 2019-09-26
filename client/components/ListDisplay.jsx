@@ -18,7 +18,7 @@ import Styles from "../styles.css"
 const ListDisplay = (props) => (
   <div className={props.idx % 2 ? 'odds' : 'evens'}>
     <div className='column'>
-      <p id={props.id} className='namePlace' onClick={(e) => props.getTrail(e.target.id)}>
+      <p id={props.id} className='namePlace' onClick={(e) => props.getTrail(props.id)}>
         {/* below code solves async issues with populating trailData array*/}
         {props.trailData.length > 0 && props.name}:&nbsp;
         {props.trailData.length > 0 && props.location}

@@ -47,12 +47,12 @@ app.post('/signup', sessionController.isLoggedIn, userController.createTable, us
 
 // sends all comments pertaining to trail ID
 app.get('/comments', commentController.getComment, (req, res) => {
-  res.status(200).send(res.locals.comments)
+  res.status(200).json(res.locals.comments)
 })
 
 //posts new comment in database and sends back all comments pertaining to unique trail ID
 app.post('/comments', commentController.postComment, (req, res) => {
-  res.status(200).send(res.locals.comments)
+  res.status(200).json(res.locals.comments)
 })
 
 // catch-all route handler for any requests to an unknown route

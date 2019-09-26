@@ -37,15 +37,12 @@ const MainContainer = (props) => {
         break;
       }
     }
-    const options = {
-      headers: {
-        'Content-Type': 'application/json',
-        id,
-      },
-    };
-    fetch('/comments', options)
+    fetch(`/comments?trailid=${id}`)
       .then(res => res.json())
-      .then(res => setComments(res))
+      .then(res => {
+        console.dir(res);
+        setComments(res);
+      })
       .catch(err => console.error(err));
   };
   return (
@@ -78,7 +75,7 @@ const MainContainer = (props) => {
           setComments = {setComments}
           comments={comments}
           getTrail={getTrail}
-          username={username}
+          username={props.username}
         />
       }
     </div>
