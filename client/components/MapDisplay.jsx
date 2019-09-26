@@ -68,7 +68,7 @@ const MapDisplay = (props) => {
         className='popup'
         closeButton={false}
         >
-          <div onClick={() => props.displayTrail(selectedHike)}>
+          <div onClick={() => props.setSelectedTrail(selectedHike)}>
             <h4 className='popup-name'>{selectedHike.name}</h4>
             <p className='popup-summary'>{selectedHike.location}</p>
             <p className='popup-difficulty'>difficulty: {selectedHike.difficulty}</p>

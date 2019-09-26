@@ -19,7 +19,7 @@ sessionController.createSessionsTable = (req, res, next) => {
 
 sessionController.setSSIDCookie = (req, res, next) => {
   const ssid = uuid();
-  res.cookie('ssid', ssid, {httpOnly: true});
+  res.cookie('ssid', ssid, { httpOnly: true });
   res.locals.cookieId = ssid;
   return next();
 }
@@ -44,22 +44,23 @@ sessionController.startSession = async (req, res, next) => {
 */
 sessionController.isLoggedIn = async (req, res, next) => {
   console.log('cookies', req.cookies);
+  if (!req.cookies.ssid) {
+    res.locals.isLoggedIn = false;
+    return next();
+  }
   try {
-    if (req.cookies) {
-      let result;
-      result = await db.query(`SELECT * FROM sessions WHERE cookie_id = ${req.cookies.ssid}`);
-      if (result.rowCount === 1) {
-        res.locals.isLoggedIn = true;
-        res.redirect('/homepage');
-      } else {
-        res.locals.isLoggedIn = false;
-        return next();
-      }
+    const result = await db.query(`SELECT * FROM sessions WHERE cookie_id = ${req.cookies.ssid}`);
+    if (result.rowCount !== 1) {
+      res.locals.isLoggedIn = false;
+      return next();
     }
+    res.locals.isLoggedIn = true;
+    res.locals.userId = result.rows[0].user_id;
+    return next();
   } catch(err) {
     return next({
       log: `Error getting session from db ${err}`
-    })
+    });
   }
 };
 

@@ -16,9 +16,18 @@ const PORT = 3000;
 app.use(bodyParser.json());
 
 //sends index.html file upon entering home page
-app.get('/homepage', (req, res) => {
-  res.status(200).sendFile(path.resolve(__dirname, '../index.html'));
-});
+// app.get('/homepage', (req, res) => {
+//   res.status(200).sendFile(path.resolve(__dirname, '../index.html'));
+// });
+
+//verifies login
+app.get('/check', sessionController.isLoggedIn, userController.findUsername, (req, res) => {
+  const userInfo = {
+    isLoggedIn: res.locals.isLoggedIn,
+  };
+  if (res.locals.isLoggedIn) userInfo.username = res.locals.username;
+  res.status(200).json(userInfo);
+})
 
 //fetches trail data from REI API
 app.get('/data', trailController.getTrails, (req, res) => {

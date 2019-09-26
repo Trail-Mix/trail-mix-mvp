@@ -47,30 +47,50 @@ userController.createUser = async (req, res, next) => {
   }
 };
 
-
-
 // query username and password and see if matches are in the database
 userController.verifyUser = async (req, res, next) => {
   const { username, password } = req.body;
-
-  const results = await db.query('SELECT * FROM users WHERE username = $1', [username])
-
-  if (results.rowCount === 1) {
-    res.locals.userId = results.rows[0]._id;
-
-    bcrypt.compare(password, results.rows[0].password, async (err, isMatch) => {
-       if (err) return err;
-       if (await isMatch) {
-         res.locals.verified = true;
-       } else {
-         res.locals.verified = false;
-       }
-     });
-  } else {
-    res.locals.verified = false;
+  const badUserError = {
+    log: `User is not in DB`,
+    status: 400,
+    message: `Username or password is incorrect`,
+  };
+  try {
+    const results = await db.query('SELECT * FROM users WHERE username = $1', [username])
+    if (!results.rowCount) {
+      res.locals.verified = false;
+      return next(badUserError);
+    }
+    const isMatch = await bcrypt.compare(password, results.rows[0].password);
+    res.locals.verified = isMatch;
+    if (!isMatch) return next(badUserError);
+    res.locals.username = username;
+    res.locals.userId = results.rows[0].username;
+    return next();
+  } catch(err) {
+    return next({
+      log: `verifyUser error: ${err}`,
+      status: 400,
+      message: `user is not logged in`,
+    })
   }
-
-  return next();
 };
+
+userController.findUsername = async (req, res, next) => {
+  if (!res.locals.isLoggedIn) return next();
+  const query = {
+    text: `SELECT username FROM users WHERE _id = $1`,
+    values: [res.locals.userId],
+  };
+  try {
+    const { rows } = await db.query(query);
+    res.locals.username = rows.username;
+    return next();
+  } catch (error) {
+    return next({
+      log: `findUsername error: ${err}`,
+    });
+  }
+}
 
 module.exports = userController;

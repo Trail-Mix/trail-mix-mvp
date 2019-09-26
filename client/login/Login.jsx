@@ -10,12 +10,10 @@
  */
 
 import React, { useState } from "react";
-import { Redirect, Link } from "react-router-dom";
 import './loginstyle.css';
 
 // Login component is for updating user information and login information
-const Login = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+const Login = (props) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
@@ -35,9 +33,6 @@ const Login = () => {
   };
 
   // if "isLoggedIn" is true, then redirect to the homepage, else if "isLoggedIn" is false, then direct to the login page
-  if (isLoggedIn) {
-    return <Redirect to="/homepage" />
-  }
   return (
     <div>
       <div className="loginArea">
