@@ -150,36 +150,39 @@ class TrailPage extends React.Component {
             <div className="headertrailpage">
               <h1>{name}</h1>
             </div>
-            <div className="image">
-            <img src={imgMedium} />
+
+            <div className="trail-profile-container">
+              <div className="trail-image">
+                <img src={imgMedium} />
+              </div>
+              <div>
+                  <p>{summary}</p>
+                  <div>
+                    <img src ="https://img.icons8.com/material/2x/worldwide-location.png"/>
+                    <span>{location}</span>
+                  </div>
+
+                  <div>
+                    <img src="https://img.icons8.com/material/2x/link.png"/>
+                    <span>{url}</span>
+                  </div>
+
+                  <div>
+                    <img src ="https://img.icons8.com/material/2x/rating.png"/>
+                    <span>{stars}</span>
+                  </div>
+
+                  <div>
+                    <img src="https://img.icons8.com/material/2x/map-marker.png"/>
+                    <span>{length}</span>
+                  </div>
+
+                  <div>{ allHikers }</div>
+                  <div>{ allComments }</div>
+
+              </div>
             </div>
           </div>
-
-            <p>{summary}</p>
-
-            <div>
-              <img src ="https://img.icons8.com/material/2x/worldwide-location.png"/>
-              <span>{location}</span>
-            </div>
-
-            <div>
-              <img src="https://img.icons8.com/material/2x/link.png"/>
-              <span>{url}</span>
-            </div>
-
-            <div>
-              <img src ="https://img.icons8.com/material/2x/rating.png"/>
-              <span>{stars}</span>
-            </div>
-
-            <div>
-              <img src="https://img.icons8.com/material/2x/map-marker.png"/>
-              <span>{length}</span>
-            </div>
-
-          <div >{ allHikers }</div>
-          <div>{ allComments }</div>
-
 
           <div className = "commentbox">
               <input type="text" name="comment" id="commentForm"></input>

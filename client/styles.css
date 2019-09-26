@@ -179,7 +179,7 @@ table td a.trail-page-link {
 .trailPageContainer {
     padding-top: 0;
     padding-left: 0;
-    border: 2px solid lightgray;
+    /* border: 2px solid lightgray; */
     text-align: center;
 }
 
@@ -188,7 +188,7 @@ table td a.trail-page-link {
 }
 
 .trailpage {
-    border: 2px solid lightgray;
+    /* border: 2px solid lightgray; */
     text-align: center;
 }
 
@@ -209,20 +209,6 @@ table td a.trail-page-link {
 
 #getTrailsTable {
   overflow: scroll;
-}
-
-#allTrails {
-  position: relative;
-}
-
-#allTrails .like-button p {
-  text-align: center;
-}
-
-#getTrailsTable tbody {
-  overflow-y: scroll;
-  height: 600px;
-  position: absolute;
 }
 
 .table-name {
@@ -274,4 +260,12 @@ table td a.trail-page-link {
 
 td.heart-space, th.heart-space{
   max-width: 50px !important;
+}
+
+.trail-profile-container {
+  display: flex;
+}
+
+.trail-image img {
+  width: 400px;
 }
