@@ -12,10 +12,13 @@
 import React, { useState, useEffect } from 'react';
 import MainContainer from "./containers/MainContainer.jsx";
 import TrailContainer from './containers/TrailContainer.jsx';
+import Login from "./login/Login.jsx";
+import Signup from "./login/Signup.jsx";
 
 //state includes data retrieved from REI API, selects selected trail
 // holds trail specific comments pulled from database
 const App = () => {
+  const [isLoggedIn, setIsLoggedIn] = useState([]);
   const [trailData, setTrailData] = useState([]);
   const [selectedTrail, setSelectedTrail] = useState(null);
   const [comments, setComments] = useState([]);
@@ -48,11 +51,6 @@ const App = () => {
       .then(res => setComments(res))
       .catch(err => console.error(err));
   };
-
-  //closes TrailDisplay overlay
-  // const noTrail = () => {
-  //   setSelectedTrail(null);
-  // }
 
   //invoked when clicking on the map popups
   const displayTrail = (selectedHike) => {

@@ -5,32 +5,6 @@ const userController = { };
 const SALT_WORK_FACTOR = 10;
 const bcrypt = require('bcryptjs');
 
-// query fetching all comments for specific trails
-userController.getComment = (req, res, next) => {
-  const { id } = req.headers;
-  db.query('SELECT * FROM comments where id = $1', [id], (error, results) => {
-    if (error) throw error;
-    res.locals.comments = results.rows;
-    return next();
-  });
-};
-
-//query posting new comment to DB and then fetching all comments including the one just posted
-userController.postComment = (req, res, next) => {
-  const { author, comment, id } = req.body;
-
-  if(author && comment && id) {
-    db.query('INSERT INTO comments (author, comment, id) VALUES ($1, $2, $3)', [author, comment, id], (error, results) => {
-    if (error) throw error;
-      db.query('SELECT * FROM comments where id = $1', [id], (error, results) => {
-        if (error) throw error;
-        res.locals.comments = results.rows;
-        return next();
-      });
-    });
-  };
-};
-
 userController.createTable = (req, res, next) => {
   const table = `CREATE TABLE IF NOT EXISTS users
                 (_id SERIAL PRIMARY KEY,
