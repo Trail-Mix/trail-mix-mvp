@@ -33,15 +33,24 @@ app.post('/trail', trailController.getTrail, commentsController.getComments, (re
 })
 
 // save trail to user
-app.post('/trail/add', trailController.saveTrail, (req, res) => {
+app.post('/trail/add', trailController.saveTrail, trailController.getUserTrails, (req, res) => {
   res.status(200).send(res.locals);
 })
 
 // remove trail from user
-app.post('/trail/remove', trailController.removeTrail, (req, res) => {
+app.post('/trail/remove', trailController.removeTrail, trailController.getUserTrails, (req, res) => {
   res.status(200).send(res.locals);
 })
 
+// remove trail from user
+app.post('/trail/update', trailController.updateTrails, trailController.getUserTrails, (req, res) => {
+  res.status(200).send(res.locals);
+})
+
+//get route to get usertrails
+app.post('/favs', trailController.getUserTrails, (req,res) => {
+  res.status(200).send(res.locals)
+})
 
 //routes post request upon login to verify user
 app.post('/login', queries.verifyUser, (req, res) => {

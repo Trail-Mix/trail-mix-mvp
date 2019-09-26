@@ -70,7 +70,6 @@ trailController.getHikersInfo = (req, res, next) => {
 // middleware function that saves trail to user
 trailController.saveTrail = (req, res, next) => {
 
-  console.log(req.body)
     const { userId, reiId, length, location, difficulty, name } = req.body;
 
     pool.query(`INSERT INTO trails (user_id, rei_id, length, location, difficulty, name) VALUES(${userId}, ${reiId}, ${length}, '${location}', '${difficulty}', '${name}')`, (error, results) => {
@@ -87,9 +86,39 @@ trailController.removeTrail = (req, res, next) => {
 
     pool.query(`DELETE FROM trails WHERE user_id=${userId} AND rei_id=${reiId}`, (error, results) => {
       if (error) throw error;
+      console.log('REMOVED!')
+      console.log(results)
       return next();
     });
 };
 
+trailController.getUserTrails = (req, res, next) => {
+    const { id } = req.body;
+
+    pool.query(`SELECT * FROM trails WHERE user_id=${id}`, (error, results) => {
+        if (error) throw error;
+
+        const hikedTrails = results.rows.filter((x) => {
+            if (x.hiked === true) {
+                return x;
+            };
+        })
+
+        res.locals.hiked = hikedTrails;
+        res.locals.trails = results.rows;
+        return next();
+      });
+
+};
+
+trailController.updateTrails = (req, res, next) => {
+
+    const {trailId, id} = req.body;
+
+    pool.query(`UPDATE trails SET hiked=true WHERE user_id=${id} AND rei_id=${trailId}`, (error, results) => {
+        if (error) throw error;
+        return next();
+    });
+};
 
 module.exports = trailController;

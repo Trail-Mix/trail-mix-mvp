@@ -13,28 +13,37 @@ import React, { useState, useEffect } from "react";
 import ReactMapGl, { Marker, Popup } from 'react-map-gl';
 import SvgTrekking from "./Icons/Trekking.js";
 
+
+function getNumber(word) {
+  if (word === 'green') return '1';
+  if (word === 'greenBlue') return '2';
+  if (word === 'blue') return '3';
+  if (word === 'blueBlack') return '4';
+  if (word === 'black') return '5';
+}
+
+
 //importing ReactMapGl component from react-map-gl module, using react hooks to set local state
 const MapDisplay = props => {
-    console.log(props)
+
     const [viewport, setViewport] = useState({
        latitude: props.latitude,
        longitude: props.longitude,
-    // center: [props.latitude, props.longitude],
-       width: '70vw',
-       height: '70vh',
+       width: '40vw',
+       height: '80vh',
        zoom: props.zoom
     });
 
     useEffect(() => {
         setViewport({...viewport, latitude: props.latitude, longitude: props.longitude, zoom: props.zoom})
     }, [props.latitude, props.longitude])
-    
+
     const [selectedHike, setSelectedHike] = useState(null);
 
     return (
         <div id="map-display">
-            <ReactMapGl 
-            {...viewport} 
+            <ReactMapGl
+            {...viewport}
                 mapboxApiAccessToken={`pk.eyJ1IjoiYnJ5djM4IiwiYSI6ImNrMHlla3hrdTBkZ2czY212NG5ycW5ua24ifQ.0uOuwH6A6PB1d5Urb9v9fQ`}
             mapStyle={`mapbox://styles/bryv38/ck0znwydy05vg1co2elc9p6yl`}
             onViewportChange={viewport => setViewport(viewport)}
@@ -53,8 +62,8 @@ const MapDisplay = props => {
                         setViewport({
                             latitude: trail.latitude,
                             longitude: trail.longitude,
-                            width: '70vw',
-                            height: '70vh',
+                            width: '40vw',
+                            height: '80vh',
                             zoom: 16
                         });
                     }}
@@ -72,7 +81,7 @@ const MapDisplay = props => {
                     <div onClick={() => props.displayTrail(selectedHike)}>
                         <h4 className='popup-name'>{selectedHike.name}</h4>
                         <p className='popup-summary'>{selectedHike.location}</p>
-                        <p className='popup-difficulty'>difficulty: {selectedHike.difficulty}</p>
+                        <p className='popup-difficulty'>Level {getNumber( selectedHike.difficulty)}</p>
                     </div>
                 </Popup>
             )}
