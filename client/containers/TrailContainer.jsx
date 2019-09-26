@@ -18,23 +18,20 @@ const TrailContainer = (props) => {
   const [comment, setComment] = useState('');
   
   //adds comment and author to database and pulls back all comments for specified trail and sets to state
-  const postComment = (id, comment) => {
+  const postComment = () => {
     const options = {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        id,
+        trailid: props.selectedTrail.id,
         comment,
         username: props.username,
       })
     };
     fetch('/comments', options)
-      .then(res => {
-        console.log("API RES PRE JSON", res)
-        res.json()
-      })
+      .then(res => res.json())
       .then(res => {
         console.log("POST RES", res)
         setComment(res) 
@@ -43,7 +40,7 @@ const TrailContainer = (props) => {
   };
   const handleClick = (e) => {
     e.preventDefault();
-    postComment(e.target.id, comment);
+    postComment();
     setComment('');
   }
   let comments; //this needs to be let
@@ -53,7 +50,7 @@ const TrailContainer = (props) => {
       <CommentsDisplay
         key = {idx}
         comment = {cur.comment}
-        username = {cur.username}
+        trailId = {cur.trailId}
         getTrail = {props.getTrail}
       />
     ));
@@ -65,6 +62,7 @@ const TrailContainer = (props) => {
       <TrailDisplay selectedTrail={props.selectedTrail} />
       <div className="comments">
         {comments}
+        
       </div>
       <form className="commentInput">
         <input
