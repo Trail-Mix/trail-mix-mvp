@@ -49,7 +49,6 @@ const MainContainer = (props) => {
   return (
     <div id="main-container">
       <Header />
-      <img src="../../assets/trail-mix-logo-small.jpg" className='logo'/><br />
       <MapDisplay 
         id="map-display"
         trailData={trailData}
