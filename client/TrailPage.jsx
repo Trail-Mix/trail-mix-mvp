@@ -2,6 +2,7 @@ import React from 'react'
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
 import Hiker from './components/Hiker.jsx';
 import CommentsDisplay from "./components/CommentsDisplay.jsx";
+import { Input, FormText } from 'reactstrap';
 
 
 class TrailPage extends React.Component {
@@ -81,6 +82,9 @@ class TrailPage extends React.Component {
 
   //adds comment and author to database and pulls back all comments for specified trail and sets to state
   postComment(id, comment, author) {
+    console.log(comment)
+    console.log(author)
+    console.log(id)
       fetch('/comments', {
           method: 'POST',
           headers: {
@@ -96,6 +100,7 @@ class TrailPage extends React.Component {
           return res.json();
       })
       .then((res) => {
+        console.log(res)
           this.setState(state => {
               return {
                   ...state,
@@ -115,8 +120,7 @@ class TrailPage extends React.Component {
     let allHikers;
 
     if (comments.length !== 0) {
-
-      allComments = comments.map((x, index) => {
+      allComments = comments.slice(0).reverse().map((x, index) => {
           return <CommentsDisplay key={index} comment={x.comment} author={x.author} />
       })
     }
@@ -170,14 +174,12 @@ class TrailPage extends React.Component {
                     {name}
                   </div>
 
-                  <p>{summary}</p>
-
                   <div className="trail-detail">
                     <span>{location}</span>
                   </div>
 
                   <div className="trail-detail">
-                    <span><a href={url}>More info</a></span>
+                    <span>{summary}</span>
                   </div>
 
                   <div className="trail-detail">
@@ -188,30 +190,32 @@ class TrailPage extends React.Component {
                     <span>{length} miles</span>
                   </div>
 
-                  <p>Hikers</p>
-                  <div>{ allHikers }</div>
-
-
+                  {allHikers &&
+                  <div className="hiker-list">
+                    <div className="hiker-header"><span>Previous Hikers</span></div>
+                    <div>{ allHikers }</div>
+                  </div>
+                  }
               </div>
             </div>
           </div>
 
           <div className = "commentbox">
-              <input type="textarea" name="comment" id="commentForm"></input>
-              <button
+              <Input type="textarea" name="comment" id="commentForm" /><br />
+              <div
                 value="Submit"
-                id={id}
+                className="commentSubmit"
                 onClick={(e) => {
                   const comment = document.getElementById('commentForm').value;
-                  this.postComment(e.target.id, comment, username)
+                  this.postComment(id, comment, username)
                   document.getElementById('commentForm').value = '';
               }}>
                 Submit
-                </button>
+              </div>
+
             </div>
           </div>
-          <div>{ allComments }</div>
-
+          <div className="comments-section">{ allComments }</div>
       </div>
     )
   }

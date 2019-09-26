@@ -123,14 +123,6 @@ table td a.trail-page-link {
     padding: 0;
 }
 
-#commentForm {
-    width: 50%;
-    height: 100px;
-    border-radius: 5px;
-    padding-top: 0;
-    padding-left: 0;
-}
-
 #authorForm {
     border-radius: 5px;
     padding-top: 0;
@@ -167,6 +159,23 @@ table td a.trail-page-link {
 
 .navbars {
   padding-bottom: 30px;
+}
+
+.btn-secondary {
+  color: #212529 !important;
+  background-color: white !important;
+  border-color: white !important;
+}
+
+.btn {
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+.dropdown-item:active {
+  color: #212529 !important;
+  text-decoration: none;
+  background-color: white !important;
 }
 
 .navigation {
@@ -248,6 +257,7 @@ table#allTrails {
 }
 
 .nav-content-container {
+  min-height: 700px;
   background-color: #fff !important;
 }
 
@@ -281,6 +291,7 @@ td.heart-space, th.heart-space{
   font-size: 26px;
   font-weight: 800;
   padding-bottom: 10px;
+  padding-top: 12px;
 }
 
 .headertrailpage {
@@ -306,7 +317,85 @@ td.heart-space, th.heart-space{
   width: 55%;
 }
 
+/* Comments Section */
+
+#commentForm {
+    width: 400px;
+    height: 100px;
+    border-radius: 3px;
+    padding: 15px;
+}
+
+.commentSubmit {
+  width: 400px;
+  padding: 13px;
+  border: 1px solid #5fc5b0;
+  margin-bottom: 20px;
+  color: white;
+  background-color: #5fc5b0;
+}
+
+textarea:hover,
+input:hover,
+textarea:active,
+input:active,
+textarea:focus,
+input:focus,
+button:focus,
+button:active,
+button:hover,
+label:focus,
+.btn:active,
+.btn.active
+{
+    outline:0px !important;
+    -webkit-appearance:none;
+    box-shadow: none !important;
+}
+
+.form-control:focus {
+  border-color: #5fc5b0 !important;
+}
+
 .commentbox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.comments-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.comment-display {
   text-align: center;
-  display: block;
+  background-color: #efefef;
+  width: 400px;
+  padding: 27px 0px;
+  margin: 20px;
+  border-radius: 4px;
+}
+
+.comment-author {
+  font-size: 12px;
+}
+
+.hiker-list {
+  margin-top: 20px;
+}
+
+.hiker-header {
+  font-size: 16px
+}
+
+.hiker-header span {
+  border-bottom: 3px solid #5fc5b0 !important;
+}
+
+.hiker-username {
+  font-size: 12px;
+  margin-top: 5px;
 }
