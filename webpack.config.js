@@ -25,14 +25,15 @@ module.exports = {
       }
     ]},
     watch: true,
+  performance: { hints: false },
     devServer: {
       publicPath: '/build',
       proxy: {
         '/homepage': 'http://localhost:3000',
         '/data': 'http://localhost:3000',
-        '/signup':'http://localhost:3000', 
+        '/signup':'http://localhost:3000',
         '/login':'http://localhost:3000',
-        '/comments': 'http://localhost:3000'
+        '/comments': 'http://localhost:3000',
       }
     },
     resolve: {

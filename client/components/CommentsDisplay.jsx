@@ -16,7 +16,7 @@ const CommentsDisplay = (props) => (
     <div>
       "{props.comment}"
       <br/>
-      -{props.author}
+      -{props.username}
     </div>
     <br/>
   </div>
