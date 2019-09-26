@@ -5,32 +5,6 @@ const userController = { };
 const SALT_WORK_FACTOR = 10;
 const bcrypt = require('bcryptjs');
 
-// query fetching all comments for specific trails
-userController.getComment = (req, res, next) => {
-  const { id } = req.headers;
-  db.query('SELECT * FROM comments where id = $1', [id], (error, results) => {
-    if (error) throw error;
-    res.locals.comments = results.rows;
-    return next();
-  });
-};
-
-//query posting new comment to DB and then fetching all comments including the one just posted
-userController.postComment = (req, res, next) => {
-  const { author, comment, id } = req.body;
-
-  if(author && comment && id) {
-    db.query('INSERT INTO comments (author, comment, id) VALUES ($1, $2, $3)', [author, comment, id], (error, results) => {
-    if (error) throw error;
-      db.query('SELECT * FROM comments where id = $1', [id], (error, results) => {
-        if (error) throw error;
-        res.locals.comments = results.rows;
-        return next();
-      });
-    });
-  };
-};
-
 userController.createTable = (req, res, next) => {
   const table = `CREATE TABLE IF NOT EXISTS users
                 (_id SERIAL PRIMARY KEY,
@@ -73,30 +47,50 @@ userController.createUser = async (req, res, next) => {
   }
 };
 
-
-
 // query username and password and see if matches are in the database
 userController.verifyUser = async (req, res, next) => {
   const { username, password } = req.body;
-
-  const results = await db.query('SELECT * FROM users WHERE username = $1', [username])
-
-  if (results.rowCount === 1) {
+  const badUserError = {
+    log: `User is not in DB`,
+    status: 400,
+    message: `Username or password is incorrect`,
+  };
+  try {
+    const results = await db.query('SELECT * FROM users WHERE username = $1', [username])
+    if (!results.rowCount) {
+      res.locals.verified = false;
+      return next(badUserError);
+    }
+    const isMatch = await bcrypt.compare(password, results.rows[0].password);
+    res.locals.verified = isMatch;
+    if (!isMatch) return next(badUserError);
+    res.locals.username = username;
     res.locals.userId = results.rows[0]._id;
-
-    bcrypt.compare(password, results.rows[0].password, async (err, isMatch) => {
-       if (err) return err;
-       if (await isMatch) {
-         res.locals.verified = true;
-       } else {
-         res.locals.verified = false;
-       }
-     });
-  } else {
-    res.locals.verified = false;
+    return next();
+  } catch(err) {
+    return next({
+      log: `verifyUser error: ${err}`,
+      status: 400,
+      message: `user is not logged in`,
+    })
   }
-
-  return next();
 };
+
+userController.findUsername = async (req, res, next) => {
+  if (!res.locals.isLoggedIn) return next();
+  const query = {
+    text: `SELECT username FROM users WHERE _id = $1`,
+    values: [res.locals.userId],
+  };
+  try {
+    const { rows } = await db.query(query);
+    res.locals.username = rows.username;
+    return next();
+  } catch (error) {
+    return next({
+      log: `findUsername error: ${err}`,
+    });
+  }
+}
 
 module.exports = userController;
