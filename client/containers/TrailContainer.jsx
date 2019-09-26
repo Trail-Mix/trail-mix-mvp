@@ -48,7 +48,8 @@ const TrailContainer = (props) => {
     setComment('');
     setAuthor('');
   }
-  let comments;
+  let comments; //this needs to be let
+  
   if (props.comments) {
     comments = props.comments.map((cur, idx) => (
       <CommentsDisplay
@@ -62,7 +63,7 @@ const TrailContainer = (props) => {
   
   return (
     <div className='modalGuts'>
-      <button onClick={() => props.noTrail()}>close</button>
+      <button onClick={() => props.setSelectedTrail(null)}>close</button>
       <TrailDisplay selectedTrail={props.selectedTrail} />
       <div className="comments">
         {comments}

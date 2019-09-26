@@ -49,10 +49,10 @@ const App = () => {
       .catch(err => console.error(err));
   };
 
-    //closes TrailDisplay overlay
-  const noTrail = () => {
-    setSelectedTrail(null);
-  }
+  //closes TrailDisplay overlay
+  // const noTrail = () => {
+  //   setSelectedTrail(null);
+  // }
 
   //invoked when clicking on the map popups
   const displayTrail = (selectedHike) => {
@@ -75,8 +75,8 @@ const App = () => {
         && <TrailContainer 
           className="modal" 
           trailData={trailData} 
-          selectedTrail={selectedTrail} 
-          noTrail={noTrail}
+          selectedTrail={selectedTrail}
+          setSelectedTrail={setSelectedTrail}
           setComments = {setComments}
           comments={comments}
           getTrail={getTrail}
