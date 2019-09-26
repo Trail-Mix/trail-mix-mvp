@@ -104,15 +104,15 @@ render() {
    return (
      <div>
        <div className="navigation">
-         <Link to={{
+         <Link className="nav-item" to={{
            pathname: '/homepage',
            state: {
              id: this.state.userId,
              username: this.state.username
            }
          }}>Trail Mix</ Link>
-         <Link to="/favs">My Favs</Link>
-         <p>Hello, {this.state.username}!</p>
+         <Link className="nav-item" to="/favs">My Favs</Link>
+         <p className="nav-item" id="userGreeting">Hello, {this.state.username}!</p>
        </div>
 
        <div className = "getUserTrails">
