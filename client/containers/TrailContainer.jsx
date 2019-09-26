@@ -24,8 +24,8 @@ const TrailContainer = (props) => {
     setComment('');
     setAuthor('');
   }
-
-  const comments = [];
+ 
+  let comments = []; // this needs to be 'let' for some reason 
 
   if (props.comments) {
     comments = props.comments.map((cur, idx) => (
@@ -40,7 +40,7 @@ const TrailContainer = (props) => {
   
   return (
     <div className='modalGuts'>
-      <button onClick={() => props.noTrail()}>close</button>
+      <button onClick={() => props.setSelectedTrail(null)}>close</button>
       <TrailDisplay selectedTrail={props.selectedTrail} />
       <div className="comments">
         {comments}
