@@ -10,7 +10,7 @@
  */
 import React, { useState } from "react";
 import TrailDisplay from "../components/TrailDisplay.jsx";
-import CommentsDisplay from "../components/CommentsDisplay.jsx";
+// import CommentsDisplay from "../components/CommentsDisplay.jsx";
 
 //container component for individual TrailDisplay and CommentsDisplay
 //maps through comments to pull desired values 

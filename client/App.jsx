@@ -8,6 +8,7 @@
  *
  * ************************************
  */
+
 import React, { useState, useEffect } from 'react';
 import MainContainer from "./containers/MainContainer.jsx";
 import TrailContainer from './containers/TrailContainer.jsx';
@@ -39,15 +40,12 @@ const App = () => {
     const options = {
       headers: {
         'Content-Type': 'application/json',
+        id,
       },
     };
     fetch('/comments', options)
-      .then(res => {
-        console.log("comment fetch", res)
-        res.json() })
-      .then(res => {
-        console.log(res);
-        setComments(res)})
+      .then(res => res.json())
+      .then(res => setComments(res))
       .catch(err => console.error(err));
   };
 
@@ -60,11 +58,6 @@ const App = () => {
   const displayTrail = (selectedHike) => {
     setSelectedTrail(selectedHike);
   }
-    
-  //toggle that is invoked when clicking on the "difficulty" in the list items
-  const showKey = () => {
-    setDiffKey(diffKey ? false : true);
-  };
 
   //renders MainContainer and conditionally renders TrailContainer
   return (
@@ -75,7 +68,7 @@ const App = () => {
         getTrail={getTrail}
         selectedTrail={selectedTrail}
         displayTrail={displayTrail}
-        showKey={showKey}
+        setDiffKey={setDiffKey}
         diffKey={diffKey}
       />
       {selectedTrail
@@ -84,12 +77,15 @@ const App = () => {
           trailData={trailData} 
           selectedTrail={selectedTrail} 
           noTrail={noTrail}
+<<<<<<< HEAD
           setComments = {setComments}
+=======
+          postComment={postComment}
+>>>>>>> master
           comments={comments}
           getTrail={getTrail}
         />
       }
-      
     </div>
   );
 };
