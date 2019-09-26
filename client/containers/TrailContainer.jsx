@@ -16,11 +16,9 @@ import CommentsDisplay from "../components/CommentsDisplay.jsx";
 //maps through comments to pull desired values 
 const TrailContainer = (props) => {
   const [comment, setComment] = useState('');
-  const [author, setAuthor] = useState('');
   
   //adds comment and author to database and pulls back all comments for specified trail and sets to state
-  const postComment = ( comment, trailid) => {
-    console.log("com",comment,"um",trailid)
+  const postComment = () => {
     const options = {
       method: 'POST',
       headers: {
@@ -29,6 +27,7 @@ const TrailContainer = (props) => {
       body: JSON.stringify({
         trailid: props.selectedTrail.id,
         comment,
+        username: props.username,
       })
     };
     fetch('/comments', options)
@@ -41,12 +40,11 @@ const TrailContainer = (props) => {
   };
   const handleClick = (e) => {
     e.preventDefault();
-    postComment( comment,props.selectedTrail.id );
+    postComment();
     setComment('');
-    setAuthor('');
   }
   let comments; //this needs to be let
-  
+
   if (props.comments) {
     comments = props.comments.map((cur, idx) => (
       <CommentsDisplay
@@ -75,13 +73,6 @@ const TrailContainer = (props) => {
           onChange={e => setComment(e.target.value)}
         />
         <br />
-        <input
-          type="text"
-          name="username"
-          id="authorForm"
-          value={author}
-          onChange={e => setAuthor(e.target.value)}
-        />
         <button
           value="Submit"
           id={props.selectedTrail.id}

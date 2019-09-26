@@ -5,17 +5,16 @@ let commentController = {};
 // query fetching all comments for specific trails
 commentController.getComment = async (req, res, next) => {
     console.log("getComment")
-    const { _id } = req.headers;
-    // res.locals.comments = row[0]
-    
-    // console.log("HEADER", req.header)
+    console.log(req.query);
     const query = {
-        text: 'SELECT * FROM comments',   // where comment id = trail id
+        text: 'SELECT * FROM comments WHERE trailid = $1',   // where comment id = trail id
+        values: [req.query.trailid]
     };
     try {
         const result = await db.query(query);
         // console.log("result", result.fields)
         res.locals.comments = result.rows;
+        console.log(result.rows);
         return next();
     } catch (err) {
         return next({
