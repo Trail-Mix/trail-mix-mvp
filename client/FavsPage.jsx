@@ -131,7 +131,7 @@ render() {
              username: this.state.username,
              weather: this.state.weatherData
            }
-         }}>Trail Mix</ Link>
+         }}><img src="../assets/LOGO.png" width="150"></img></ Link>
          <Link className="nav-item" to="/favs">My Favs</Link>
          <p className="nav-item" id="userGreeting">Hello, {this.state.username}!</p>
        </div>

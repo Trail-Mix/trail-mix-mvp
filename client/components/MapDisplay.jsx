@@ -55,7 +55,7 @@ const MapDisplay = props => {
                 latitude={trail.latitude}
                 longitude={trail.longitude}
                 >
-                    <button
+                    <div
                     onClick={e => {
                         e.preventDefault();
                         setSelectedHike(trail);
@@ -68,8 +68,8 @@ const MapDisplay = props => {
                         });
                     }}
                     >
-                        <SvgTrekking width='30px' height='30px' />
-                    </button>
+                    <img src="./../../../assets/MARKER.png" height="30" width="30"></img>
+                    </div>
                 </Marker>
             ))}
             {selectedHike && (

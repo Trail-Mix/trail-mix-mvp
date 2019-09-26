@@ -147,7 +147,7 @@ class TrailPage extends React.Component {
               username: this.state.username,
               weather: this.state.weather
             }
-          }}>Trail Mix</ Link>
+          }}><img src="../assets/LOGO.png" width="150"></img></ Link>
           <Link className="nav-item" to={{
             pathname: '/favs',
             state: {

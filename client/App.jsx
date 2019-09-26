@@ -251,7 +251,7 @@ class App extends Component {
           <div>
             <div className="navbars">
               <div className="navigation">
-                <Link className="nav-item" to="/homepage">Trail Mix</Link>
+                <Link className="nav-item" to="/homepage"><img src="../assets/LOGO.png" width="150"></img></Link>
                 <Link className="nav-item" to={{
                   pathname: '/favs',
                   state: {
@@ -268,7 +268,6 @@ class App extends Component {
                     <DropdownItem onClick={(e => this.logout(e))}>Logout</DropdownItem>
                   </DropdownMenu>
                 </Dropdown>
-                {/* <p className="nav-item" id="userGreeting">Hello, {this.state.username}!</p> */}
               </div>
 
               <div className="current-weather">Current weather {weather}&#8457;</div>

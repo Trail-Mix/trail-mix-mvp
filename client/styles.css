@@ -10,7 +10,7 @@ a {
 }
 
 table td a.trail-page-link {
-  border-bottom: 3px solid #5fc5b0 !important;
+  border-bottom: 3px solid #2e9383 !important;
 }
 
 .appContainer {
@@ -248,11 +248,11 @@ table#allTrails {
 }
 
 #searchForm input.submitButton {
-  border: #5fc5b0 1px solid;
+  border: #2e9383 1px solid;
   padding: 5px 15px;
   width: 100px;
   color: white;
-  background-color: #5fc5b0;
+  background-color: #2e9383;
   border-radius: 0px;
 }
 
@@ -329,10 +329,10 @@ td.heart-space, th.heart-space{
 .commentSubmit {
   width: 400px;
   padding: 13px;
-  border: 1px solid #5fc5b0;
+  border: 1px solid #2e9383;
   margin-bottom: 20px;
   color: white;
-  background-color: #5fc5b0;
+  background-color: #2e9383;
 }
 
 textarea:hover,
@@ -354,7 +354,7 @@ label:focus,
 }
 
 .form-control:focus {
-  border-color: #5fc5b0 !important;
+  border-color: #2e9383 !important;
 }
 
 .commentbox {
@@ -392,7 +392,7 @@ label:focus,
 }
 
 .hiker-header span {
-  border-bottom: 3px solid #5fc5b0 !important;
+  border-bottom: 3px solid #2e9383 !important;
 }
 
 .hiker-username {
