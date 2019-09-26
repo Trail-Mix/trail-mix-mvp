@@ -32,7 +32,7 @@ const ListContainer = (props) => {
     sortedTrails.forEach(trail => {
       displayInfo.push(trailByName[trail]);
     })
-
+    
     setTrailData(displayInfo);
   };
 
