@@ -33,12 +33,12 @@ app.post('/trail', trailController.getTrail, commentsController.getComments, (re
 })
 
 // save trail to user
-app.post('/trail/add', trailController.saveTrail, (req, res) => {
+app.post('/trail/add', trailController.saveTrail, trailController.getUserTrails, (req, res) => {
   res.status(200).send(res.locals);
 })
 
 // remove trail from user
-app.post('/trail/remove', trailController.removeTrail, (req, res) => {
+app.post('/trail/remove', trailController.removeTrail, trailController.getUserTrails, (req, res) => {
   res.status(200).send(res.locals);
 })
 

@@ -13,7 +13,7 @@ import React from "react";
 //display component for comments, pulls down and formats comment array from trailContainer
 function Hiker(props) {
   return (
-    <p>{props.username}</p>
+    <div className="hiker-username">{props.username}</div>
   )
 };
 
