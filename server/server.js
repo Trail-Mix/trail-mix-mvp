@@ -5,9 +5,12 @@ const bodyParser = require('body-parser');
 const trailController = require('./controllers/trailController');
 const userController = require('./controllers/userController.js');
 const sessionController = require('./controllers/sessionController.js')
-
+const commentController = require('./controllers/commentController');
 const app = express();
 const PORT = 3000;
+
+
+
 
 //extracts the entire body portion of an incoming request stream and exposes it on req.body
 app.use(bodyParser.json());
@@ -23,26 +26,24 @@ app.get('/data', trailController.getTrails, (req, res) => {
 })
 
 //routes post request upon login to verify user
-app.post('/login', userController.verifyUser, sessionController.createSessionsTable, sessionController.startSession, (req, res) => {
+app.post('/login', userController.verifyUser, sessionController.createSessionsTable, sessionController.setSSIDCookie, sessionController.startSession, (req, res) => {
   const { verified } = res.locals;
   return res.status(200).json(verified);
 })
 
 // post request that brings in user-input signup information, creates a new user in the database, and sends verification to the front end
-app.post('/signup', userController.createTable, userController.createUser, sessionController.createSessionsTable, sessionController.startSession, (req, res) => {
+app.post('/signup', sessionController.isLoggedIn, userController.createTable, userController.createUser, sessionController.createSessionsTable, sessionController.setSSIDCookie, sessionController.startSession, (req, res) => {
   const { verified } = res.locals;
   return res.status(200).json(verified);
 })
 
-
-
 // sends all comments pertaining to trail ID
-app.get('/comments', userController.getComment, (req, res) => {
+app.get('/comments', commentController.getComment, (req, res) => {
   res.status(200).send(res.locals.comments)
 })
 
 //posts new comment in database and sends back all comments pertaining to unique trail ID
-app.post('/comments', userController.postComment, (req, res) => {
+app.post('/comments', commentController.postComment, (req, res) => {
   res.status(200).send(res.locals.comments)
 })
 
