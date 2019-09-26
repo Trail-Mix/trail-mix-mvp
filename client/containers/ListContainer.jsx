@@ -13,6 +13,11 @@ import ListDisplay from "../components/ListDisplay.jsx";
 //container component that holds the list display of trails
 //also maps through trailData array and sets props for desired values
 const ListContainer = (props) => {
+
+  const sortTrail = () => {
+    console.log('sorting trail');
+  }
+
   const trails = props.trailData.map((trail, idx) => (
     <ListDisplay
       key={trail.id}
@@ -27,12 +32,13 @@ const ListContainer = (props) => {
       setDiffKey = {props.setDiffKey}
       diffKey = {props.diffKey}
     />
+
   ));
   return (
     <div className="listDisplay" >
       <table>
         <thead>
-          <th className='columntitle'>
+          <th className='column title' onClick={sortTrail}>
             Trail
           </th>
           <th className='column title'>
