@@ -2,7 +2,7 @@
  * ************************************
  *
  * @module  MainContainer
- * @author  
+ * @author
  * @date
  * @description stateful component that renders MapDisplay and ListContainer
  *
@@ -55,8 +55,9 @@ const MainContainer = (props) => {
         getTrail={getTrail}
         setSelectedTrail={setSelectedTrail}
       /><br />
-      <ListContainer 
-        trailData={trailData} 
+      <ListContainer
+        setTrailData={setTrailData}
+        trailData={trailData}
         getTrail={getTrail}
         setDiffKey={setDiffKey}
         diffKey={diffKey}
@@ -68,9 +69,9 @@ const MainContainer = (props) => {
         </div>
       )}
       {selectedTrail
-        && <TrailContainer 
-          className="modal" 
-          trailData={trailData} 
+        && <TrailContainer
+          className="modal"
+          trailData={trailData}
           selectedTrail={selectedTrail}
           setSelectedTrail={setSelectedTrail}
           setComments = {setComments}

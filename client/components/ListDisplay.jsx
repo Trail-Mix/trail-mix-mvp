@@ -16,7 +16,7 @@ import Styles from "../styles.css"
 
 //display component for limited trail info, name clicks through to trail display and difficulty clicks through to difficulty key
 const ListDisplay = (props) => (
-  <div className={props.idx % 2 ? 'odds' : 'evens'}> 
+  <div className={props.idx % 2 ? 'odds' : 'evens'}>
     <div className='column'>
       <p id={props.id} className='namePlace' onClick={(e) => props.getTrail(props.id)}>
         {/* below code solves async issues with populating trailData array*/}
@@ -26,7 +26,7 @@ const ListDisplay = (props) => (
     </div>
     <div className='column'>
       <p id={props.id} className='length'>
-        Length: {props.trailData.length > 0 && props.length} miles
+        {props.trailData.length > 0 && props.length} miles
       </p>
     </div>
     <div className='column'>
@@ -34,7 +34,7 @@ const ListDisplay = (props) => (
         id={props.id}
         className='difficulty'
         onClick={() => props.setDiffKey((props.diffKey ? false : true))}>
-        Difficulty: {props.trailData.length > 0 && props.difficulty}
+        {props.trailData.length > 0 && props.difficulty}
       </p>
       <br/>
     </div>

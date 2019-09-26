@@ -4,7 +4,7 @@
  * @module  TrailContainer.jsx
  * @author
  * @date
- * @description presentation component that displays the TrailDisplay and 
+ * @description presentation component that displays the TrailDisplay and
  * CommentsDisplay
  * ************************************
  */
@@ -13,10 +13,10 @@ import TrailDisplay from "../components/TrailDisplay.jsx";
 import CommentsDisplay from "../components/CommentsDisplay.jsx";
 
 //container component for individual TrailDisplay and CommentsDisplay
-//maps through comments to pull desired values 
+//maps through comments to pull desired values
 const TrailContainer = (props) => {
   const [comment, setComment] = useState('');
-  
+
   //adds comment and author to database and pulls back all comments for specified trail and sets to state
   const postComment = () => {
     const options = {
@@ -34,7 +34,7 @@ const TrailContainer = (props) => {
       .then(res => res.json())
       .then(res => {
         console.log("POST RES", res)
-        setComment(res) 
+        setComment(res)
       })
       .catch(err => console.error(err));
   };
@@ -55,7 +55,7 @@ const TrailContainer = (props) => {
       />
     ));
   }
-  
+
   return (
     <div className='modalGuts'>
       <button onClick={() => props.setSelectedTrail(null)}>close</button>
@@ -84,4 +84,3 @@ const TrailContainer = (props) => {
 };
 
 export default TrailContainer;
-
