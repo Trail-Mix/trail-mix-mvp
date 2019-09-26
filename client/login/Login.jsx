@@ -10,17 +10,15 @@
  */
 
 import React, { useState } from "react";
-import { Redirect, Link } from "react-router-dom";
 import './loginstyle.css';
 
 // Login component is for updating user information and login information
-const Login = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+const Login = (props) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
   // post request, get the data from user input, then make a post request with the user input to check match with database
-  const updateData = () => {
+  const attemptLogin = () => {
     const options = {
       method: 'POST',
       headers: {
@@ -30,14 +28,18 @@ const Login = () => {
     };
     fetch("/login", options)
       .then(res => res.json())
-      .then(res => setIsLoggedIn(res))
+      .then(res => {
+        if (res) {
+          props.setUsername(username);
+          setUsername('');
+          setPassword('');
+          props.setIsLoggedIn(res);
+        }
+      })
       .catch(err => console.error(err));
   };
 
   // if "isLoggedIn" is true, then redirect to the homepage, else if "isLoggedIn" is false, then direct to the login page
-  if (isLoggedIn) {
-    return <Redirect to="/homepage" />
-  }
   return (
     <div>
       <div className="loginArea">
@@ -48,6 +50,7 @@ const Login = () => {
             className="username"
             type="text"
             placeholder="username"
+            value={username}
             onChange={e => setUsername(e.target.value)}
           />
           <br />
@@ -56,6 +59,7 @@ const Login = () => {
             className="password"
             type="password"
             placeholder="password"
+            value={password}
             onChange={e => setPassword(e.target.value)}
           />
           <button
@@ -63,14 +67,14 @@ const Login = () => {
             type="submit"
             onClick={(e) => {
               e.preventDefault();
-              updateData();
+              attemptLogin();
             }}
           >
             Login
           </button>
         </form>
         <div className="link">
-          <Link to="./signup"> SIGNUP </Link>
+          <button type="submit" onClick={() => props.setView('signup')}> SIGNUP </button>
         </div>
       </div>
     </div>

@@ -10,16 +10,15 @@
  */
 import React, { useState } from "react";
 import TrailDisplay from "../components/TrailDisplay.jsx";
-// import CommentsDisplay from "../components/CommentsDisplay.jsx";
+import CommentsDisplay from "../components/CommentsDisplay.jsx";
 
 //container component for individual TrailDisplay and CommentsDisplay
 //maps through comments to pull desired values 
 const TrailContainer = (props) => {
   const [comment, setComment] = useState('');
-  const [author, setAuthor] = useState('');
   
   //adds comment and author to database and pulls back all comments for specified trail and sets to state
-  const postComment = (id, comment, username) => {
+  const postComment = (id, comment) => {
     const options = {
       method: 'POST',
       headers: {
@@ -28,7 +27,7 @@ const TrailContainer = (props) => {
       body: JSON.stringify({
         id,
         comment,
-        username,
+        username: props.username,
       })
     };
     fetch('/comments', options)
@@ -44,12 +43,11 @@ const TrailContainer = (props) => {
   };
   const handleClick = (e) => {
     e.preventDefault();
-    postComment(e.target.id, comment, author);
+    postComment(e.target.id, comment);
     setComment('');
-    setAuthor('');
   }
   let comments; //this needs to be let
-  
+
   if (props.comments) {
     comments = props.comments.map((cur, idx) => (
       <CommentsDisplay
@@ -77,13 +75,6 @@ const TrailContainer = (props) => {
           onChange={e => setComment(e.target.value)}
         />
         <br />
-        <input
-          type="text"
-          name="username"
-          id="authorForm"
-          value={author}
-          onChange={e => setAuthor(e.target.value)}
-        />
         <button
           value="Submit"
           id={props.selectedTrail.id}
