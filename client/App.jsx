@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import MainContainer from "./containers/MainContainer.jsx";
+import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
 
 const googleMapsUrl = 'https://maps.googleapis.com/maps/api/geocode/json?address=';
 const googleMaps_API_KEY = 'AIzaSyAgJUQeWjM55IdJbPXVRa3i-5N6uLvptI8';
@@ -38,7 +39,6 @@ class App extends Component {
 
     handleSearchInput(e) {
         let input = e.target.value;
-        // console.log(input)
         input = input.replace(' ', '+')
         this.setState({ searchInput: input })
     }
@@ -181,27 +181,44 @@ class App extends Component {
     render() {
         if (!this.state.isLoggedIn) return <Redirect to="/login" />
         return (
-            <div className='appContainer'>
-            <form onSubmit={this.handleSearchSubmit}>
-            <label>
-            Search Address:
-            <input type="text" value={this.state.searchLocation} onChange={this.handleSearchInput} />
-            </label>
-            <input type="submit" value="Submit" />
-            </form>
-                <MainContainer
-                className='mainContainer'
-                latitude={this.state.latitude}
-                longitude={this.state.longitude}
-                trailData={this.state.trailData}
-                getTrail={this.getTrail}
-                selectedTrail={this.state.selectedTrail}
-                displayTrail={this.displayTrail}
-                zoom={this.state.zoom}
-                saveTrail={this.saveTrail}
-                userId={this.state.userId}
-                username={this.state.username} />
+          <div>
+            <div className="navigation">
+              <Link to="/homepage">Trail Mix</Link>
+              <Link to={{
+                pathname: '/favs',
+                state: {
+                  userId: this.state.userId,
+                  username: this.state.username
+                }
+              }}>My Favs</ Link>
+              <p>Hello, {this.state.username}!</p>
+
             </div>
+
+            <div className='appContainer'>
+
+                <form onSubmit={this.handleSearchSubmit}>
+                  <label>
+                  Search Address:
+                  <input type="text" value={this.state.searchLocation} onChange={this.handleSearchInput} />
+                  </label>
+                  <input type="submit" value="Submit" />
+                </form>
+
+                <MainContainer
+                  className='mainContainer'
+                  latitude={this.state.latitude}
+                  longitude={this.state.longitude}
+                  trailData={this.state.trailData}
+                  getTrail={this.getTrail}
+                  selectedTrail={this.state.selectedTrail}
+                  displayTrail={this.displayTrail}
+                  zoom={this.state.zoom}
+                  saveTrail={this.saveTrail}
+                  userId={this.state.userId}
+                  username={this.state.username} />
+            </div>
+          </div>
         );
     };
 };

@@ -19,20 +19,18 @@ class ListContainer extends Component {
             const trails = this.props.trailData.map((trail, idx) => {
                 return (
                   <tr key={trail.id}>
-                      <td>{trail.name}</td>
+                      <td><Link to={{
+                        pathname: `/trail/${trail.id}`,
+                        state: {
+                          username: this.props.username,
+                          userId: this.props.userId
+                        }
+                      }}>{trail.name}</ Link></td>
                       <td>{trail.location}</td>
                       <td>{trail.difficulty}</td>
                       <td>
                         <Row>
                           <Button onClick={(e) => this.props.saveTrail(e, trail)}>Like</Button>
-                        </Row>
-                        <Row>
-                          <Link to={{
-                            pathname: `/trail/${trail.id}`,
-                            state: {
-                              username: this.props.username
-                            }
-                          }}>Details</ Link>
                         </Row>
                       </td>
                     </tr>
