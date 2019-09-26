@@ -9,6 +9,7 @@ trailController.getTrails = (req, res, next) => {
     fetch(BASE_URL)
     .then(res => res.json())
     .then(json => {
+        console.log("FETCH RETURNS",json)
         res.locals.trails = json
         return next()})
     .catch(err => next({

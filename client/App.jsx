@@ -17,34 +17,39 @@ import TrailContainer from './containers/TrailContainer.jsx';
 const App = () => {
   const [trailData, setTrailData] = useState([]);
   const [selectedTrail, setSelectedTrail] = useState(null);
-  const [comments, setComments] = useState([]);
+  const [comments, setComments] = useState([{ username: 'devon', comment: 'testing'}]);
   const [diffKey, setDiffKey] = useState(false);
 
     //fetches data from REI API and sets to state when the page loads
   useEffect(() => {
     fetch('/data')
       .then(res => res.json())
-      .then(res => setTrailData(res.trails))
+      .then(res => {
+          console.log("API RES", res.trails)
+        setTrailData(res.trails)})
       .catch(err => console.error(err));
   }, []);
 
     //invoked by on-click function in TrailDisplay, sets selected trail in state
   const getTrail = (id) => {
-    for (let i = 0; i < trailsData.length; i += 1) {
-      if (trailsData[i].id === +id) {
-        setSelectedTrail(trailsData[i]);
+    for (let i = 0; i < trailData.length; i += 1) {
+      if (trailData[i].id === +id) {
+        setSelectedTrail(trailData[i]);
         break;
       }
     }
     const options = {
       headers: {
         'Content-Type': 'application/json',
-        id,
       },
     };
     fetch('/comments', options)
-      .then(res => res.json())
-      .then(res => setComments(res))
+      .then(res => {
+        console.log("comment fetch", res)
+        res.json() })
+      .then(res => {
+        console.log(res);
+        setComments(res)})
       .catch(err => console.error(err));
   };
 
@@ -54,16 +59,16 @@ const App = () => {
   }
 
   //adds comment and author to database and pulls back all comments for specified trail and sets to state
-  const postComment = (id, comment, author) => {
+  const postComment = (id, comment, username) => {
     const options = {
       method: 'POST', 
       headers: {
           'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-          id: id,
-          comment: comment,
-          author: author
+          id,
+          comment,
+          username,
       })
     };
     
@@ -101,11 +106,13 @@ const App = () => {
           trailData={trailData} 
           selectedTrail={selectedTrail} 
           noTrail={noTrail}
+          setComments = {setComments}
           postComment={postComment}
           comments={comments}
           getTrail={getTrail}
         />
       }
+      
     </div>
   );
 };

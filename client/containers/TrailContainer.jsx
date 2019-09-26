@@ -16,34 +16,32 @@ import CommentsDisplay from "../components/CommentsDisplay.jsx";
 //maps through comments to pull desired values 
 const TrailContainer = (props) => {
   const [comment, setComment] = useState('');
-  const [author, setAuthor] = useState('');
+  const [username, setAuthor] = useState('');
   
   const handleClick = (e) => {
     e.preventDefault();
-    props.postComment(e.target.id, comment, author);
+    props.postComment(e.target.id, comment, username);
     setComment('');
     setAuthor('');
   }
 
-  const comments = [];
-
-  if (props.comments) {
-    comments = props.comments.map((cur, idx) => (
-      <CommentsDisplay
-        key = {idx}
-        comment = {cur.comment}
-        author = {cur.author}
-        getTrail = {props.getTrail}
-      />
-    ));
-  }
+  // if (props.comments) {
+    // const comments = props.comments.map((cur, idx) => (
+    //   <CommentsDisplay
+    //     key = {idx}
+    //     comment = {cur.comment}
+    //     username = {cur.username}
+    //     getTrail = {props.getTrail}
+    //   />
+    // ));
+  // }
   
   return (
     <div className='modalGuts'>
       <button onClick={() => props.noTrail()}>close</button>
       <TrailDisplay selectedTrail={props.selectedTrail} />
       <div className="comments">
-        {comments}
+        {/* {comments} */}
       </div>
       <form className="commentInput">
         <input
@@ -55,7 +53,7 @@ const TrailContainer = (props) => {
         <br />
         <input
           type="text"
-          name="author"
+          name="username"
           id="authorForm"
           onChange={e => setAuthor(e.target.value)}
         />
